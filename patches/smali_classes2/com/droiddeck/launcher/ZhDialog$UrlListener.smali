@@ -18,7 +18,7 @@
 
     new-instance v1, Landroid/content/Intent;
     const-string v2, "android.intent.action.VIEW"
-    const-string v3, "https://github.com/hao728/DroidDeck-zh"
+    const-string v3, "https://github.com/mihsian77/DroidDeck-zh"
     invoke-static {v3}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
     move-result-object v3
     invoke-direct {v1, v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
