@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DroidDeck</string>
+    <string name="app_name">DroidDeck 汉化版</string>
     <string name="close_drawer">关闭导航菜单</string>
     <string name="close_sheet">关闭面板</string>
     <string name="copy_text">复制</string>

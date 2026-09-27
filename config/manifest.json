@@ -1,0 +1,14 @@
+{
+  "orientation": {
+    "_comment": "修改 Activity 的 screenOrientation。unspecified=跟随系统旋转，sensorLandscape=强制横屏",
+    "com.droiddeck.launcher.MainActivity": "unspecified",
+    "com.droiddeck.launcher.HomeActivity": "unspecified",
+    "com.droiddeck.launcher.files.FileManagerActivity": "unspecified",
+    "com.droiddeck.launcher.files.FilePickerActivity": "unspecified",
+    "com.droiddeck.launcher.SessionActivity": "sensorLandscape"
+  },
+  "attribution": {
+    "_comment": "在 application 标签添加汉化声明（通过修改 app_name 或 label）",
+    "enabled": true
+  }
+}

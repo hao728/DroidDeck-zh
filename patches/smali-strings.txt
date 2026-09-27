@@ -292,7 +292,7 @@ Linux driver (|||Linux 驱动（
 Android is set to kill this session|||Android 已设置为终止此会话
 Starting the session\u2026|||正在启动会话…
 Steam is loading|||Steam 正在加载
-The412Banner: app, compositor, runtime, and Steam session.|||The412Banner：应用、合成器、运行时和 Steam 会话。
+The412Banner: app, compositor, runtime, and Steam session.|||The412Banner：应用、合成器、运行时和 Steam 会话。\n简体中文汉化：github.com/hao728/steamdeck-zh\n本汉化版仅供学习交流，请勿用于商业用途。
 The app itself crashed on thread \|||应用自身在线程崩溃 \
 The desktop did not install (|||桌面未安装（
 The Linux runtime did not install. Check the connection and press Play again.|||Linux 运行时未安装。检查连接后再次按「播放」。
@@ -323,21 +323,20 @@ Could not replace |||无法替换
 Could not write the resolver|||无法写入解析器
 Couldn\'t change Hidden on this storage|||无法更改此存储的隐藏属性
 Couldn\'t change Read-only|||无法更改只读属性
-Couldn\'t check: |||无法检查：
+Couldn\'t check: |||无法检查： 
 Delete failed|||删除失败
-Failed to copy: |||复制失败：
-Failed to copy file: |||复制文件失败：
-Failed to open: |||打开失败：
-Incomplete copy: |||复制不完整：
+Failed to copy: |||复制失败： 
+Failed to copy file: |||复制文件失败： 
+Failed to open: |||打开失败： 
+Incomplete copy: |||复制不完整： 
 Install failed|||安装失败
-Not available: |||不可用：
+Not available: |||不可用： 
 Not charging|||未充电
 Not installed|||未安装
 Not installed.|||未安装。
-Not usable: |||不可用：
+Not usable: |||不可用： 
 Rename failed|||重命名失败
 Network callback was already gone|||网络回调已失效
-Could not create folder|||无法创建文件夹
 
 # ===== 自动控制说明 =====
 Auto shows all controls without a controller. Steam + QAM shows only those buttons.|||无手柄时自动显示所有控制。Steam + QAM 仅显示这些按钮。
@@ -345,3 +344,78 @@ Auto uses touchpad on desktop and direct input in Steam. Touchpad: drag to move,
 Choose cores for games. All selected lets Android schedule across every core.|||为游戏选择核心。全选让 Android 在所有核心间调度。
 Choose cores for Steam.|||为 Steam 选择核心。
 DroidDeck Linux shell|||DroidDeck Linux shell
+
+# ===== 补充：短标签与状态词 =====
+available|||可用
+free|||空闲
+failed|||失败
+done|||完成
+game|||游戏
+file|||文件
+here|||此处
+at |||在 
+client cores|||客户端核心
+game cores|||游戏核心
+imported available|||已导入可用
+name / version|||名称 / 版本
+days ago|||天前
+h ago|||小时前
+every 5 s|||每 5 秒
+bytes|||字节
+generation=|||生成=
+direction=|||方向=
+focused=|||已聚焦=
+handled=|||已处理=
+hidden by the user|||用户已隐藏
+in the background - it signs into your Steam account.|||在后台运行 - 正在登录你的 Steam 账号。
+installation failed (exit |||安装失败（退出码 
+installed \u00b7 |||已安装 · 
+Ludashi|||鲁大师
+AnTuTu|||安兔兔
+PUBG|||PUBG
+NOT open|||未打开
+NOT staged|||未暂存
+(microphone wanted but RECORD_AUDIO not granted)|||（需要麦克风但未授予 RECORD_AUDIO 权限）
+(no microphone)|||（无麦克风）
+(none right now)|||（当前无）
+(test)|||（测试）
+(move)|||（移动）
++ microphone|||+ 麦克风
++ DirectAudio for games|||+ 游戏 DirectAudio
+- pick it in the menu|||- 在菜单中选择
+- rebinding the compositor|||- 重新绑定合成器
+- the default|||- 默认
+-> /root/ROMs|||-> /root/ROMs
+It is the driver in use, so the default takes its place.|||这是当前使用的驱动，因此默认值取而代之。
+did not exit on SIGTERM; killing it|||未在 SIGTERM 时退出；正在终止
+games to ROMs/|||游戏到 ROMs/
+-> HTTP |||-> HTTP 
+(wants=|||（需要=
+(logcat pid |||（logcat 进程 
+(logs off: discarded at the end)|||（日志关闭：结束时丢弃）
+(refused: |||（拒绝： 
+(bundled)|||（捆绑）
+(API |||（API 
+(imported)|||（已导入）
+(imported, missing - uses the runtime default)|||（已导入，缺失 - 使用运行时默认）
+(glibc |||（glibc 
+(false with a working link usually means a captive portal)|||（链接正常但为 false 通常表示需要认证的网络）
+Metered|||按流量计费
+\u2022 |||• 
+\u25be|||▾
+\u2192 |||→ 
+\u00b7 |||· 
+\u00b5s|||微秒
+Hz (mode |||赫兹（模式 
+IPv4, |||IPv4，
+IPv6|||IPv6
+MB.|||MB。
+\u00b7 %.1f GHz|||· %.1f GHz
+\u00b7 checked |||· 已检查 
+\u00b7 display |||· 显示 
+\u00b7 in |||· 在 
+\u00b7 logs are saved after each session|||· 每次会话后保存日志
+\u00b7 target |||· 目标 
+\u00b7 update available|||· 有更新可用
+\u00b5s \u00b7 HAL wants updates every |||微秒 · HAL 要求每 更新一次
+- install Lossless Scaling in Steam|||- 在 Steam 中安装 Lossless Scaling
