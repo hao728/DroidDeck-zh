@@ -44,9 +44,10 @@ with open(mapping_file, 'r', encoding='utf-8') as f:
             print(f"  ✗ 行{lineno}: 中文翻译为空: '{eng[:40]}'")
             errors += 1
 
-        # 检查 ASCII 双引号（会破坏 smali 语法）
-        if '"' in chn:
-            print(f"  ✗ 行{lineno}: 中文翻译含 ASCII 双引号（会导致 smali 语法错误）: '{chn[:40]}'")
+        # 检查 ASCII 双引号（会破坏 smali 语法），但允许转义的 \"
+        bare_quotes = re.findall(r'(?<!\\)"', chn)
+        if bare_quotes:
+            print(f"  ✗ 行{lineno}: 中文翻译含未转义 ASCII 双引号（会导致 smali 语法错误）: '{chn[:40]}'")
             errors += 1
 
         # 检查格式符一致性
@@ -74,6 +75,53 @@ with open(mapping_file, 'r', encoding='utf-8') as f:
         if eng.endswith(' ') != chn.endswith(' '):
             print(f"  ⚠ 行{lineno}: 尾随空格不一致: '{eng[-10:]}' vs '{chn[-10:]}'")
             warnings += 1
+
+        # ===== 术语一致性检查：专有名词不应翻译 =====
+        # 仅检查绝对应保留原文的品牌/项目名；技术缩写（HUD/QAM/RAM等）允许意译
+        PROPER_NOUNS = {
+            'Steam': 'Steam', 'Wine': 'Wine', 'Proton': 'Proton',
+            'FEX': 'FEX', 'Vulkan': 'Vulkan', 'OpenGL': 'OpenGL',
+            'DirectX': 'DirectX', 'Adreno': 'Adreno', 'Turnip': 'Turnip',
+            'Mesa': 'Mesa', 'Zink': 'Zink', 'DXVK': 'DXVK',
+            'vkd3d': 'vkd3d', 'RetroArch': 'RetroArch',
+            'GameCube': 'GameCube', 'DroidDeck': 'DroidDeck',
+            'LSFG': 'LSFG', 'Lossless Scaling': 'Lossless Scaling',
+            'KGSL': 'KGSL', 'ICD': 'ICD', 'TSO': 'TSO',
+            'glthread': 'glthread', 'SELinux': 'SELinux',
+        }
+        for noun, expected in PROPER_NOUNS.items():
+            if noun in eng and expected not in chn:
+                print(f"  ⚠ 行{lineno}: 专有名词可能被误译 '{noun}' → 应保留 '{expected}': '{eng[:30]}' → '{chn[:30]}'")
+                warnings += 1
+
+        # ===== 机翻味检测 =====
+        # 检测常见的直译/生硬表达
+        MT_PATTERNS = [
+            (r'正在下载.*的更新', '下载更新的生硬表达'),
+            (r'无法被', '被动语态滥用'),
+            (r'被(删除|移除|创建|更新)', '不必要的被动语态'),
+            (r'进行(下载|安装|更新|删除|创建)', '冗余动词"进行"'),
+            (r'关于.*的', '冗余介词结构'),
+            (r'对于.*来说', '冗余介词结构'),
+        ]
+        for pattern, desc in MT_PATTERNS:
+            if re.search(pattern, chn):
+                print(f"  ⚠ 行{lineno}: 疑似机翻味（{desc}）: '{chn[:40]}'")
+                warnings += 1
+
+        # ===== 通用词语境警告 =====
+        # 某些英文词在不同语境下应有不同翻译，检测是否统一翻译
+        CONTEXT_WORDS = {
+            'Client': ['客户端', '客户'],
+            'Channel': ['通道', '渠道', '频道'],
+            'Build': ['构建', '版本', '建立'],
+            'Level': ['等级', '电量', '级别'],
+            'Event': ['事件', '活动'],
+            'Type': ['类型', '型号'],
+            'Mode': ['模式', '方式'],
+            'Shape': ['形状', '外形'],
+            'Direct': ['直接', '直连'],
+        }
 
 print(f"  映射校验: {errors} 错误, {warnings} 警告")
 sys.exit(1 if errors > 0 else 0)

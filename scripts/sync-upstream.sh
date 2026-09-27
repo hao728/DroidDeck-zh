@@ -33,9 +33,11 @@ DECODED_DIR="${WORK_DIR}/decoded"
 run_apktool "$APKTOOL_JAR" d -s -f "$APK_FILE" -o "$DECODED_DIR"
 ok "新版本反编译完成"
 
-step "3/4 扫描未汉化字符串"
+step "3/4 扫描未汉化字符串（智能过滤内部字符串）"
+python3 "${SCRIPTS_DIR}/extract-ui-strings.py" "$DECODED_DIR" "${PATCH_DIR}/smali-strings.txt" || true
+# 同时保留旧的全量扫描作为参考
 bash "${SCRIPTS_DIR}/scan-strings.sh" "$DECODED_DIR" || true
-ok "扫描完成"
+ok "扫描完成，未翻译列表见 untranslated-report.txt"
 
 step "4/4 更新版本记录"
 set_upstream_version "$LATEST"

@@ -877,3 +877,92 @@ Permissive|||宽容
 Root|||Root
 Custom ROM|||自定义 ROM
 Stock ROM|||官方 ROM
+
+# ===== 精翻：界面与操作（高优先级）=====
+SD card|||SD 卡
+SD Card|||SD 卡
+New Folder|||新建文件夹
+Choose the game\'s .exe|||选择游戏的 .exe 可执行文件
+This can\'t be undone.|||此操作无法撤销。
+Creating folder...|||正在创建文件夹…
+ROMs folder|||ROM 文件夹
+Launch in|||启动方式
+Steam Desktop UI|||Steam 桌面界面
+Desktop \u00b7|||桌面 ·
+Browse to /root/ROMs in RetroArch.|||在 RetroArch 中浏览到 /root/ROMs 目录。
+Working\u2026|||正在工作…
+Added \"|||已添加 \"
+Removed \"|||已移除 \"
+Delete \"|||删除 \"
+This storage can\'t store the hidden flag.|||此存储无法保存隐藏属性。
+Marks the file hidden in Windows (Wine\'s hidden attribute).|||在 Windows 中标记文件为隐藏（Wine 的隐藏属性）。
+Refusing to copy directory into itself:|||拒绝将目录复制到自身：
+
+# ===== 精翻：性能与显示设置 =====
+Performance HUD|||性能浮层
+FEX defaults|||FEX 默认配置
+Threaded GL (glthread)|||线程化 GL（glthread）
+Full TSO with multiblock.|||完整 TSO 多块模式。
+Performance + TSO|||性能 + TSO
+Extreme + TSO|||极致 + TSO
+The panel\'s shape (16:9 or wider)|||面板形状（16:9 或更宽）
+WIN COMPONENTS|||Windows 组件
+WIN COMP|||Windows 组件
+Steam + QAM|||Steam + 快捷菜单
+LSFG needs Lossless Scaling installed from the Steam client|||LSFG 需在 Steam 客户端安装 Lossless Scaling
+Win-FG 2\u00d7|||Win-FG 2倍
+Win-FG 3\u00d7|||Win-FG 3倍
+Win-FG 4\u00d7|||Win-FG 4倍
+LSFG 2\u00d7|||LSFG 2倍
+LSFG 3\u00d7|||LSFG 3倍
+LSFG 4\u00d7|||LSFG 4倍
+
+# ===== 精翻：驱动与硬件信息 =====
+Adreno 6xx/7xx|||Adreno 6xx/7xx
+Adreno 8xx|||Adreno 8xx
+Adreno 710/720|||Adreno 710/720
+Native lib dir|||原生库目录
+CPU and memory|||CPU 与内存
+RAM total|||内存总量
+RAM available|||可用内存
+KGSL gpu_model|||KGSL GPU 型号
+KGSL chip id|||KGSL 芯片 ID
+System Vulkan ICD|||系统 Vulkan ICD
+Auto ->|||自动 ->
+Runtime\'s own ICD|||运行时自带 ICD
+GameCube / Wii|||GameCube / Wii
+
+# ===== 精翻：错误与状态提示 =====
+Function not implemented|||功能未实现
+GitHub\'s rate limit was hit - try again later|||已达到 GitHub 速率限制，请稍后重试
+A compatibility tool install is already running|||兼容工具安装正在进行中
+It is built into the app, so this removes its unpacked files and hides|||已内置在应用中，此操作将删除解压文件并隐藏
+Its files are removed from the app.|||其文件已从应用中移除。
+Lossless.dll rejected:|||Lossless.dll 被拒绝：
+Could not replace resolv.conf|||无法替换 resolv.conf
+
+# ===== 精翻：会话报告与日志（中优先级）=====
+DroidDeck session report|||DroidDeck 会话报告
+Network as the session starts|||会话启动时的网络状态
+The app\'s own log for this session (logcat, this process only).|||应用本次会话日志（仅 logcat 本进程）。
+Steam log(s), scrubbed, into|||Steam 日志（已脱敏），存入
+Steam\'s logs are not included: a later session has overwritten them.|||未包含 Steam 日志：后续会话已覆盖。
+Collection contains no element matching the predicate.|||集合中没有匹配条件的元素。
+
+# ===== 技术日志（低翻译价值，保留英文更准确）=====
+# 以下为底层技术日志，翻译可能误导排查，保留原文：
+# Activated fake input ring for slot
+# Created fake input file ring for slot
+# Failed to create fake input file ring for slot
+# Failed to create fake input ring directory for slot
+# Deactivated fake input ring for slot
+# Deleted fake input discovery node:
+# Failed to open fake input mmap ring:
+# Opened fake input:
+# Reset write error: fake input mmap ring unavailable
+# Reset fake input to neutral state:
+# Soft released fake input:
+# Re-emitting full gamepad state after failed publish for slot
+# Gamepad write error: fake input mmap ring unavailable
+# Downloading update ((\d+) of (\d+) KB)
+# This session's process ended without running its own teardown
