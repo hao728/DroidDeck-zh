@@ -292,7 +292,7 @@ Linux driver (|||Linux 驱动（
 Android is set to kill this session|||Android 已设置为终止此会话
 Starting the session\u2026|||正在启动会话…
 Steam is loading|||Steam 正在加载
-The412Banner: app, compositor, runtime, and Steam session.|||The412Banner：应用、合成器、运行时和 Steam 会话。\n简体中文汉化：github.com/hao728/steamdeck-zh\n本汉化版仅供学习交流，请勿用于商业用途。
+The412Banner: app, compositor, runtime, and Steam session.|||The412Banner：应用、合成器、运行时和 Steam 会话。\n简体中文汉化：github.com/hao728/DroidDeck-zh\n本汉化版仅供学习交流，请勿用于商业用途。
 The app itself crashed on thread \|||应用自身在线程崩溃 \
 The desktop did not install (|||桌面未安装（
 The Linux runtime did not install. Check the connection and press Play again.|||Linux 运行时未安装。检查连接后再次按「播放」。
