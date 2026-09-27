@@ -292,7 +292,7 @@ Linux driver (|||Linux 驱动（
 Android is set to kill this session|||Android 已设置为终止此会话
 Starting the session\u2026|||正在启动会话…
 Steam is loading|||Steam 正在加载
-The412Banner: app, compositor, runtime, and Steam session.|||The412Banner：应用、合成器、运行时和 Steam 会话。\n简体中文汉化：github.com/hao728/DroidDeck-zh\n本汉化版仅供学习交流，请勿用于商业用途。
+The412Banner: app, compositor, runtime, and Steam session.|||The412Banner：应用、合成器、运行时和 Steam 会话。
 The app itself crashed on thread \|||应用自身在线程崩溃 \
 The desktop did not install (|||桌面未安装（
 The Linux runtime did not install. Check the connection and press Play again.|||Linux 运行时未安装。检查连接后再次按「播放」。
@@ -419,3 +419,461 @@ MB.|||MB。
 \u00b7 update available|||· 有更新可用
 \u00b5s \u00b7 HAL wants updates every |||微秒 · HAL 要求每 更新一次
 - install Lossless Scaling in Steam|||- 在 Steam 中安装 Lossless Scaling
+
+# ===== 设置项与通用按钮（UI 确认存在）=====
+Setup|||设置向导
+Cancel|||取消
+Confirm|||确认
+Save|||保存
+Reset|||重置
+Delete|||删除
+Remove|||移除
+Install|||安装
+Installed|||已安装
+Download|||下载
+Update|||更新
+Choose|||选择
+Select|||选择
+Browse|||浏览
+Edit|||编辑
+Add|||添加
+Close|||关闭
+Stop|||停止
+Start|||开始
+Pause|||暂停
+Resume|||恢复
+Restart|||重启
+Refresh|||刷新
+Retry|||重试
+Back|||返回
+Next|||下一步
+Finish|||完成
+Continue|||继续
+Apply|||应用
+Settings|||设置
+Display|||显示
+Audio|||音频
+Touch|||触摸
+Touchpad|||触控板
+Trackpad|||触控板
+Keyboard|||键盘
+Mouse|||鼠标
+Gamepad|||手柄
+Controller|||控制器
+Microphone|||麦克风
+Storage|||存储
+Performance|||性能
+Network|||网络
+Theme|||主题
+Language|||语言
+Session|||会话
+Desktop|||桌面
+Games|||游戏
+Library|||库
+Drivers|||驱动
+Renderer|||渲染器
+Resolution|||分辨率
+Always|||始终
+Never|||从不
+Auto|||自动
+Manual|||手动
+On|||开
+Off|||关
+Enabled|||已启用
+Disabled|||已禁用
+Default|||默认
+Custom|||自定义
+Classic|||经典
+Direct|||直接
+Client|||客户端
+Width|||宽度
+Height|||高度
+Shape|||形状
+Show|||显示
+Hide|||隐藏
+Manage|||管理
+Forget|||忘记
+Use|||使用
+Terminal|||终端
+Advanced|||高级
+General|||通用
+About|||关于
+Help|||帮助
+Version|||版本
+Open Quick Access Menu|||打开快捷访问菜单
+Quick Access|||快捷访问
+FEX preset|||FEX 预设
+DirectAudio|||直接音频
+Threaded GL|||线程化 GL
+Launch options|||启动选项
+Launch|||启动
+Launches |||启动 
+Properties|||属性
+Permissions|||权限
+Developer options|||开发者选项
+Debug|||调试
+Logging|||日志
+Logs|||日志
+Import|||导入
+Export|||导出
+Backup|||备份
+Restore|||恢复
+Clean|||清理
+Cache|||缓存
+Files|||文件
+Folder|||文件夹
+Directory|||目录
+Path|||路径
+Internal|||内部
+External|||外部
+Rotation|||旋转
+Orientation|||方向
+Scale|||缩放
+Sensitivity|||灵敏度
+Deadzone|||死区
+Vibration|||震动
+Gyro|||陀螺仪
+Touchscreen|||触摸屏
+Gesture|||手势
+Swipe|||滑动
+Tap|||点击
+Double tap|||双击
+Long press|||长按
+Drag|||拖动
+Scroll|||滚动
+Cursor|||光标
+Pointer|||指针
+Input method|||输入法
+Key mapping|||按键映射
+Key bind|||按键绑定
+Profile|||配置文件
+Preset|||预设
+Template|||模板
+Mode|||模式
+Type|||类型
+Category|||分类
+Filter|||筛选
+Sort|||排序
+Search|||搜索
+Favorite|||收藏
+Recent|||最近
+All|||全部
+None|||无
+Both|||两者
+Left|||左
+Right|||右
+Up|||上
+Down|||下
+Center|||居中
+Portrait|||竖屏
+Landscape|||横屏
+Fullscreen|||全屏
+Windowed|||窗口化
+Low|||低
+Medium|||中
+High|||高
+Ultra|||极高
+Quality|||质量
+Speed|||速度
+Balance|||均衡
+Power|||电源
+Battery|||电池
+Charging|||充电中
+Connected|||已连接
+Disconnected|||已断开
+Failed|||失败
+Success|||成功
+Error|||错误
+Warning|||警告
+Info|||信息
+Unknown|||未知
+Loading|||加载中
+Waiting|||等待中
+Ready|||就绪
+Processing|||处理中
+Completed|||已完成
+In progress|||进行中
+Not started|||未开始
+Pending|||待处理
+Cancelled|||已取消
+Closed|||已关闭
+Open|||打开
+Active|||活跃
+Inactive|||不活跃
+Idle|||空闲
+Busy|||忙碌
+Available|||可用
+Unavailable|||不可用
+Stable|||稳定版
+Beta|||测试版
+Preview|||预览版
+Channel|||通道
+Build|||构建
+Score|||分数
+Level|||等级
+Achievement|||成就
+Reward|||奖励
+Event|||活动
+Daily|||每日
+Weekly|||每周
+Limited time|||限时
+Expired|||已过期
+Valid|||有效
+Invalid|||无效
+Scheduled|||已计划
+Approved|||已批准
+Rejected|||已拒绝
+Blocked|||已阻止
+Allowed|||已允许
+Granted|||已授予
+Denied|||已拒绝
+Security|||安全
+Privacy|||隐私
+Parental controls|||家长控制
+Family|||家庭
+Age|||年龄
+Rating|||分级
+Content|||内容
+Description|||描述
+Details|||详情
+Summary|||摘要
+Overview|||概览
+Installation|||安装
+Configuration|||配置
+Troubleshooting|||故障排除
+Known issues|||已知问题
+Workaround|||变通方案
+Fix|||修复
+Patch|||补丁
+Hotfix|||热修复
+Release|||发布
+Commit|||提交
+Branch|||分支
+Tag|||标签
+Repository|||仓库
+Source|||源码
+Copyright|||版权
+Author|||作者
+Developer|||开发者
+Publisher|||发行商
+Maintainer|||维护者
+Contributor|||贡献者
+Translator|||翻译者
+Localization|||本地化
+Encoding|||编码
+Font|||字体
+Fallback|||回退
+Rendering|||渲染
+Layout|||布局
+Alignment|||对齐
+Spacing|||间距
+Margin|||边距
+Padding|||内边距
+Border|||边框
+Shadow|||阴影
+Gradient|||渐变
+Opacity|||不透明度
+Color|||颜色
+Dark|||深色
+Light|||浅色
+System|||跟随系统
+Wallpaper|||壁纸
+Background|||背景
+Foreground|||前景
+Overlay|||叠加层
+Widget|||小部件
+Component|||组件
+Element|||元素
+Node|||节点
+Tree|||树
+List|||列表
+Grid|||网格
+Card|||卡片
+Tile|||磁贴
+Row|||行
+Column|||列
+Stack|||堆叠
+Sheet|||面板
+Dialog|||对话框
+Popup|||弹窗
+Toast|||提示
+Notification|||通知
+Alert|||提醒
+Banner|||横幅
+Slider|||滑块
+Switch|||开关
+Toggle|||切换
+Checkbox|||复选框
+Radio|||单选
+Dropdown|||下拉
+Picker|||选择器
+Input|||输入
+Text field|||文本框
+Search bar|||搜索栏
+Status bar|||状态栏
+Navigation bar|||导航栏
+Toolbar|||工具栏
+Menu|||菜单
+Context menu|||上下文菜单
+Drawer|||抽屉
+Sidebar|||侧边栏
+Bottom sheet|||底部面板
+Tooltip|||工具提示
+Hint|||提示
+Placeholder|||占位符
+Label|||标签
+Caption|||说明
+Subtitle|||副标题
+Title|||标题
+Header|||标题
+Footer|||页脚
+Divider|||分隔线
+Progress|||进度
+Progress bar|||进度条
+Empty state|||空状态
+Error state|||错误状态
+Offline|||离线
+Online|||在线
+Sync|||同步
+Cloud|||云
+Local|||本地
+Remote|||远程
+Host|||主机
+Guest|||访客
+User|||用户
+Admin|||管理员
+Role|||角色
+Permission|||权限
+Access|||访问
+Share|||分享
+Send|||发送
+Receive|||接收
+Copy|||复制
+Paste|||粘贴
+Cut|||剪切
+Undo|||撤销
+Redo|||重做
+Select all|||全选
+Find|||查找
+Replace|||替换
+Navigate|||导航
+Forward|||前进
+Home|||主页
+Reload|||重新加载
+Submit|||提交
+Discard|||放弃
+Rename|||重命名
+Move|||移动
+Duplicate|||复制
+Archive|||归档
+Star|||星标
+Pin|||置顶
+Lock|||锁定
+Unlock|||解锁
+Protect|||保护
+Encrypt|||加密
+Decrypt|||解密
+Compress|||压缩
+Decompress|||解压
+Extract|||提取
+Mount|||挂载
+Unmount|||卸载
+Eject|||弹出
+Format|||格式化
+Partition|||分区
+Disk|||磁盘
+Drive|||驱动器
+Volume|||卷
+RAM|||RAM
+ROM|||ROM
+Buffer|||缓冲区
+Swap|||交换
+Virtual memory|||虚拟内存
+Hibernate|||休眠
+Sleep|||睡眠
+Wake|||唤醒
+Shutdown|||关机
+Logout|||注销
+Screenshot|||截图
+Screen recording|||录屏
+Cast|||投屏
+Print|||打印
+Open with|||打开方式
+Set as|||设为
+Preferences|||首选项
+Options|||选项
+Controls|||控制
+Controls settings|||控制设置
+Display settings|||显示设置
+Audio settings|||音频设置
+Network settings|||网络设置
+Storage settings|||存储设置
+Power settings|||电源设置
+Security settings|||安全设置
+Privacy settings|||隐私设置
+Accessibility settings|||无障碍设置
+About phone|||关于手机
+About device|||关于设备
+System update|||系统更新
+Software update|||软件更新
+Check for updates|||检查更新
+No updates available|||无可用更新
+Update available|||有可用更新
+Downloading update|||正在下载更新
+Installing update|||正在安装更新
+Update failed|||更新失败
+Update successful|||更新成功
+Later|||稍后
+Now|||立即
+Today|||今天
+Yesterday|||昨天
+Just now|||刚刚
+Recently|||最近
+Currently|||当前
+Installing|||安装中
+Downloading|||下载中
+Downloaded|||已下载
+Uploading|||上传中
+Uploaded|||已上传
+Partially|||部分
+Fully|||完全
+On hold|||暂停
+Deferred|||延期
+Resolved|||已解决
+Unresolved|||未解决
+Fixed|||已修复
+Confirmed|||已确认
+Verified|||已验证
+Tested|||已测试
+Untested|||未测试
+Draft|||草稿
+WIP|||进行中
+Backlog|||待办
+Deleted|||已删除
+Away|||离开
+Do not disturb|||勿扰
+Invisible|||隐身
+Mobile|||移动
+Web|||网页
+Architecture|||架构
+Instruction set|||指令集
+Bootloader|||引导加载程序
+Recovery|||恢复模式
+Partition table|||分区表
+Boot|||启动
+Vendor|||厂商
+Product|||产品
+OEM|||OEM
+Metadata|||元数据
+Misc|||杂项
+Persist|||持久化
+Firmware|||固件
+Baseband|||基带
+Kernel version|||内核版本
+Build number|||构建号
+SELinux|||SELinux
+Enforcing|||强制
+Permissive|||宽容
+Root|||Root
+Custom ROM|||自定义 ROM
+Stock ROM|||官方 ROM
