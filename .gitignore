@@ -1,0 +1,40 @@
+# 构建产物
+dist/
+*.apk
+*.ap_
+*.jar
+
+# 反编译源码（不提交到git，由 init.sh 生成）
+sources/
+
+# 工作目录
+.work/
+.tools/
+work/
+tmp/
+*.tmp
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# 签名文件（默认忽略，但放行项目持久化密钥）
+*.keystore
+*.jks
+!secrets/release.keystore
+
+# 日志
+*.log
+logs/
+
+# Python
+__pycache__/
+*.pyc
+
+# 未汉化报告（可选择提交，默认忽略）
+UNTRANSLATED_REPORT.md

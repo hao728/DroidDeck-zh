@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "base_apk": "DroidDeck-0.1.6",
+  "count": 2,
+  "patches": [
+    {
+      "path": "res/values-zh-rCN/arrays.xml",
+      "sha256": "c3b75567d80035b406075151142de7e2c90464412ad7d65857fe2d391052889b"
+    },
+    {
+      "path": "res/values-zh-rCN/strings.xml",
+      "sha256": "265523cf40ab4678ac69fa12520004ed23d7af24fc6218ab332d1def41eac92c"
+    }
+  ]
+}
