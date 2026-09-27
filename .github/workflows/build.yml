@@ -77,8 +77,9 @@ jobs:
         with:
           tag_name: ${{ steps.ver.outputs.tag }}
           name: DroidDeck ${{ steps.ver.outputs.version }} 汉化版
-          prerelease: ${{ inputs.prerelease != false }}
-          make_latest: ${{ inputs.prerelease == false }}
+          # push 触发一律为预发布；手动触发时 prerelease 勾选为预发布，取消勾选为正式版
+          prerelease: ${{ github.event_name != 'workflow_dispatch' || inputs.prerelease == true }}
+          make_latest: ${{ github.event_name == 'workflow_dispatch' && inputs.prerelease == false }}
           body: |
             ## DroidDeck ${{ steps.ver.outputs.version }} 汉化版
 
@@ -88,7 +89,7 @@ jobs:
             - **签名**: 社区持久化密钥（`secrets/release.keystore`），同签名版本可覆盖安装
             - **汉化范围**: 资源字符串（合并上游已有翻译）+ smali 硬编码 UI 字符串
             - **构建方式**: GitHub Actions 自动构建
-            - **发布类型**: ${{ inputs.prerelease != false && '预发布版（prerelease）— 尚未充分验证，稳定版请等待正式发布' || '正式版（latest）— 已验证可用' }}
+            - **发布类型**: ${{ github.event_name != 'workflow_dispatch' || inputs.prerelease == true && '预发布版（prerelease）— 尚未充分验证，稳定版请手动触发并取消勾选预发布' || '正式版（latest）— 已验证可用' }}
 
             ### 安装说明
             1. 如已安装原版 DroidDeck（签名不同），请先卸载再安装本汉化版
