@@ -81,7 +81,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.ver.outputs.tag }}
-          name: DroidDeck ${{ steps.ver.outputs.version }} 汉化版
+          name: ${{ steps.ver.outputs.version }} 汉化版
           # push 触发一律为预发布；手动触发时 prerelease 勾选为预发布，取消勾选为正式版
           prerelease: ${{ github.event_name != 'workflow_dispatch' || inputs.prerelease == true }}
           make_latest: ${{ github.event_name == 'workflow_dispatch' && inputs.prerelease == false }}
