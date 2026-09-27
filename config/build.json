@@ -16,7 +16,7 @@
     "validity_days": 10000
   },
   "output": {
-    "name_template": "DroidDeck-{version}-zh.apk",
+    "name_template": "{version}-zh.apk",
     "tag_template": "{version}-zh"
   }
 }
