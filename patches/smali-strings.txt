@@ -1,0 +1,347 @@
+# smali 硬编码字符串汉化映射表
+# 格式: 英文原文|||中文翻译
+# 仅替换 const-string / const-string/jumbo 中的字符串
+# # 开头为注释，空行忽略
+# 注意: 原文必须与 smali 中完全一致（含转义符 \u00xx、尾随空格等）
+
+# ===== 设置分类与标签 =====
+ABIs|||ABI 架构
+Accept|||接受
+Actions|||操作
+Added games|||已添加游戏
+Add to Favorites|||添加到收藏
+Android apps|||Android 应用
+Android keyboard|||Android 键盘
+Android process limits|||Android 进程限制
+App storage free|||应用存储可用
+Artwork from Steam|||来自 Steam 的封面
+Available builds|||可用版本
+Available to download|||可下载
+Background behavior|||后台行为
+Board / hardware|||主板 / 硬件
+Browse and manage files|||浏览和管理文件
+Cancel queued|||取消排队
+Change folder|||更改文件夹
+Check for new drivers|||检查新驱动
+Client audio|||客户端音频
+Client branch|||客户端分支
+Client core override|||客户端核心覆盖
+Client cores|||客户端核心
+Client interface|||客户端界面
+Close second-screen controls|||关闭副屏控制
+Comfortable rows|||宽松行
+Compact rows|||紧凑行
+Compatibility tools|||兼容工具
+Custom resolution|||自定义分辨率
+Custom resolution (Desktop)|||自定义分辨率（桌面）
+Custom resolution (Steam)|||自定义分辨率（Steam）
+Date modified|||修改日期
+Default Home app|||默认主屏幕应用
+Desktop installed|||桌面已安装
+Desktop renderer|||桌面渲染器
+Desktop session|||桌面会话
+Device / product|||设备 / 产品
+DirectAudio for games|||游戏 DirectAudio
+Display driver|||显示驱动
+Display driver (chosen)|||显示驱动（已选）
+Display shape|||显示形状
+Game cores|||游戏核心
+Games folder|||游戏文件夹
+Game storage|||游戏存储
+Grid view|||网格视图
+Hide favorites|||隐藏收藏
+Hide hidden files|||隐藏隐藏文件
+Hide keyboard|||隐藏键盘
+Install ARM64 Proton builds|||安装 ARM64 Proton 版本
+Installed apps|||已安装应用
+Installed version|||已安装版本
+Internal only|||仅内部存储
+Internal storage|||内部存储
+Keyboard + trackpad|||键盘 + 触控板
+Launch an app|||启动应用
+Launcher tools|||启动器工具
+Linux runtime|||Linux 运行时
+Linux terminal|||Linux 终端
+List view|||列表视图
+New name|||新名称
+Next session|||下次会话
+Offline mode|||离线模式
+On-screen controls|||屏幕控制
+Open desktop|||打开桌面
+Open Steam menu|||打开 Steam 菜单
+Primary screen|||主屏
+Public beta|||公开测试版
+Remove from favorites|||从收藏移除
+Remove from Favorites|||从收藏移除
+Remove Linux runtime|||移除 Linux 运行时
+Restore built-in drivers|||恢复内置驱动
+Resume session|||恢复会话
+Runtime default|||运行时默认
+Runtime default (built into the runtime)|||运行时默认（运行时内置）
+Runtime driver|||运行时驱动
+Runtime ready|||运行时就绪
+Runtime required|||需要运行时
+Runtime root|||运行时根目录
+Secondary screen|||副屏
+Second library|||第二个库
+Second screen|||副屏
+Security patch|||安全补丁
+Session fixes|||会话修复
+Session logs|||会话日志
+Session mode|||会话模式
+Session output|||会话输出
+Session refresh|||会话刷新
+Settings in effect|||生效设置
+Shape setting|||形状设置
+Shared storage free|||共享存储可用
+Share latest|||分享最新
+Share session logs|||分享会话日志
+Show favorites|||显示收藏
+Show hidden files|||显示隐藏文件
+Show keyboard|||显示键盘
+Steam client audio|||Steam 客户端音频
+Steam client cores|||Steam 客户端核心
+Steam client (gamescope)|||Steam 客户端（gamescope）
+Steam Deck mode|||Steam Deck 模式
+Steam Deck public beta|||Steam Deck 公开测试版
+Steam session|||Steam 会话
+Stop session|||停止会话
+Stretch games to fill|||拉伸游戏填满
+Stretch games to fill the screen|||拉伸游戏填满屏幕
+Touch & controls|||触控与控制
+Touch mode|||触控模式
+Turn off|||关闭
+Turn on|||打开
+Up to 1080p|||最高 1080p
+Up to 720p|||最高 720p
+Up to 900p|||最高 900p
+Use as a Home screen|||用作主屏幕
+Zink lazy descriptors|||Zink 惰性描述符
+Zink: lazy descriptors|||Zink：惰性描述符
+
+# ===== 操作按钮 =====
+Install anyway|||仍然安装
+Install now|||立即安装
+Install & open desktop|||安装并打开桌面
+Keep both|||保留两者
+Select an item.|||选择一个项目。
+Select this folder|||选择此文件夹
+Select to install|||选择以安装
+Send to background|||发送到后台
+Stop session to install|||停止会话以安装
+
+# ===== 选择与导入 =====
+Choose a display driver (AdrenoTools zip)|||选择显示驱动（AdrenoTools zip）
+Choose a file|||选择文件
+Choose a folder|||选择文件夹
+Choose a folder of your own games|||选择你的游戏文件夹
+Choose a folder\u2026|||选择文件夹…
+Choose a Home app|||选择主屏幕应用
+Choose a Linux runtime driver (-Linux zip)|||选择 Linux 运行时驱动（-Linux zip）
+Choose another file\u2026|||选择另一个文件…
+Choose a ROMs folder.|||选择 ROMs 文件夹。
+Choose folder|||选择文件夹
+Choose the game storage folder|||选择游戏存储文件夹
+Choose the launcher appearance|||选择启动器外观
+Choose the ROMs folder|||选择 ROMs 文件夹
+Choose where emulator games are stored|||选择模拟器游戏存储位置
+Import an AdrenoTools zip\u2026|||导入 AdrenoTools zip…
+Import Turnip zip\u2026|||导入 Turnip zip…
+Filter this folder|||筛选此文件夹
+Folder name|||文件夹名称
+Pin current folder|||固定当前文件夹
+No folder chosen|||未选择文件夹
+Empty directory|||空目录
+
+# ===== 描述与说明 =====
+Adds a library location in Steam. Applies next session.|||在 Steam 中添加库位置。下次会话生效。
+Applies next session.|||下次会话生效。
+Applies next session. SD cards are supported.|||下次会话生效。支持 SD 卡。
+Applies on next game launch.|||下次启动游戏时生效。
+Apply to all conflicts|||应用于所有冲突
+Automatic - the SD card when one is in|||自动 - 有 SD 卡时使用 SD 卡
+Auto - picked by GPU|||自动 - 由 GPU 选择
+Between 320\u00d7240 and 3840\u00d72160.|||介于 320×240 和 3840×2160 之间。
+Bypasses PulseAudio for lower latency in games.|||绕过 PulseAudio 以降低游戏延迟。
+Choose a screen. Secondary: |||选择屏幕。副屏：
+Classic is the AAudio sink from 0.1.5. DirectAudio goes through the relay. Applies next session.|||Classic 是 0.1.5 的 AAudio 输出。DirectAudio 通过中继。下次会话生效。
+Disables per-call GL validation.|||禁用逐次 GL 验证。
+Disables Proton's gamepad navigation helper. Try if sessions crash at startup.|||禁用 Proton 手柄导航辅助。如果会话启动时崩溃可尝试。
+Disables self-modifying-code checks. JIT games and DRM may break.|||禁用自修改代码检查。JIT 游戏和 DRM 可能失效。
+Forgetting this package hides it from Desktop; its files remain in the Linux runtime.|||移除此包将从桌面隐藏；其文件仍保留在 Linux 运行时中。
+Games that stream assets from SD or shared storage may stutter. Keep them internal.|||从 SD 卡或共享存储流式传输资源的游戏可能卡顿。请保留在内部存储。
+How this session behaves when the app leaves the screen or the display turns off.|||应用离开屏幕或显示关闭时此会话的行为。
+May fix missing syscall errors on some kernels, but can reduce performance.|||可能修复某些内核上的系统调用缺失错误，但可能降低性能。
+May improve Steam menu responsiveness. Device impact is unverified.|||可能改善 Steam 菜单响应速度。对设备的影响未经证实。
+Merge adds and replaces files inside the existing folder.|||合并将在现有文件夹内添加和替换文件。
+No favorites yet - pin a folder with its \u22ee menu to jump back here fast.|||暂无收藏 - 使用文件夹的 ⋮ 菜单固定以快速返回此处。
+Off: DroidDeck is never offered as a Home app|||关：DroidDeck 永远不会被提议为主屏幕应用
+Off for a game that shows up small in a corner (Quake 3).|||对在角落小窗口显示的游戏关闭（Quake 3）。
+Overwrite replaces the existing file.|||覆盖将替换现有文件。
+Pins Steam, its UI helper, and gamescope to the cores below. Reapplied every few seconds.|||将 Steam、其 UI 辅助和 gamescope 固定到以下核心。每隔几秒重新应用。
+Required on Adreno 710/720/722. May fix corruption on other Adreno GPUs, but can reduce performance.|||Adreno 710/720/722 必需。可能修复其他 Adreno GPU 的画面损坏，但可能降低性能。
+Restart the app to apply.|||重启应用以生效。
+Run proot without seccomp|||在无 seccomp 下运行 proot
+Runs the client with -droiddeck. SteamOS helpers and battery info are provided.|||使用 -droiddeck 运行客户端。提供 SteamOS 辅助和电池信息。
+Set by the custom resolution.|||由自定义分辨率设置。
+Stops games (and Wine) from overwriting or deleting this file.|||阻止游戏（和 Wine）覆盖或删除此文件。
+Stop the active session before installing compatibility tools|||安装兼容工具前请停止活动会话
+Stop the active session before installing desktop apps.|||安装桌面应用前请停止活动会话。
+Stop the active session before installing or removing a compatibility tool.|||安装或移除兼容工具前请停止活动会话。
+The panel's own|||面板自身
+The panel's shape (16:9 or wider)|||面板形状（16:9 或更宽）
+The panel's shape stays at 16:9 or wider; pick Exactly this panel for a 4:3 or 3:2 screen.|||面板形状保持 16:9 或更宽；4:3 或 3:2 屏幕请选择「恰好此面板」。
+Exactly this panel (4:3, 3:2\u2026)|||恰好此面板（4:3、3:2…）
+This can't be undone.|||此操作不可撤销。
+This deletes the runtime, the Steam client inside it, and every game installed there.|||这将删除运行时、其中的 Steam 客户端以及安装的所有游戏。
+This folder appears as /root/ROMs in each session. Internal storage is available at /root/Storage.|||此文件夹在每个会话中显示为 /root/ROMs。内部存储位于 /root/Storage。
+Used by desktop apps.|||由桌面应用使用。
+Used by Steam and games.|||由 Steam 和游戏使用。
+Used by the compositor in both modes. Restart the app to apply.|||两种模式下均由合成器使用。重启应用以生效。
+Uses FEX defaults.|||使用 FEX 默认值。
+Uses the device microphone for voice chat.|||使用设备麦克风进行语音聊天。
+Wait for the compatibility tool install to finish|||等待兼容工具安装完成
+Wait for the desktop app install to finish|||等待桌面应用安装完成
+720p can improve menu responsiveness.|||720p 可改善菜单响应速度。
+Composites the desktop.|||合成桌面。
+DroidDeck can be the phone's Home app|||DroidDeck 可用作手机主屏幕应用
+Enable the override to choose.|||启用覆盖以进行选择。
+Frame generation|||帧生成
+No GL error checks|||无 GL 错误检查
+Override Steam's own core choice|||覆盖 Steam 自身的核心选择
+Phantom proc monitor|||Phantom 进程监控
+Runtime's own ICD|||运行时自身的 ICD
+Select the frame generation mode|||选择帧生成模式
+Skip GL error checks|||跳过 GL 错误检查
+Skip Steam's xalia helper|||跳过 Steam 的 xalia 辅助
+Skip xalia|||跳过 xalia
+Marks the file hidden in Windows (Wine's hidden attribute).|||在 Windows 中标记文件为隐藏（Wine 的隐藏属性）。
+This storage can't store the hidden flag.|||此存储无法保存隐藏标志。
+Another games folder|||另一个游戏文件夹
+Device switch files in Download|||Download 中的设备切换文件
+More from the library|||库中的更多内容
+Pending from an earlier request|||等待之前的请求
+That game is gone from the ROMs folder.|||该游戏已从 ROMs 文件夹中移除。
+That game is no longer installed.|||该游戏已不再安装。
+Also in |||也在 
+Enabled for |||已启用 
+Core ceilings          |||核心上限          
+
+# ===== 主题与外观 =====
+Black ground, white type, the blue for everything selected, focused or pressed.|||黑底白字，选中/聚焦/按下时为蓝色。
+Electric navy|||电光海军蓝
+Icon blue|||图标蓝
+Paper on black|||黑底纸白
+The blue brighter, on surfaces that lean navy instead of grey.|||更亮的蓝色，用于偏海军蓝而非灰色的表面。
+White is the primary, the icon's blue is the signal for rules, rings and dots.|||白色为主色，图标蓝用于规则、圆环和圆点。
+
+# ===== 性能模式 =====
+All TSO disabled; multiblock.|||所有 TSO 已禁用；multiblock。
+Balanced TSO with reduced x87 precision.|||平衡 TSO，降低 x87 精度。
+Extreme settings with main TSO enabled.|||启用主 TSO 的极限设置。
+Performance settings with main TSO enabled.|||启用主 TSO 的性能设置。
+Performance with full code checks and the hypervisor bit hidden.|||完整代码检查并隐藏虚拟机监控程序位的性能模式。
+Performance with TSC and metadata hints. Try before Extreme.|||带 TSC 和元数据提示的性能模式。极限模式前先尝试此模式。
+Safest, slowest settings.|||最安全、最慢的设置。
+
+# ===== 下载与安装 =====
+At least 4 GB free plus the download size is required to install |||安装需要至少 4 GB 可用空间加上下载大小 
+Checking Banners-Turnip and WinNative\u2026|||正在检查 Banners-Turnip 和 WinNative…
+Download and install an ARM64 Proton build now, then select it per game in Steam > Properties > Compatibility.|||立即下载并安装 ARM64 Proton 版本，然后在 Steam > 属性 > 兼容性中为每个游戏选择。
+Download exceeded the release size and was deleted|||下载超出发布大小，已删除
+Download failed|||下载失败
+Download failed: |||下载失败：
+Download failed; the partial file is kept so a retry can resume|||下载失败；保留部分文件以便重试续传
+Downloading the Steam client \u00b7 |||正在下载 Steam 客户端 · 
+Downloading the Steam client update \u00b7 |||正在下载 Steam 客户端更新 · 
+Download was incomplete; the partial file is kept for a resumable retry|||下载不完整；保留部分文件以便可续传重试
+Install details are unavailable right now. Try again when the package catalog is reachable.|||安装详情当前不可用。包目录可访问时请重试。
+Install Lossless Scaling in Steam|||在 Steam 中安装 Lossless Scaling
+Install the Linux runtime first|||请先安装 Linux 运行时
+Install the Linux runtime from Setup before installing desktop apps.|||安装桌面应用前请先从「设置」安装 Linux 运行时。
+Install the Linux runtime from Setup before managing compatibility tools.|||管理兼容工具前请先从「设置」安装 Linux 运行时。
+Loading install details\u2026|||正在加载安装详情…
+Not checked yet - tap refresh to look for new drivers|||尚未检查 - 点击刷新查找新驱动
+Nothing new from the last check. Tap the refresh button to look for newer releases.|||自上次检查以来无更新。点击刷新按钮查找新版本。
+Retrying download \u00b7 attempt |||正在重试下载 · 第 次尝试
+Verifying download|||正在验证下载
+Download interrupted|||下载中断
+Extraction failed|||解压失败
+Import failed: |||导入失败：
+
+# ===== 网络 =====
+Active network        none - the phone reports no connection\n|||活动网络        无 - 手机报告无连接\n
+Could not reach the desktop catalog. Check the connection and press Desktop again.|||无法访问桌面目录。检查连接后再次按「桌面」。
+Could not reach the runtime catalog. Check the connection and press Play again.|||无法访问运行时目录。检查连接后再次按「播放」。
+GitHub answered HTTP |||GitHub 返回 HTTP 
+GitHub's rate limit was hit - try again later|||已达到 GitHub 速率限制 - 请稍后重试
+Link speed            down |||链接速度            下载 
+
+# ===== 驱动 =====
+Linux session draws with imported driver |||Linux 会话使用导入的驱动绘制 
+No libvulkan_freedreno*.so in this zip. An Android (AdrenoTools) or -Wayland Turnip zip is not a Linux runtime driver.|||此 zip 中没有 libvulkan_freedreno*.so。Android (AdrenoTools) 或 -Wayland Turnip zip 不是 Linux 运行时驱动。
+Not an Adreno GPU|||非 Adreno GPU
+Not an AdrenoTools driver: |||非 AdrenoTools 驱动：
+Recommended for drivers without descriptor buffers.|||推荐用于无描述符缓冲区的驱动。
+Turnip supports Adreno GPUs. On |||Turnip 支持 Adreno GPU。在 
+Turnip sysmem|||Turnip sysmem
+Turnip: sysmem rendering|||Turnip：sysmem 渲染
+Linux driver (|||Linux 驱动（
+
+# ===== 会话与状态 =====
+Android is set to kill this session|||Android 已设置为终止此会话
+Starting the session\u2026|||正在启动会话…
+Steam is loading|||Steam 正在加载
+The412Banner: app, compositor, runtime, and Steam session.|||The412Banner：应用、合成器、运行时和 Steam 会话。
+The app itself crashed on thread \|||应用自身在线程崩溃 \
+The desktop did not install (|||桌面未安装（
+The Linux runtime did not install. Check the connection and press Play again.|||Linux 运行时未安装。检查连接后再次按「播放」。
+The Linux runtime is not installed|||Linux 运行时未安装
+The Linux session is not ready for a terminal yet.|||Linux 会话尚未准备好使用终端。
+The log shows |||日志显示 
+The secondary display is no longer available.|||副显示屏不再可用。
+The session ended|||会话已结束
+The session ended (|||会话已结束（
+The Steam client build the session forces. Applies at the next session start; the client may update itself once.|||会话强制使用的 Steam 客户端版本。下次会话启动时生效；客户端可能自行更新一次。
+Signed in as |||登录为 
+Sign in to Steam first|||请先登录 Steam
+No games installed.|||未安装游戏。
+No launchable Android apps found.|||未找到可启动的 Android 应用。
+No launchable apps found|||未找到可启动的应用
+No session logs yet: run a session first.|||暂无会话日志：请先运行一次会话。
+
+# ===== 错误提示 =====
+Checksum mismatch - nothing was changed|||校验和不匹配 - 未做任何更改
+Checksum mismatch; the download was deleted|||校验和不匹配；下载已删除
+Could not create folder|||无法创建文件夹
+Could not find an ARM64 release for |||找不到 ARM64 版本：
+Could not install |||无法安装 
+Could not open |||无法打开 
+Could not place the AppImage|||无法放置 AppImage
+Could not publish the network link|||无法发布网络链接
+Could not replace |||无法替换 
+Could not write the resolver|||无法写入解析器
+Couldn\'t change Hidden on this storage|||无法更改此存储的隐藏属性
+Couldn\'t change Read-only|||无法更改只读属性
+Couldn\'t check: |||无法检查：
+Delete failed|||删除失败
+Failed to copy: |||复制失败：
+Failed to copy file: |||复制文件失败：
+Failed to open: |||打开失败：
+Incomplete copy: |||复制不完整：
+Install failed|||安装失败
+Not available: |||不可用：
+Not charging|||未充电
+Not installed|||未安装
+Not installed.|||未安装。
+Not usable: |||不可用：
+Rename failed|||重命名失败
+Network callback was already gone|||网络回调已失效
+Could not create folder|||无法创建文件夹
+
+# ===== 自动控制说明 =====
+Auto shows all controls without a controller. Steam + QAM shows only those buttons.|||无手柄时自动显示所有控制。Steam + QAM 仅显示这些按钮。
+Auto uses touchpad on desktop and direct input in Steam. Touchpad: drag to move, tap to click.|||桌面模式自动使用触控板，Steam 中使用直接输入。触控板：拖动移动，点击单击。
+Choose cores for games. All selected lets Android schedule across every core.|||为游戏选择核心。全选让 Android 在所有核心间调度。
+Choose cores for Steam.|||为 Steam 选择核心。
+DroidDeck Linux shell|||DroidDeck Linux shell

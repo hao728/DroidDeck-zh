@@ -203,7 +203,7 @@ ensure_apksigner() {
     apksigner="$(find "$ANDROID_HOME/build-tools" -name apksigner -type f 2>/dev/null | head -1)"
     [ -n "$apksigner" ] && { echo "$apksigner"; return 0; }
   fi
-  for p in /usr/local/lib/android/sdk /opt/android-sdk /usr/lib/android-sdk "$ANDROID_SDK_ROOT"; do
+  for p in /usr/local/lib/android/sdk /opt/android-sdk /usr/lib/android-sdk "${ANDROID_SDK_ROOT:-}"; do
     [ -n "$p" ] && [ -d "$p" ] || continue
     local apksigner
     apksigner="$(find "$p/build-tools" -name apksigner -type f 2>/dev/null | head -1)"
@@ -218,7 +218,7 @@ ensure_zipalign() {
     za="$(find "$ANDROID_HOME/build-tools" -name zipalign -type f 2>/dev/null | head -1)"
     [ -n "$za" ] && { echo "$za"; return 0; }
   fi
-  for p in /usr/local/lib/android/sdk /opt/android-sdk /usr/lib/android-sdk "$ANDROID_SDK_ROOT"; do
+  for p in /usr/local/lib/android/sdk /opt/android-sdk /usr/lib/android-sdk "${ANDROID_SDK_ROOT:-}"; do
     [ -n "$p" ] && [ -d "$p" ] || continue
     local za
     za="$(find "$p/build-tools" -name zipalign -type f 2>/dev/null | head -1)"
