@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="loading_hints">
+        <item>首次运行会下载 Steam，可能需要几分钟。</item>
+        <item>默认情况下，离开应用会暂停 Steam；回来时从上次位置继续。</item>
+        <item>你的手柄会显示为 Xbox 360 手柄，否则请使用屏幕控制。</item>
+    </string-array>
+</resources>

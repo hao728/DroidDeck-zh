@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DroidDeck</string>
+    <string name="close_drawer">关闭导航菜单</string>
+    <string name="close_sheet">关闭面板</string>
+    <string name="copy_text">复制</string>
+    <string name="default_error_message">输入无效</string>
+    <string name="default_popup_window_title">弹出窗口</string>
+    <string name="dropdown_menu">下拉菜单</string>
+    <string name="frame_gen_title">帧生成</string>
+    <string name="in_progress">进行中</string>
+    <string name="indeterminate">部分选中</string>
+    <string name="navigation_menu">导航菜单</string>
+    <string name="not_selected">未选中</string>
+    <string name="off">关</string>
+    <string name="on">开</string>
+    <string name="paste_text">粘贴</string>
+    <string name="range_end">范围结束</string>
+    <string name="range_start">范围开始</string>
+    <string name="resume_session">恢复</string>
+    <string name="selected">已选中</string>
+    <string name="session_channel">会话</string>
+    <string name="session_channel_description">Steam 或桌面会话运行时显示</string>
+    <string name="session_notification">Steam 正在运行</string>
+    <string name="session_notification_paused">会话已暂停 - 准备好后点击恢复</string>
+    <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="stop_session">停止会话</string>
+    <string name="switch_role">切换</string>
+    <string name="tab">标签</string>
+    <string name="template_percent">%1$d%%。</string>
+    <string name="text_selection_more">更多…</string>
+    <string name="tooltip_description">工具提示</string>
+    <string name="tooltip_label">显示工具提示</string>
+</resources>
