@@ -166,7 +166,7 @@ Bypasses PulseAudio for lower latency in games.|||绕过 PulseAudio 以降低游
 Choose a screen. Secondary: |||选择屏幕。副屏：
 Classic is the AAudio sink from 0.1.5. DirectAudio goes through the relay. Applies next session.|||Classic 是 0.1.5 的 AAudio 输出。DirectAudio 通过中继。下次会话生效。
 Disables per-call GL validation.|||禁用逐次 GL 验证。
-Disables Proton's gamepad navigation helper. Try if sessions crash at startup.|||禁用 Proton 手柄导航辅助。如果会话启动时崩溃可尝试。
+Disables Proton\'s gamepad navigation helper. Try if sessions crash at startup.|||禁用 Proton 手柄导航辅助。如果会话启动时崩溃可尝试。
 Disables self-modifying-code checks. JIT games and DRM may break.|||禁用自修改代码检查。JIT 游戏和 DRM 可能失效。
 Forgetting this package hides it from Desktop; its files remain in the Linux runtime.|||移除此包将从桌面隐藏；其文件仍保留在 Linux 运行时中。
 Games that stream assets from SD or shared storage may stutter. Keep them internal.|||从 SD 卡或共享存储流式传输资源的游戏可能卡顿。请保留在内部存储。
@@ -181,18 +181,18 @@ Overwrite replaces the existing file.|||覆盖将替换现有文件。
 Pins Steam, its UI helper, and gamescope to the cores below. Reapplied every few seconds.|||将 Steam、其 UI 辅助和 gamescope 固定到以下核心。每隔几秒重新应用。
 Required on Adreno 710/720/722. May fix corruption on other Adreno GPUs, but can reduce performance.|||Adreno 710/720/722 必需。可能修复其他 Adreno GPU 的画面损坏，但可能降低性能。
 Restart the app to apply.|||重启应用以生效。
-Run proot without seccomp|||在无 seccomp 下运行 proot
+Run proot without seccomp|||禁用 seccomp 运行 proot
 Runs the client with -droiddeck. SteamOS helpers and battery info are provided.|||使用 -droiddeck 运行客户端。提供 SteamOS 辅助和电池信息。
 Set by the custom resolution.|||由自定义分辨率设置。
 Stops games (and Wine) from overwriting or deleting this file.|||阻止游戏（和 Wine）覆盖或删除此文件。
 Stop the active session before installing compatibility tools|||安装兼容工具前请停止活动会话
 Stop the active session before installing desktop apps.|||安装桌面应用前请停止活动会话。
 Stop the active session before installing or removing a compatibility tool.|||安装或移除兼容工具前请停止活动会话。
-The panel's own|||面板自身
-The panel's shape (16:9 or wider)|||面板形状（16:9 或更宽）
-The panel's shape stays at 16:9 or wider; pick Exactly this panel for a 4:3 or 3:2 screen.|||面板形状保持 16:9 或更宽；4:3 或 3:2 屏幕请选择「精确匹配面板」。
+The panel\'s own|||面板自身
+The panel\'s shape (16:9 or wider)|||面板形状（16:9 或更宽）
+The panel\'s shape stays at 16:9 or wider; pick Exactly this panel for a 4:3 or 3:2 screen.|||面板形状保持 16:9 或更宽；4:3 或 3:2 屏幕请选择「精确匹配面板」。
 Exactly this panel (4:3, 3:2\u2026)|||精确匹配面板（4:3、3:2…）
-This can't be undone.|||此操作不可撤销。
+This can\'t be undone.|||此操作不可撤销。
 This deletes the runtime, the Steam client inside it, and every game installed there.|||这将删除运行时、其中的 Steam 客户端以及安装的所有游戏。
 This folder appears as /root/ROMs in each session. Internal storage is available at /root/Storage.|||此文件夹在每个会话中显示为 /root/ROMs。内部存储位于 /root/Storage。
 Used by desktop apps.|||由桌面应用使用。
@@ -204,19 +204,19 @@ Wait for the compatibility tool install to finish|||等待兼容工具安装完�
 Wait for the desktop app install to finish|||等待桌面应用安装完成
 720p can improve menu responsiveness.|||720p 可改善菜单响应速度。
 Composites the desktop.|||合成桌面。
-DroidDeck can be the phone's Home app|||DroidDeck 可用作手机主屏幕应用
+DroidDeck can be the phone\'s Home app|||DroidDeck 可用作手机主屏幕应用
 Enable the override to choose.|||启用覆盖以进行选择。
 Frame generation|||帧生成
 No GL error checks|||无 GL 错误检查
-Override Steam's own core choice|||覆盖 Steam 自身的核心选择
+Override Steam\'s own core choice|||覆盖 Steam 自身的核心选择
 Phantom proc monitor|||Phantom 进程监控
-Runtime's own ICD|||运行时自身的 ICD
+Runtime\'s own ICD|||运行时自身的 ICD
 Select the frame generation mode|||选择帧生成模式
 Skip GL error checks|||跳过 GL 错误检查
-Skip Steam's xalia helper|||跳过 Steam 的 xalia 辅助
+Skip Steam\'s xalia helper|||跳过 Steam 的 xalia 辅助
 Skip xalia|||跳过 xalia
-Marks the file hidden in Windows (Wine's hidden attribute).|||在 Windows 中标记文件为隐藏（Wine 的隐藏属性）。
-This storage can't store the hidden flag.|||此存储无法保存隐藏标志。
+Marks the file hidden in Windows (Wine\'s hidden attribute).|||在 Windows 中标记文件为隐藏（Wine 的隐藏属性）。
+This storage can\'t store the hidden flag.|||此存储无法保存隐藏标志。
 Another games folder|||另一个游戏文件夹
 Device switch files in Download|||Download 中的设备切换文件
 More from the library|||库中的更多内容
@@ -231,9 +231,9 @@ Core ceilings          |||核心上限
 Black ground, white type, the blue for everything selected, focused or pressed.|||黑底白字，选中/聚焦/按下时为蓝色。
 Electric navy|||电光海军蓝
 Icon blue|||图标蓝
-Paper on black|||黑底纸白
+Paper on black|||深色
 The blue brighter, on surfaces that lean navy instead of grey.|||更亮的蓝色，用于偏海军蓝而非灰色的表面。
-White is the primary, the icon's blue is the signal for rules, rings and dots.|||白色为主色，图标蓝用于规则、圆环和圆点。
+White is the primary, the icon\'s blue is the signal for rules, rings and dots.|||白色为主色，图标蓝用于规则、圆环和圆点。
 
 # ===== 性能模式 =====
 All TSO disabled; multiblock.|||所有 TSO 已禁用；multiblock。
@@ -274,7 +274,7 @@ Active network        none - the phone reports no connection\n|||活动网络   
 Could not reach the desktop catalog. Check the connection and press Desktop again.|||无法访问桌面目录。检查连接后再次按「桌面」。
 Could not reach the runtime catalog. Check the connection and press Play again.|||无法访问运行时目录。检查连接后再次按「播放」。
 GitHub answered HTTP |||GitHub 返回 HTTP 
-GitHub's rate limit was hit - try again later|||已达到 GitHub 速率限制 - 请稍后重试
+GitHub\'s rate limit was hit - try again later|||已达到 GitHub 速率限制 - 请稍后重试
 Link speed            down |||链接速度            下载 
 
 # ===== 驱动 =====
@@ -883,7 +883,6 @@ SD card|||SD 卡
 SD Card|||SD 卡
 New Folder|||新建文件夹
 Choose the game\'s .exe|||选择游戏的 .exe 可执行文件
-This can\'t be undone.|||此操作无法撤销。
 Creating folder...|||正在创建文件夹…
 ROMs folder|||ROM 文件夹
 Launch in|||启动方式
@@ -894,8 +893,6 @@ Working\u2026|||正在工作…
 Added \"|||已添加 \"
 Removed \"|||已移除 \"
 Delete \"|||删除 \"
-This storage can\'t store the hidden flag.|||此存储无法保存隐藏属性。
-Marks the file hidden in Windows (Wine\'s hidden attribute).|||在 Windows 中标记文件为隐藏（Wine 的隐藏属性）。
 Refusing to copy directory into itself:|||拒绝将目录复制到自身：
 
 # ===== 精翻：性能与显示设置 =====
@@ -905,7 +902,6 @@ Threaded GL (glthread)|||线程化 GL（glthread）
 Full TSO with multiblock.|||完整 TSO 多块模式。
 Performance + TSO|||性能 + TSO
 Extreme + TSO|||极致 + TSO
-The panel\'s shape (16:9 or wider)|||面板形状（16:9 或更宽）
 WIN COMPONENTS|||Windows 组件
 WIN COMP|||Windows 组件
 Steam + QAM|||Steam + 快捷菜单
@@ -929,12 +925,10 @@ KGSL gpu_model|||KGSL GPU 型号
 KGSL chip id|||KGSL 芯片 ID
 System Vulkan ICD|||系统 Vulkan ICD
 Auto ->|||自动 ->
-Runtime\'s own ICD|||运行时自带 ICD
 GameCube / Wii|||GameCube / Wii
 
 # ===== 精翻：错误与状态提示 =====
 Function not implemented|||功能未实现
-GitHub\'s rate limit was hit - try again later|||已达到 GitHub 速率限制，请稍后重试
 A compatibility tool install is already running|||兼容工具安装正在进行中
 It is built into the app, so this removes its unpacked files and hides|||已内置在应用中，此操作将删除解压文件并隐藏
 Its files are removed from the app.|||其文件已从应用中移除。
@@ -1108,12 +1102,9 @@ Extreme-gn|||极致-gn
 Add\u2026|||添加…
 16:9 with bars|||16:9 加黑边
 HDR10 output|||HDR10 输出
-The panel\'s own|||面板原生
 Custom\u2026|||自定义…
 All 8|||全部 8 核
-Override Steam\'s own core choice|||覆盖 Steam 自身核心选择
 OVERRIDE STEAM\'S OWN CORE CHOICE|||覆盖 Steam 自身核心选择
-Skip Steam\'s xalia helper|||跳过 Steam 的 xalia 辅助
 CPU cores and session fixes. Applies next session.|||CPU 核心与会话修复。下次会话生效。
 This phone|||此手机
 Folder: |||文件夹：
@@ -1143,3 +1134,8 @@ Keeps games that resize their own window (FlatOut) full screen. Turn it off if a
 
 # --- Android12警告 ---
 Android 12 and later kill the extra processes an app starts for itself once there are more than a few, and a session is made of dozens: proot, gamescope, the client and its helpers, Wine. Where that is left on, the client dies with nothing in its log, because nothing in the session did it. Some phones have a \"restrict child processes\" switch in Developer options - turn it off. Otherwise, over adb:\n\n    adb shell settings put global settings_enable_monitor_phantom_procs false\n\nThis phone |||Android 12 及更高版本会在应用启动的额外进程超过一定数量时将其终止，而一个会话包含数十个进程：proot、gamescope、客户端及其辅助进程、Wine。如果保持开启，客户端会无日志崩溃，因为会话内没有任何进程导致它。部分手机在开发者选项中有「限制子进程」开关 - 请关闭。否则通过 adb：\n\n    adb shell settings put global settings_enable_monitor_phantom_procs false\n\n此手机 
+
+# ===== 精翻第四轮：空格前缀+撇号修复 =====
+# smali中带前导空格的字符串（动态拼接用）
+ (none right now)||| （当前无）
+ \u00b7 logs are saved after each session||| · 每次会话后保存日志
