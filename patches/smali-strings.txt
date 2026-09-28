@@ -1139,3 +1139,13 @@ Android 12 and later kill the extra processes an app starts for itself once ther
 # smali中带前导空格的字符串（动态拼接用）
  (none right now)||| （当前无）
  \u00b7 logs are saved after each session||| · 每次会话后保存日志
+
+# ===== 精翻第五轮：Steam中文修复+补充翻译 =====
+# 自定义分辨率描述
+The session\'s display size. It replaces the cap and the shape; a size that does not match the panel\'s shape gets bars.|||会话的显示尺寸。替代分辨率上限和形状设置；与面板形状不匹配的尺寸会出现黑边。
+# 游戏exe选择描述
+The .exe files found in the game\'s folder; the one named after the folder, else the largest, is picked unless you choose.|||在游戏文件夹中找到的 .exe 文件；默认选择与文件夹同名的文件，否则选择最大的文件，你也可以手动选择。
+# 自定义分辨率前缀
+Custom \u00b7 |||自定义 · 
+# 设备报告自动选择
+Auto -> |||自动 -> 

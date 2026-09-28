@@ -222,20 +222,8 @@ case $mode in
     bannerlator-steam-install || exit $?
     step "Steam client ready"
     steam_root=$XDG_DATA_HOME/Steam
-    # 汉化版：强制 Steam 语言为简体中文
-    # -lang 参数在某些版本会被 config.vdf 覆盖，因此直接修改配置文件最可靠
-    steam_config="$steam_root/config/config.vdf"
-    if [ -f "$steam_config" ]; then
-      if grep -q '"language"' "$steam_config" 2>/dev/null; then
-        sed -i 's/"language"[[:space:]]*"[^"]*"/"language"\t\t"schinese"/' "$steam_config"
-      else
-        sed -i 's/\t\t"Steam"/\t\t"Steam"\n\t\t\t"language"\t\t"schinese"/' "$steam_config" 2>/dev/null || true
-      fi
-      echo "== steam: language forced to schinese in config.vdf"
-    fi
-    # BL_STEAM_LANG 可由 Android 端传入跟随系统语言，默认 schinese
-    _bl_steam_lang=${BL_STEAM_LANG:-schinese}
-    export STEAM_LANG=$_bl_steam_lang
+    # 汉化版：中文 locale 环境变量（Steam 语言在启动循环内通过 config.vdf + -lang 参数设置）
+    export STEAM_LANG=${BL_STEAM_LANG:-schinese}
     # Register the card library (bound at /mnt/bannerlator-sd) with the client - internal storage is
     # its main library already - and the ARM64 Proton that lets it launch the Windows ones.
     # A request left in ~/.bl-proton-extra installs a third-party Proton before the client starts,
@@ -512,9 +500,38 @@ BUSCONF
         echo "== steam: client branch on disk was '$(cat "$steam_beta" 2>/dev/null)', set to '$steam_channel' to match -clientbeta"
         echo "$steam_channel" > "$steam_beta"
       fi
-      step "starting the Steam client${BL_STEAM_UI:+ ($BL_STEAM_UI UI)}"
-      # 汉化版：Steam 语言默认简体中文，BL_STEAM_LANG 可由 Android 端传入跟随系统
+      # 汉化版：每次启动前强制 Steam 语言为简体中文
+      # 首次安装时 config.vdf 不存在，需创建；Steam 启动后可能覆盖，故每次循环都修改
       _bl_steam_lang=${BL_STEAM_LANG:-schinese}
+      steam_config="$steam_root/config/config.vdf"
+      mkdir -p "$(dirname "$steam_config")" 2>/dev/null
+      if [ ! -f "$steam_config" ]; then
+        cat > "$steam_config" <<'EOF'
+"InstallConfigStore"
+{
+	"Software"
+	{
+		"Valve"
+		{
+			"Steam"
+			{
+				"language"		"schinese"
+			}
+		}
+	}
+}
+EOF
+        echo "== steam: created config.vdf with language=$_bl_steam_lang"
+      elif grep -q '"language"' "$steam_config" 2>/dev/null; then
+        sed -i "s/\"language\"[[:space:]]*\"[^\"]*\"/\"language\"\t\t\"$_bl_steam_lang\"/" "$steam_config"
+        echo "== steam: language forced to $_bl_steam_lang in config.vdf"
+      else
+        # 没有language字段，在"Steam"块后插入
+        sed -i 's/\("Steam"\)/\1\n\t\t\t"language"\t\t"'"$_bl_steam_lang"'"/' "$steam_config" 2>/dev/null || true
+        echo "== steam: language inserted as $_bl_steam_lang in config.vdf"
+      fi
+      export STEAM_LANG=$_bl_steam_lang
+      step "starting the Steam client${BL_STEAM_UI:+ ($BL_STEAM_UI UI)}"
       "$steam_root/steamrtarm64/steam" "${_bl_ui[@]}" -clientbeta "$steam_channel" \
         -lang "$_bl_steam_lang" \
         -no-cef-sandbox -cef-force-gpu -cef-ozone-platform=x11 \
