@@ -84,6 +84,11 @@ mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 export LANG=${BL_LANG:-zh_CN.UTF-8}
 export LC_ALL=${BL_LANG:-zh_CN.UTF-8}
 export LANGUAGE=zh_CN:zh:schinese
+# 诊断：覆盖层文件是否在rootfs中
+echo "== diag: /usr/lib/locale/ = $(ls /usr/lib/locale/ 2>/dev/null | tr '\n' ' ')"
+echo "== diag: /usr/share/fonts/ = $(ls /usr/share/fonts/ 2>/dev/null | tr '\n' ' ')"
+echo "== diag: /etc/fonts/local.conf = $([ -f /etc/fonts/local.conf ] && echo exists || echo MISSING)"
+echo "== diag: wqy font = $(find /usr/share/fonts -name '*wqy*' -o -name '*microhei*' 2>/dev/null | head -1)"
 # 验证locale是否生效（调试用）
 if command -v locale >/dev/null 2>&1; then
   _bl_locale_ok=$(locale -a 2>/dev/null | grep -c 'zh_CN')
@@ -229,37 +234,6 @@ case $mode in
     steam_root=$XDG_DATA_HOME/Steam
     # 汉化版：中文 locale 环境变量（Steam 语言在启动循环内通过 config.vdf + -lang 参数设置）
     export STEAM_LANG=${BL_STEAM_LANG:-schinese}
-    # 汉化版：steamwebhelper 包装脚本，强制把 -lang=en_US 替换为 -lang=zh_CN
-    # 根因：Steam 主进程收到 -lang schinese，但启动 webhelper 时回退到系统 locale en_US
-    _bl_helper="$steam_root/steamrtarm64/steamwebhelper"
-    if [ -x "$_bl_helper" ]; then
-      # 检查是否已经是包装脚本（包含标记）
-      if ! grep -q 'DROIDDECK_ZH_WRAPPER' "$_bl_helper" 2>/dev/null; then
-        # 如果.real不存在，先备份真实二进制
-        [ ! -f "$_bl_helper.real" ] && mv "$_bl_helper" "$_bl_helper.real"
-        cat > "$_bl_helper" <<'WRAPPER'
-#!/bin/bash
-# DROIDDECK_ZH_WRAPPER
-# 汉化版：强制 webhelper 使用中文语言
-_wrapper_log="$HOME/.steam_webhelper_wrapper.log"
-echo "[$(date)] wrapper called: $0 $*" >> "$_wrapper_log" 2>/dev/null
-args=()
-for arg in "$@"; do
-  orig="$arg"
-  arg="${arg/-lang=en_US/-lang=zh_CN}"
-  arg="${arg/-lang=en/-lang=zh_CN}"
-  arg="${arg/--lang=en-US/--lang=zh-CN}"
-  arg="${arg/--lang=en/--lang=zh-CN}"
-  [ "$arg" != "$orig" ] && echo "[$(date)] replaced: $orig -> $arg" >> "$_wrapper_log" 2>/dev/null
-  args+=("$arg")
-done
-echo "[$(date)] executing: $0.real ${args[*]}" >> "$_wrapper_log" 2>/dev/null
-exec "$0.real" "${args[@]}"
-WRAPPER
-        chmod +x "$_bl_helper"
-        echo "== steam: installed zh_CN webhelper wrapper (v2)"
-      fi
-    fi
     # 汉化版：更新字体缓存（中文字体已通过覆盖层安装到 /usr/share/fonts/）
     if command -v fc-cache >/dev/null 2>&1; then
       fc-cache -f >/dev/null 2>&1 && echo "== fonts: fc-cache updated" || true
@@ -591,6 +565,31 @@ EOF
         [ -n "$_langpack" ] && echo "== steam: chinese language pack found: $_langpack" || echo "== steam: WARNING: no chinese language pack found in steamui/"
       fi
       export STEAM_LANG=$_bl_steam_lang
+      # 汉化版：在启动循环内创建webhelper包装脚本（确保steamwebhelper已下载）
+      _bl_helper="$steam_root/steamrtarm64/steamwebhelper"
+      echo "== steam: webhelper exists=$([ -x "$_bl_helper" ] && echo yes || echo no), is_wrapper=$([ -f "$_bl_helper" ] && grep -q DROIDDECK_ZH_WRAPPER "$_bl_helper" 2>/dev/null && echo yes || echo no)"
+      if [ -x "$_bl_helper" ] && ! grep -q 'DROIDDECK_ZH_WRAPPER' "$_bl_helper" 2>/dev/null; then
+        [ ! -f "$_bl_helper.real" ] && mv "$_bl_helper" "$_bl_helper.real"
+        cat > "$_bl_helper" <<'WRAPPER'
+#!/bin/bash
+# DROIDDECK_ZH_WRAPPER
+_wrapper_log="$HOME/.steam_webhelper_wrapper.log"
+echo "[$(date)] wrapper called: $0 $*" >> "$_wrapper_log" 2>/dev/null
+args=()
+for arg in "$@"; do
+  orig="$arg"
+  arg="${arg/-lang=en_US/-lang=zh_CN}"
+  arg="${arg/-lang=en/-lang=zh_CN}"
+  arg="${arg/--lang=en-US/--lang=zh-CN}"
+  arg="${arg/--lang=en/--lang=zh-CN}"
+  [ "$arg" != "$orig" ] && echo "[$(date)] replaced: $orig -> $arg" >> "$_wrapper_log" 2>/dev/null
+  args+=("$arg")
+done
+exec "$0.real" "${args[@]}"
+WRAPPER
+        chmod +x "$_bl_helper"
+        echo "== steam: installed zh_CN webhelper wrapper (v3)"
+      fi
       step "starting the Steam client${BL_STEAM_UI:+ ($BL_STEAM_UI UI)}"
       "$steam_root/steamrtarm64/steam" "${_bl_ui[@]}" -clientbeta "$steam_channel" \
         -lang "$_bl_steam_lang" \
