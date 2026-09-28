@@ -80,10 +80,15 @@ export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
 # 汉化版：强制中文 locale，Steam webhelper 从系统 locale 读取 -lang 参数
-# rootfs 无 locale-archive 会有 setlocale 警告，但不影响 LANG 值被 Steam 读取
+# 覆盖层已添加 zh_CN.UTF-8 和 en_US.UTF-8 locale 数据到 /usr/lib/locale/
 export LANG=${BL_LANG:-zh_CN.UTF-8}
 export LC_ALL=${BL_LANG:-zh_CN.UTF-8}
 export LANGUAGE=zh_CN:zh:schinese
+# 验证locale是否生效（调试用）
+if command -v locale >/dev/null 2>&1; then
+  _bl_locale_ok=$(locale -a 2>/dev/null | grep -c 'zh_CN')
+  echo "== locale: zh_CN available=$_bl_locale_ok, LANG=$LANG"
+fi
 
 # The cores a program runs on outside Steam (the desktop and everything started from it, a
 # program from the rail): the user's game cores when set (BL_GAME_CPUS), else every core but the
