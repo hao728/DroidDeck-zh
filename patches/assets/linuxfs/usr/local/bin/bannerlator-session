@@ -79,21 +79,30 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
+# 汉化版：解压汉化资源包（locale+中文字体+fontconfig）到rootfs
+# 根因：Android应用只复制硬编码列表中的assets文件，新增文件需打包后运行时解压
+_bl_overlay="/usr/local/zh-overlay.tar.gz"
+_bl_overlay_flag="/usr/local/.zh-overlay-extracted"
+if [ -f "$_bl_overlay" ] && [ ! -f "$_bl_overlay_flag" ]; then
+  if tar xzf "$_bl_overlay" -C / 2>/dev/null; then
+    touch "$_bl_overlay_flag" 2>/dev/null || true
+    echo "== zh-overlay: extracted locale+fonts+fontconfig to rootfs"
+  else
+    echo "== zh-overlay: FAILED to extract $_bl_overlay"
+  fi
+fi
+[ -f "$_bl_overlay_flag" ] && echo "== zh-overlay: already extracted" || echo "== zh-overlay: overlay file=$([ -f "$_bl_overlay" ] && echo present || echo MISSING)"
+
 # 汉化版：强制中文 locale，Steam webhelper 从系统 locale 读取 -lang 参数
-# 覆盖层已添加 zh_CN.UTF-8 和 en_US.UTF-8 locale 数据到 /usr/lib/locale/
 export LANG=${BL_LANG:-zh_CN.UTF-8}
 export LC_ALL=${BL_LANG:-zh_CN.UTF-8}
 export LANGUAGE=zh_CN:zh:schinese
-# 诊断：覆盖层文件是否在rootfs中
-echo "== diag: /usr/lib/locale/ = $(ls /usr/lib/locale/ 2>/dev/null | tr '\n' ' ')"
-echo "== diag: /usr/share/fonts/ = $(ls /usr/share/fonts/ 2>/dev/null | tr '\n' ' ')"
-echo "== diag: /etc/fonts/local.conf = $([ -f /etc/fonts/local.conf ] && echo exists || echo MISSING)"
-echo "== diag: wqy font = $(find /usr/share/fonts -name '*wqy*' -o -name '*microhei*' 2>/dev/null | head -1)"
-# 验证locale是否生效（调试用）
+# 验证locale和字体是否生效
 if command -v locale >/dev/null 2>&1; then
   _bl_locale_ok=$(locale -a 2>/dev/null | grep -c 'zh_CN')
   echo "== locale: zh_CN available=$_bl_locale_ok, LANG=$LANG"
 fi
+echo "== fonts: wqy=$([ -f /usr/share/fonts/truetype/wqy/wqy-microhei.ttc ] && echo ok || echo MISSING), fontconfig=$([ -f /etc/fonts/local.conf ] && echo ok || echo MISSING)"
 
 # The cores a program runs on outside Steam (the desktop and everything started from it, a
 # program from the rail): the user's game cores when set (BL_GAME_CPUS), else every core but the
