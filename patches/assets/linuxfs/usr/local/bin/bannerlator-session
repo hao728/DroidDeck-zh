@@ -521,6 +521,13 @@ BUSCONF
       [ -n "$_stale" ] && echo "== steam: cleared what an earlier session left:$_stale"
       unset _stale _f
     fi
+    # 汉化版：首次强制中文时清理CEF缓存，防止缓存的英文UI残留
+    _bl_cache_flag="$steam_root/config/.zh_cache_cleared"
+    if [ ! -f "$_bl_cache_flag" ]; then
+      rm -rf "$steam_root/config/htmlcache" 2>/dev/null
+      touch "$_bl_cache_flag"
+      echo "== steam: cleared htmlcache for Chinese UI init"
+    fi
     # The client branch. publicbeta is what every session has run on; steamdeck_publicbeta is the
     # channel Armada bootstraps its ARM64 client from. Whatever wrote package/beta, the branch on
     # disk has to agree with the one forced here - a disagreement is the restart loop above, and
