@@ -112,5 +112,5 @@ jobs:
 
             ### 免责声明
 
-            本汉化版仅供学习交流使用，请勿用于商业用途。基于 Winlator（LGPL）与 DroidDeck 修改，汉化补丁以 LGPL-3.0 开源。汉化来源：[github.com/hao728/steamdeck-zh](https://github.com/hao728/steamdeck-zh)
+            本汉化版仅供学习交流使用，请勿用于商业用途。基于 Winlator（LGPL）与 DroidDeck 修改，汉化补丁以 LGPL-3.0 开源。汉化来源：[github.com/mihsian77/DroidDeck-zh](https://github.com/mihsian77/DroidDeck-zh)
           files: ${{ steps.build.outputs.apk_path }}
