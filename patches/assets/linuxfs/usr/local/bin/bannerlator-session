@@ -222,6 +222,20 @@ case $mode in
     bannerlator-steam-install || exit $?
     step "Steam client ready"
     steam_root=$XDG_DATA_HOME/Steam
+    # 汉化版：强制 Steam 语言为简体中文
+    # -lang 参数在某些版本会被 config.vdf 覆盖，因此直接修改配置文件最可靠
+    steam_config="$steam_root/config/config.vdf"
+    if [ -f "$steam_config" ]; then
+      if grep -q '"language"' "$steam_config" 2>/dev/null; then
+        sed -i 's/"language"[[:space:]]*"[^"]*"/"language"\t\t"schinese"/' "$steam_config"
+      else
+        sed -i 's/\t\t"Steam"/\t\t"Steam"\n\t\t\t"language"\t\t"schinese"/' "$steam_config" 2>/dev/null || true
+      fi
+      echo "== steam: language forced to schinese in config.vdf"
+    fi
+    # BL_STEAM_LANG 可由 Android 端传入跟随系统语言，默认 schinese
+    _bl_steam_lang=${BL_STEAM_LANG:-schinese}
+    export STEAM_LANG=$_bl_steam_lang
     # Register the card library (bound at /mnt/bannerlator-sd) with the client - internal storage is
     # its main library already - and the ARM64 Proton that lets it launch the Windows ones.
     # A request left in ~/.bl-proton-extra installs a third-party Proton before the client starts,

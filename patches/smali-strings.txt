@@ -966,3 +966,114 @@ Collection contains no element matching the predicate.|||集合中没有匹配�
 # Gamepad write error: fake input mmap ring unavailable
 # Downloading update ((\d+) of (\d+) KB)
 # This session's process ended without running its own teardown
+
+# ===== 精翻第二轮：全面补充遗漏词条 =====
+
+# --- 时间与状态 ---
+just now|||刚刚
+min ago|||分钟前
+Starting\u2026|||启动中…
+Verifying|||验证中…
+Installing\u2026|||安装中…
+Removing|||移除中…
+Forgetting|||移除中…
+Imported|||已导入
+DOWNLOADED|||已下载
+IMPORTED|||已导入
+Written|||已写入
+BUNDLED|||内置
+Latest:|||最新：
+
+# --- 设备报告字段 ---
+App|||应用
+Package|||包名
+Device|||设备
+Model|||型号
+SoC|||SoC
+Fingerprint|||指纹
+Kernel|||内核
+Cores|||核心数
+GPU|||GPU
+Foldable|||折叠屏
+SUPPORTED_ABIS|||支持的 ABI
+Runtime|||运行时
+every core (nothing sent)|||所有核心（不限制）
+runtime default (the Turnip built into the runtime)|||运行时默认（内置 Turnip）
+[MISSING - falls back to the runtime\'s own]|||[缺失 - 回退到运行时自带]
+not at the usual path|||不在常规路径
+
+# --- 驱动与下载状态 ---
+latest Turnip check|||最新 Turnip 检查
+check failed|||检查失败
+release driver download|||发布版驱动下载
+driver import|||驱动导入
+the Turnip built into the runtime|||运行时内置的 Turnip
+system Vulkan: no bundled build for this GPU|||系统 Vulkan：此 GPU 无内置版本
+
+# --- 会话与桌面 ---
+the desktop|||桌面
+the Linux runtime|||Linux 运行时
+downloading the desktop|||正在下载桌面环境
+downloading the Linux runtime|||正在下载 Linux 运行时
+the Linux runtime is not installed; the loading screen installs it|||Linux 运行时未安装，加载界面将自动安装
+session settings|||会话设置
+). Check the connection and press Desktop again.|||）。检查网络连接后再次点击「桌面」。
+desktop (labwc/LXQt)|||桌面（labwc/LXQt）
+a program under gamescope|||gamescope 下的程序
+
+# --- 控制与输入 ---
+full pad|||完整手柄
+on-screen controls|||屏幕触控
+1: QAM 2: menu|||1: 快捷菜单 2: 菜单
+1: menu 2: QAM|||1: 菜单 2: 快捷菜单
+
+# --- 显示 ---
+SDR|||SDR
+the primary screen|||主屏幕
+surface resized to|||画面已调整为
+
+# --- 文件管理器 ---
+Downloads|||下载
+Favorites|||收藏
+Size|||大小
+folder|||文件夹
+Program|||程序
+
+# --- 音频 ---
+PulseAudio|||PulseAudio
+missing from the apk|||APK 中缺失
+
+# --- 通用设置描述 ---
+has not been set either way, so the ROM\'s default applies.|||未手动设置，使用 ROM 默认值。
+currently reports it as on.|||当前状态为开启。
+Android 12 and later kill the extra processes an app starts for itself...|||Android 12 及更高版本会终止应用自行启动的额外进程…
+
+# --- 性能/核心 ---
+Game|||游戏
+Steam|||Steam
+STEAM|||STEAM
+
+# --- 键盘 ---
+Esc|||Esc
+Ctrl|||Ctrl
+Alt|||Alt
+Done|||完成
+
+# --- 格式与单位 ---
+%.1f MB|||%.1f MB
+%.2f GHz|||%.2f GHz
+%.2f Hz|||%.2f Hz
+MB|||MB
+0 bytes|||0 字节
+
+# --- 分辨率 ---
+16:9|||16:9
+16:10|||16:10
+
+# --- 帧生成 ---
+Win-FG|||Win-FG
+LSFG|||LSFG
+
+# --- 错误提示 ---
+could not show second-screen controls on|||无法在…上显示副屏控制
+wanted but|||需要但
