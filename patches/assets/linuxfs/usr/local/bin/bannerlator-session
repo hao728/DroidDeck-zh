@@ -79,10 +79,11 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
-# 汉化版：设置中文 locale，Steam 及其他 Linux 应用默认使用简体中文
-# BL_LANG 可由 Android 端传入以跟随系统语言，默认 zh_CN.UTF-8
+# 汉化版：Steam 界面语言由 -lang 参数和 config.vdf 控制，不依赖系统 locale
+# rootfs 无 locale-archive，设置 LC_ALL=zh_CN 会导致大量 setlocale 错误
+# 仅设置 LANG 供其他 Linux 应用参考，Steam 用 -lang schinese 强制中文
 export LANG=${BL_LANG:-zh_CN.UTF-8}
-export LC_ALL=${BL_LANG:-zh_CN.UTF-8}
+unset LC_ALL 2>/dev/null || true
 export LANGUAGE=${BL_LANG:-zh_CN.UTF-8}
 
 # The cores a program runs on outside Steam (the desktop and everything started from it, a
@@ -504,6 +505,7 @@ BUSCONF
       # 首次安装时 config.vdf 不存在，需创建；Steam 启动后可能覆盖，故每次循环都修改
       _bl_steam_lang=${BL_STEAM_LANG:-schinese}
       steam_config="$steam_root/config/config.vdf"
+      steam_registry="$steam_root/config/registry.vdf"
       mkdir -p "$(dirname "$steam_config")" 2>/dev/null
       if [ ! -f "$steam_config" ]; then
         cat > "$steam_config" <<'EOF'
@@ -530,6 +532,18 @@ EOF
         sed -i 's/\("Steam"\)/\1\n\t\t\t"language"\t\t"'"$_bl_steam_lang"'"/' "$steam_config" 2>/dev/null || true
         echo "== steam: language inserted as $_bl_steam_lang in config.vdf"
       fi
+      # 调试：输出当前language设置
+      echo "== steam: config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
+      # 同时修改 registry.vdf（如果存在）
+      if [ -f "$steam_registry" ] && grep -q '"language"' "$steam_registry" 2>/dev/null; then
+        sed -i "s/\"language\"[[:space:]]*\"[^\"]*\"/\"language\"\t\t\"$_bl_steam_lang\"/" "$steam_registry"
+        echo "== steam: registry.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_registry" 2>/dev/null | head -1 || echo '(not found)')"
+      fi
+      # 检查中文语言包是否存在
+      if [ -d "$steam_root/steamui" ]; then
+        _langpack=$(find "$steam_root/steamui" -iname '*chinese*' -o -iname '*schinese*' 2>/dev/null | head -3)
+        [ -n "$_langpack" ] && echo "== steam: chinese language pack found: $_langpack" || echo "== steam: WARNING: no chinese language pack found in steamui/"
+      fi
       export STEAM_LANG=$_bl_steam_lang
       step "starting the Steam client${BL_STEAM_UI:+ ($BL_STEAM_UI UI)}"
       "$steam_root/steamrtarm64/steam" "${_bl_ui[@]}" -clientbeta "$steam_channel" \
@@ -537,6 +551,8 @@ EOF
         -no-cef-sandbox -cef-force-gpu -cef-ozone-platform=x11 \
         -cef-use-gl=angle -cef-use-angle=vulkan "$@"
       rc=$?
+      # 调试：Steam退出后检查config.vdf是否被覆盖
+      echo "== steam: after exit, config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
       echo "== steam exited rc=$rc"
       collect_steam_logs
       # The session asked for this exit (the ARM64 Proton landed): start again, without the URL
