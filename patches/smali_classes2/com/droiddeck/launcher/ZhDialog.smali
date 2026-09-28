@@ -25,7 +25,7 @@
     const-string v1, "汉化声明"
     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
-    const-string v1, "本应用由 DroidDeck-zh 项目汉化\n汉化来源：github.com/mihsian77/DroidDeck-zh\n\n本汉化版仅供学习交流使用，请勿用于商业用途。\n点击任意区域关闭。"
+    const-string v1, "汉化：mihsian77\n\n仅供学习交流使用，请勿用于商业用途。\n点击任意区域关闭。"
     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
 
     # 无按钮，点击弹窗外部或返回键即可关闭

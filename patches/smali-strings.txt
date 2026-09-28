@@ -116,8 +116,8 @@ Up to 1080p|||最高 1080p
 Up to 720p|||最高 720p
 Up to 900p|||最高 900p
 Use as a Home screen|||用作主屏幕
-Zink lazy descriptors|||Zink 惰性描述符
-Zink: lazy descriptors|||Zink：惰性描述符
+Zink lazy descriptors|||Zink 延迟描述符
+Zink: lazy descriptors|||Zink：延迟描述符
 
 # ===== 操作按钮 =====
 Install anyway|||仍然安装
@@ -190,8 +190,8 @@ Stop the active session before installing desktop apps.|||安装桌面应用前�
 Stop the active session before installing or removing a compatibility tool.|||安装或移除兼容工具前请停止活动会话。
 The panel's own|||面板自身
 The panel's shape (16:9 or wider)|||面板形状（16:9 或更宽）
-The panel's shape stays at 16:9 or wider; pick Exactly this panel for a 4:3 or 3:2 screen.|||面板形状保持 16:9 或更宽；4:3 或 3:2 屏幕请选择「恰好此面板」。
-Exactly this panel (4:3, 3:2\u2026)|||恰好此面板（4:3、3:2…）
+The panel's shape stays at 16:9 or wider; pick Exactly this panel for a 4:3 or 3:2 screen.|||面板形状保持 16:9 或更宽；4:3 或 3:2 屏幕请选择「精确匹配面板」。
+Exactly this panel (4:3, 3:2\u2026)|||精确匹配面板（4:3、3:2…）
 This can't be undone.|||此操作不可撤销。
 This deletes the runtime, the Steam client inside it, and every game installed there.|||这将删除运行时、其中的 Steam 客户端以及安装的所有游戏。
 This folder appears as /root/ROMs in each session. Internal storage is available at /root/Storage.|||此文件夹在每个会话中显示为 /root/ROMs。内部存储位于 /root/Storage。
@@ -284,8 +284,8 @@ Not an Adreno GPU|||非 Adreno GPU
 Not an AdrenoTools driver: |||非 AdrenoTools 驱动：
 Recommended for drivers without descriptor buffers.|||推荐用于无描述符缓冲区的驱动。
 Turnip supports Adreno GPUs. On |||Turnip 支持 Adreno GPU。在 
-Turnip sysmem|||Turnip sysmem
-Turnip: sysmem rendering|||Turnip：sysmem 渲染
+Turnip sysmem|||Turnip 系统内存
+Turnip: sysmem rendering|||Turnip：系统内存渲染
 Linux driver (|||Linux 驱动（
 
 # ===== 会话与状态 =====
@@ -899,7 +899,7 @@ Marks the file hidden in Windows (Wine\'s hidden attribute).|||在 Windows 中�
 Refusing to copy directory into itself:|||拒绝将目录复制到自身：
 
 # ===== 精翻：性能与显示设置 =====
-Performance HUD|||性能浮层
+Performance HUD|||性能监控
 FEX defaults|||FEX 默认配置
 Threaded GL (glthread)|||线程化 GL（glthread）
 Full TSO with multiblock.|||完整 TSO 多块模式。
@@ -1077,3 +1077,69 @@ LSFG|||LSFG
 # --- 错误提示 ---
 could not show second-screen controls on|||无法在…上显示副屏控制
 wanted but|||需要但
+
+# ===== 精翻第三轮：截图全面补漏 =====
+
+# --- 主界面 ---
+runtime not installed|||运行时未安装
+credits|||致谢
+Play|||启动
+Configure|||配置
+CPU core assignment|||CPU 核心分配
+APPLICATION|||应用
+update available|||有更新可用
+logs are saved after each session|||每次会话后保存日志
+
+# --- 加载页面 ---
+%d:%02d elapsed \u00b7 still working|||已用 %d:%02d · 仍在工作
+
+# --- Credits 弹窗 ---
+Credits|||致谢
+OK|||确定
+maxjivi05: gamescope runtime and controller support, based on WinNative.|||maxjivi05：gamescope 运行时和手柄支持，基于 WinNative。
+GPL-3.0. Steam, Steam Deck, and Proton are Valve trademarks. Not affiliated with Valve. Third-party software remains under its authors\' licenses.|||GPL-3.0。Steam、Steam Deck 和 Proton 是 Valve 的商标。与 Valve 无关联。第三方软件保留其作者的许可证。
+
+# --- Steam会话设置 ---
+Stability|||稳定性
+Compatibility|||兼容性
+Intermediate|||均衡
+Extreme|||极致
+Extreme-gn|||极致-gn
+Add\u2026|||添加…
+16:9 with bars|||16:9 加黑边
+HDR10 output|||HDR10 输出
+The panel\'s own|||面板原生
+Custom\u2026|||自定义…
+All 8|||全部 8 核
+Override Steam\'s own core choice|||覆盖 Steam 自身核心选择
+OVERRIDE STEAM\'S OWN CORE CHOICE|||覆盖 Steam 自身核心选择
+Skip Steam\'s xalia helper|||跳过 Steam 的 xalia 辅助
+CPU cores and session fixes. Applies next session.|||CPU 核心与会话修复。下次会话生效。
+This phone|||此手机
+Folder: |||文件夹：
+no game folders with a .exe found|||未找到包含 .exe 的游戏文件夹
+
+# --- 显示与渲染 ---
+On Vulkan, programs on the desktop draw with the GPU in their own windows; if it cannot start, the desktop comes up on pixman. On pixman, games and emulators from the menu open full screen on the GPU instead (right-click one for a desktop window).|||Vulkan 模式下，桌面程序在各自窗口中使用 GPU 渲染；若无法启动，桌面回退到 pixman。pixman 模式下，菜单中的游戏和模拟器改为 GPU 全屏打开（右键可在桌面窗口中打开）。
+vulkan - GPU|||Vulkan - GPU
+gles2 - GPU (experimental)|||gles2 - GPU（实验性）
+pixman - software|||pixman - 软件
+
+# --- 触控与输入 ---
+Auto pauses in the background and resumes when visible. Manual pauses there and waits for Resume. Never keeps the session running.|||自动：在后台暂停，恢复可见时继续。手动：在后台暂停并等待恢复。从不：始终保持会话运行。
+
+# --- 客户端分支 ---
+Public beta is what every session ran on before. Steam Deck public beta is the channel Deck mode needs (on public beta it reinstalls the same client at every start) and the one Armada bootstraps from; Deck mode picks it unless you choose here.|||公开测试版是之前所有会话使用的版本。Steam Deck 公开测试版是 Deck 模式所需的通道（公开测试版每次启动都会重新安装相同客户端），也是 Armada 的引导来源；除非在此处选择，否则 Deck 模式默认使用它。
+
+# --- 游戏文件夹与封面 ---
+Your own Windows games, one subfolder each, anywhere: internal storage, the SD card, a USB drive. As many folders as you like. Each game goes into the client\'s library as a non-Steam game under the ARM64 Proton, at the next session start.|||你自己的 Windows 游戏，每个游戏一个子文件夹，位置不限：内部存储、SD 卡、U 盘。可添加任意数量的文件夹。每个游戏将在下次会话启动时作为非 Steam 游戏，通过 ARM64 Proton 添加到客户端库中。
+A game with no art of its own gets the store\'s capsule, header, hero and logo for the same title, looked up by folder name. Your own art wins: drop cover.jpg (or poster, boxart, folder, the folder\'s name), header.jpg, hero.jpg, logo.png or icon.png into the game\'s folder or its art subfolder.|||没有自带封面的游戏将按文件夹名查找商店中的胶囊图、横幅图、英雄图和图标。你自己的封面优先：将 cover.jpg（或 poster、boxart、folder、文件夹同名）、header.jpg、hero.jpg、logo.png 或 icon.png 放入游戏文件夹或其 art 子文件夹即可。
+. Forget: the games leave the client\'s library at the next session start; nothing on disk is touched.|||。注意：游戏将在下次会话启动时从客户端库中移除；不会删除磁盘上的任何文件。
+
+# --- FEX与拉伸 ---
+Keeps games that resize their own window (FlatOut) full screen. Turn it off if a game shows up small in a corner (Quake 3). Applies next session.|||保持自行调整窗口大小的游戏（如 FlatOut）全屏显示。如果游戏在角落小窗口显示（如 Quake 3），请关闭。下次会话生效。
+
+# --- 音频 ---
+
+# --- Android12警告 ---
+Android 12 and later kill the extra processes an app starts for itself once there are more than a few, and a session is made of dozens: proot, gamescope, the client and its helpers, Wine. Where that is left on, the client dies with nothing in its log, because nothing in the session did it. Some phones have a \"restrict child processes\" switch in Developer options - turn it off. Otherwise, over adb:\n\n    adb shell settings put global settings_enable_monitor_phantom_procs false\n\nThis phone |||Android 12 及更高版本会在应用启动的额外进程超过一定数量时将其终止，而一个会话包含数十个进程：proot、gamescope、客户端及其辅助进程、Wine。如果保持开启，客户端会无日志崩溃，因为会话内没有任何进程导致它。部分手机在开发者选项中有「限制子进程」开关 - 请关闭。否则通过 adb：\n\n    adb shell settings put global settings_enable_monitor_phantom_procs false\n\n此手机 
