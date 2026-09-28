@@ -79,12 +79,11 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
-# 汉化版：Steam 界面语言由 -lang 参数和 config.vdf 控制，不依赖系统 locale
-# rootfs 无 locale-archive，设置 LC_ALL=zh_CN 会导致大量 setlocale 错误
-# 仅设置 LANG 供其他 Linux 应用参考，Steam 用 -lang schinese 强制中文
+# 汉化版：强制中文 locale，Steam webhelper 从系统 locale 读取 -lang 参数
+# rootfs 无 locale-archive 会有 setlocale 警告，但不影响 LANG 值被 Steam 读取
 export LANG=${BL_LANG:-zh_CN.UTF-8}
-unset LC_ALL 2>/dev/null || true
-export LANGUAGE=${BL_LANG:-zh_CN.UTF-8}
+export LC_ALL=${BL_LANG:-zh_CN.UTF-8}
+export LANGUAGE=zh_CN:zh:schinese
 
 # The cores a program runs on outside Steam (the desktop and everything started from it, a
 # program from the rail): the user's game cores when set (BL_GAME_CPUS), else every core but the
@@ -225,6 +224,25 @@ case $mode in
     steam_root=$XDG_DATA_HOME/Steam
     # 汉化版：中文 locale 环境变量（Steam 语言在启动循环内通过 config.vdf + -lang 参数设置）
     export STEAM_LANG=${BL_STEAM_LANG:-schinese}
+    # 汉化版：steamwebhelper 包装脚本，强制把 -lang=en_US 替换为 -lang=zh_CN
+    # 根因：Steam 主进程收到 -lang schinese，但启动 webhelper 时回退到系统 locale en_US
+    _bl_helper="$steam_root/steamrtarm64/steamwebhelper"
+    if [ -x "$_bl_helper" ] && [ ! -f "$_bl_helper.real" ]; then
+      mv "$_bl_helper" "$_bl_helper.real"
+      cat > "$_bl_helper" <<'WRAPPER'
+#!/bin/bash
+# 汉化版：强制 webhelper 使用中文语言
+args=()
+for arg in "$@"; do
+  arg="${arg/-lang=en_US/-lang=zh_CN}"
+  arg="${arg/--lang=en-US/--lang=zh-CN}"
+  args+=("$arg")
+done
+exec "${BASH_SOURCE[0]}.real" "${args[@]}"
+WRAPPER
+      chmod +x "$_bl_helper"
+      echo "== steam: installed zh_CN webhelper wrapper"
+    fi
     # Register the card library (bound at /mnt/bannerlator-sd) with the client - internal storage is
     # its main library already - and the ARM64 Proton that lets it launch the Windows ones.
     # A request left in ~/.bl-proton-extra installs a third-party Proton before the client starts,
