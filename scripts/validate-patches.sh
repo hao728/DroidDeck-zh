@@ -34,6 +34,10 @@ while IFS= read -r -d '' patch_file; do
         echo -e "  ${C_CYAN}+${C_RESET} 新增资源: $rel"
         NEW_FILE=$((NEW_FILE + 1))
         ;;
+      assets/*)
+        echo -e "  ${C_CYAN}+${C_RESET} 新增覆盖层: $rel"
+        NEW_FILE=$((NEW_FILE + 1))
+        ;;
       *)
         echo -e "  ${C_RED}✗${C_RESET} 文件不存在: $rel"
         MISSING=$((MISSING + 1))

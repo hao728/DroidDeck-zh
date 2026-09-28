@@ -84,6 +84,12 @@ while IFS= read -r -d '' patch_file; do
         cp "$patch_file" "$target"
         PATCH_COUNT=$((PATCH_COUNT + 1))
         ;;
+      assets/*)
+        info "新增覆盖层文件: $rel_path"
+        mkdir -p "$(dirname "$target")"
+        cp "$patch_file" "$target"
+        PATCH_COUNT=$((PATCH_COUNT + 1))
+        ;;
       *)
         warn "补丁目标不存在（上游可能已变更）: $rel_path"
         PATCH_FAIL=$((PATCH_FAIL + 1))
