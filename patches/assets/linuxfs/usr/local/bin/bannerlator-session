@@ -19,7 +19,10 @@ if [ -n "${BL_LOG:-}" ] && [ -z "${BL_INSIDE:-}" ]; then
   if [ "$(stat -c %s "$BL_LOG" 2>/dev/null || echo 0)" -gt 8388608 ]; then
     mv -f "$BL_LOG" "$BL_LOG.1"
   fi
-  exec >>"$BL_LOG" 2>&1
+  # A guest looping on an error writes gigabytes in minutes (an Xwayland proot had lost track of
+  # managed 9 GB of one line in 19 min): the log keeps its first BL_LOG_CAP bytes and the rest is
+  # drained, not refused - a writer that filled it must not die of SIGPIPE.
+  exec > >({ head -c "${BL_LOG_CAP:-268435456}" >>"$BL_LOG"; cat >/dev/null; }) 2>&1
   echo "== bannerlator-session $(date) mode=$mode $*"
   echo "== uid=$(id -u) size=${BL_WIDTH:-?}x${BL_HEIGHT:-?} fps=${BL_FPS:-0} icd=${VK_ICD_FILENAMES:-none}"
   echo "== gamescope: $(gamescope --version 2>&1 | head -1) at $(command -v gamescope)"
@@ -91,13 +94,10 @@ if [ -f "$_bl_overlay" ] && [ ! -f "$_bl_overlay_flag" ]; then
     echo "== zh-overlay: FAILED to extract $_bl_overlay"
   fi
 fi
-[ -f "$_bl_overlay_flag" ] && echo "== zh-overlay: already extracted" || echo "== zh-overlay: overlay file=$([ -f "$_bl_overlay" ] && echo present || echo MISSING)"
-
 # 汉化版：强制中文 locale，Steam webhelper 从系统 locale 读取 -lang 参数
 export LANG=${BL_LANG:-zh_CN.UTF-8}
 export LC_ALL=${BL_LANG:-zh_CN.UTF-8}
 export LANGUAGE=zh_CN:zh:schinese
-# 验证locale和字体是否生效
 if command -v locale >/dev/null 2>&1; then
   _bl_locale_ok=$(locale -a 2>/dev/null | grep -c 'zh_CN')
   echo "== locale: zh_CN available=$_bl_locale_ok, LANG=$LANG"
@@ -241,12 +241,6 @@ case $mode in
     bannerlator-steam-install || exit $?
     step "Steam client ready"
     steam_root=$XDG_DATA_HOME/Steam
-    # 汉化版：中文 locale 环境变量（Steam 语言在启动循环内通过 config.vdf + -lang 参数设置）
-    export STEAM_LANG=${BL_STEAM_LANG:-schinese}
-    # 汉化版：更新字体缓存（中文字体已通过覆盖层安装到 /usr/share/fonts/）
-    if command -v fc-cache >/dev/null 2>&1; then
-      fc-cache -f >/dev/null 2>&1 && echo "== fonts: fc-cache updated" || true
-    fi
     # Register the card library (bound at /mnt/bannerlator-sd) with the client - internal storage is
     # its main library already - and the ARM64 Proton that lets it launch the Windows ones.
     # A request left in ~/.bl-proton-extra installs a third-party Proton before the client starts,
@@ -343,18 +337,35 @@ case $mode in
       # in yet - so the install dialog only appeared after the user restarted the client by hand.
       # With no remembered sign-in, ask again once the sign-in has happened: the client binary
       # started a second time with a URL hands it to the running instance and exits.
+      #
+      # The request is also dropped while the client is still in its post-logon compat phase (it
+      # probes every registered tool then): with publicbeta 1790380355 that phase took 27 s and a
+      # request sent 15 s after sign-in vanished (2026-09-26, no dialog; 1790121765 was done in
+      # time). So wait for the client to say the phase is over ("Waiting for compat in post-logon
+      # took" in its console log; at most 90 s if it never does), then ask - and ask again, twice
+      # at most, if no install has started a minute later.
       if ! grep -q '"RememberPassword"[[:space:]]*"1"' "$steam_root/config/loginusers.vdf" 2>/dev/null; then
         (
+          _bl_acf="$steam_root/steamapps/appmanifest_4427310.acf"
           _bl_conn="$steam_root/logs/connection_log.txt"
+          _bl_cons="$steam_root/logs/console_log.txt"
           _bl_from=$(stat -c %s "$_bl_conn" 2>/dev/null || echo 0)
+          _bl_cfrom=$(stat -c %s "$_bl_cons" 2>/dev/null || echo 0)
           for _ in $(seq 1 180); do
             sleep 10
-            [ -f "$steam_root/steamapps/appmanifest_4427310.acf" ] && exit 0
+            [ -f "$_bl_acf" ] && exit 0
             if tail -c +$((_bl_from + 1)) "$_bl_conn" 2>/dev/null | grep -q "RecvMsgClientLogOnResponse() : processing complete"; then
-              sleep 15
-              [ -f "$steam_root/steamapps/appmanifest_4427310.acf" ] && exit 0
-              step "signed in: asking the client again for the ARM64 Proton"
-              "$steam_root/steamrtarm64/steam" steam://install/4427310 >/dev/null 2>&1 || true
+              for _ in $(seq 1 45); do
+                tail -c +$((_bl_cfrom + 1)) "$_bl_cons" 2>/dev/null | grep -q "Waiting for compat in post-logon took" && break
+                sleep 2
+              done
+              for _bl_try in 1 2 3; do
+                sleep 10
+                [ -f "$_bl_acf" ] && exit 0
+                step "signed in: asking the client again for the ARM64 Proton (try $_bl_try of 3)"
+                "$steam_root/steamrtarm64/steam" steam://install/4427310 >/dev/null 2>&1 || true
+                sleep 50
+              done
               exit 0
             fi
           done
@@ -381,7 +392,8 @@ case $mode in
     # The drawer's "Stretch games to fill the screen" works live: the app writes its choice to
     # ~/.droiddeck-fill, and each change goes to gamescope as GAMESCOPE_FORCE_WINDOWS_FULLSCREEN on
     # the root window, which it watches. What gamescope was started with is where this begins.
-    (
+    # Not on the desktop (BL_DESKTOP): no gamescope there, and the loop would outlive the client.
+    [ -z "${BL_DESKTOP:-}" ] && (
       last=${BL_GAMESCOPE_FORCE_FULLSCREEN:-1}
       while :; do
         sleep 1
@@ -470,6 +482,42 @@ BUSCONF
     # falls through to the host, and the guest shell dies on libreadline before the game is reached.
     # FEX_ROOTFS names it outright and is read whatever the config situation.
     [ -d /usr/share/guestos/fex-mesa ] && export FEX_ROOTFS=/usr/share/guestos/fex-mesa
+    # Decky is optional and session scoped: the app's marker opts in, and this supervisor is
+    # reaped with the client session. Native ARM64 runs directly. A legacy x86_64 asset is used
+    # only when its recorded architecture and this guest's existing FEX installation agree.
+    decky_loader=$HOME/homebrew/services/PluginLoader
+    if [ -f "$HOME/.droiddeck-decky-enabled" ] && [ -x "$decky_loader" ]; then
+      decky_arch=$(cat "$HOME/homebrew/services/.droiddeck-decky-arch" 2>/dev/null || echo unknown)
+      if [ "$decky_arch" = arm64 ] || { [ "$decky_arch" = x86_64 ] && [ -x /usr/bin/FEX ] && [ -n "${FEX_ROOTFS:-}" ]; }; then
+        (
+          decky_child=
+          decky_stop() { [ -z "$decky_child" ] || kill "$decky_child" 2>/dev/null; [ -z "$decky_child" ] || wait "$decky_child" 2>/dev/null; exit 0; }
+          trap decky_stop TERM INT HUP
+          decky_exits=0
+          while :; do
+            if [ "$decky_arch" = x86_64 ]; then /usr/bin/FEX "$decky_loader" >>"$HOME/homebrew/services/PluginLoader.log" 2>&1 &
+            else "$decky_loader" >>"$HOME/homebrew/services/PluginLoader.log" 2>&1 &
+            fi
+            decky_child=$!
+            decky_status=0
+            wait "$decky_child" || decky_status=$?
+            decky_child=
+            decky_exits=$((decky_exits + 1))
+            if [ "$decky_exits" -ge 5 ]; then
+              echo "== Decky: stopped after $decky_exits loader exits (last status $decky_status)"
+              break
+            fi
+            decky_delay=$((decky_exits * 3))
+            echo "== Decky: loader exited with status $decky_status; restart $((decky_exits + 1))/5 in ${decky_delay}s"
+            sleep "$decky_delay"
+          done
+        ) &
+        decky_supervisor=$!
+        echo "== Decky: session supervisor started ($decky_arch)"
+      else
+        echo "== Decky: installed loader architecture is unsupported by this guest; not starting"
+      fi
+    fi
     # The client exits 42 when it has updated itself and wants a fresh start (steam.sh does this).
     # BL_STEAM_UI=desktop = the client's desktop UI (a window, the library as a list), which the
     # desktop's launchers ask for; gamescope shows one window at a time and the game takes over.
@@ -504,13 +552,6 @@ BUSCONF
       [ -n "$_stale" ] && echo "== steam: cleared what an earlier session left:$_stale"
       unset _stale _f
     fi
-    # 汉化版：首次强制中文时清理CEF缓存，防止缓存的英文UI残留
-    _bl_cache_flag="$steam_root/config/.zh_cache_cleared"
-    if [ ! -f "$_bl_cache_flag" ]; then
-      rm -rf "$steam_root/config/htmlcache" 2>/dev/null
-      touch "$_bl_cache_flag"
-      echo "== steam: cleared htmlcache for Chinese UI init"
-    fi
     # The client branch. publicbeta is what every session has run on; steamdeck_publicbeta is the
     # channel Armada bootstraps its ARM64 client from. Whatever wrote package/beta, the branch on
     # disk has to agree with the one forced here - a disagreement is the restart loop above, and
@@ -531,10 +572,8 @@ BUSCONF
         echo "$steam_channel" > "$steam_beta"
       fi
       # 汉化版：每次启动前强制 Steam 语言为简体中文
-      # 首次安装时 config.vdf 不存在，需创建；Steam 启动后可能覆盖，故每次循环都修改
       _bl_steam_lang=${BL_STEAM_LANG:-schinese}
       steam_config="$steam_root/config/config.vdf"
-      steam_registry="$steam_root/config/registry.vdf"
       mkdir -p "$(dirname "$steam_config")" 2>/dev/null
       if [ ! -f "$steam_config" ]; then
         cat > "$steam_config" <<'EOF'
@@ -555,28 +594,19 @@ EOF
         echo "== steam: created config.vdf with language=$_bl_steam_lang"
       elif grep -q '"language"' "$steam_config" 2>/dev/null; then
         sed -i "s/\"language\"[[:space:]]*\"[^\"]*\"/\"language\"\t\t\"$_bl_steam_lang\"/" "$steam_config"
-        echo "== steam: language forced to $_bl_steam_lang in config.vdf"
       else
-        # 没有language字段，在"Steam"块后插入
         sed -i 's/\("Steam"\)/\1\n\t\t\t"language"\t\t"'"$_bl_steam_lang"'"/' "$steam_config" 2>/dev/null || true
-        echo "== steam: language inserted as $_bl_steam_lang in config.vdf"
       fi
-      # 调试：输出当前language设置
       echo "== steam: config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
-      # 同时修改 registry.vdf（如果存在）
-      if [ -f "$steam_registry" ] && grep -q '"language"' "$steam_registry" 2>/dev/null; then
-        sed -i "s/\"language\"[[:space:]]*\"[^\"]*\"/\"language\"\t\t\"$_bl_steam_lang\"/" "$steam_registry"
-        echo "== steam: registry.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_registry" 2>/dev/null | head -1 || echo '(not found)')"
+      # 汉化版：首次强制中文时清理CEF缓存
+      _bl_cache_flag="$steam_root/config/.zh_cache_cleared"
+      if [ ! -f "$_bl_cache_flag" ]; then
+        rm -rf "$steam_root/config/htmlcache" 2>/dev/null
+        touch "$_bl_cache_flag" 2>/dev/null || true
+        echo "== steam: cleared htmlcache for Chinese UI init"
       fi
-      # 检查中文语言包是否存在
-      if [ -d "$steam_root/steamui" ]; then
-        _langpack=$(find "$steam_root/steamui" -iname '*chinese*' -o -iname '*schinese*' 2>/dev/null | head -3)
-        [ -n "$_langpack" ] && echo "== steam: chinese language pack found: $_langpack" || echo "== steam: WARNING: no chinese language pack found in steamui/"
-      fi
-      export STEAM_LANG=$_bl_steam_lang
-      # 汉化版：在启动循环内创建webhelper包装脚本（确保steamwebhelper已下载）
+      # 汉化版：创建webhelper包装脚本（在启动循环内确保steamwebhelper已下载）
       _bl_helper="$steam_root/steamrtarm64/steamwebhelper"
-      echo "== steam: webhelper exists=$([ -x "$_bl_helper" ] && echo yes || echo no), is_wrapper=$([ -f "$_bl_helper" ] && grep -q DROIDDECK_ZH_WRAPPER "$_bl_helper" 2>/dev/null && echo yes || echo no)"
       if [ -x "$_bl_helper" ] && ! grep -q 'DROIDDECK_ZH_WRAPPER' "$_bl_helper" 2>/dev/null; then
         [ ! -f "$_bl_helper.real" ] && mv "$_bl_helper" "$_bl_helper.real"
         cat > "$_bl_helper" <<'WRAPPER'
@@ -597,15 +627,17 @@ done
 exec "$0.real" "${args[@]}"
 WRAPPER
         chmod +x "$_bl_helper"
-        echo "== steam: installed zh_CN webhelper wrapper (v3)"
+        echo "== steam: installed zh_CN webhelper wrapper"
       fi
+      # 汉化版：更新字体缓存
+      command -v fc-cache >/dev/null 2>&1 && fc-cache -f >/dev/null 2>&1 && echo "== fonts: fc-cache updated" || true
+      export STEAM_LANG=$_bl_steam_lang
       step "starting the Steam client${BL_STEAM_UI:+ ($BL_STEAM_UI UI)}"
       "$steam_root/steamrtarm64/steam" "${_bl_ui[@]}" -clientbeta "$steam_channel" \
         -lang "$_bl_steam_lang" \
         -no-cef-sandbox -cef-force-gpu -cef-ozone-platform=x11 \
         -cef-use-gl=angle -cef-use-angle=vulkan "$@"
       rc=$?
-      # 调试：Steam退出后检查config.vdf是否被覆盖
       echo "== steam: after exit, config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
       echo "== steam exited rc=$rc"
       collect_steam_logs
@@ -625,7 +657,29 @@ WRAPPER
       # The URL arguments were acted on the first time; a restart must not repeat them.
       set --
     done
-    reap_orphans
+    if [ -n "${BL_DESKTOP:-}" ]; then
+      # Started from the desktop (bannerlator-steam-launch): the desktop's own programs share this
+      # script's parent, so reap_orphans - right under gamescope, where everything is the client's -
+      # is not for here. The helpers this run started (the cores and redistributables beats, the
+      # system bus and the NetworkManager stand-in) go with the client instead.
+      if [ -n "${decky_supervisor:-}" ]; then
+        kill "$decky_supervisor" 2>/dev/null || true
+        wait "$decky_supervisor" 2>/dev/null || true
+        echo "== Decky: session supervisor stopped"
+      fi
+      _bl_jobs=$(jobs -p)
+      [ -n "$_bl_jobs" ] && kill $_bl_jobs 2>/dev/null
+      echo "== steam: the client on the desktop has exited"
+    else
+      if [ -n "${decky_supervisor:-}" ]; then
+        kill "$decky_supervisor" 2>/dev/null || true
+        wait "$decky_supervisor" 2>/dev/null || true
+        echo "== Decky: session supervisor stopped"
+      fi
+      _bl_jobs=$(jobs -p)
+      [ -n "$_bl_jobs" ] && kill $_bl_jobs 2>/dev/null
+      reap_orphans
+    fi
     exit "$rc"
     ;;
   *)
