@@ -1,0 +1,105 @@
+name: Build Localized APK
+
+# 每次 push patches/ 或 scripts/ 或 config/ 时自动构建并发布
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'patches/**'
+      - 'scripts/**'
+      - 'config/**'
+      - 'secrets/**'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '上游版本号（留空使用 state/upstream-version）'
+        required: false
+        default: ''
+      prerelease:
+        description: '预发布版（不稳定/未验证版本保持勾选；确认稳定可用后取消勾选，以发布为最新版）'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-apk
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        run: |
+          # ubuntu-latest runner 已预装 Android SDK，直接使用，避免 setup-android@v3 的 sdkmanager tools 报错
+          echo "ANDROID_HOME=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+          echo "可用 build-tools:"
+          ls /usr/local/lib/android/sdk/build-tools/ 2>/dev/null || echo "(未找到)"
+
+      - name: Validate patches
+        run: |
+          chmod +x scripts/*.sh scripts/lib/*.sh
+          bash scripts/validate-patches.sh "${{ inputs.version }}" || echo "::warning::部分补丁校验未通过，继续构建但可能有遗漏"
+
+      - name: Build APK
+        id: build
+        run: |
+          chmod +x scripts/*.sh scripts/lib/*.sh
+          bash scripts/build.sh "${{ inputs.version }}"
+          echo "apk_path=$(ls dist/*.apk | head -1)" >> "$GITHUB_OUTPUT"
+          echo "apk_name=$(basename $(ls dist/*.apk | head -1))" >> "$GITHUB_OUTPUT"
+
+      - name: Lint translations & APK
+        run: |
+          chmod +x scripts/*.sh scripts/lib/*.sh
+          bash scripts/lint-translations.sh "${{ steps.build.outputs.apk_path }}"
+
+      - name: Get version
+        id: ver
+        run: |
+          VER="${{ inputs.version }}"
+          if [ -z "$VER" ]; then
+            VER=$(cat state/upstream-version)
+          fi
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "tag=${VER}-zh" >> "$GITHUB_OUTPUT"
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: ${{ steps.ver.outputs.version }} 汉化版
+          # push 触发一律为预发布；手动触发时 prerelease 勾选为预发布，取消勾选为正式版
+          prerelease: ${{ github.event_name != 'workflow_dispatch' || inputs.prerelease == true }}
+          make_latest: ${{ github.event_name == 'workflow_dispatch' && inputs.prerelease == false }}
+          body: |
+            基于上游 DroidDeck ${{ steps.ver.outputs.version }}（ludashi 变体）汉化。
+
+            ## 变更
+
+            - smali 硬编码字符串翻译 + 资源字符串合并上游 values-zh-rCN
+            - Steam 客户端中文：启动参数 + webhelper 包装 + config.vdf + 中文字体
+            - 竖屏适配：启动器/文件管理器跟随系统旋转，会话保持横屏
+            - 启动弹窗显示汉化作者
+
+            ## 安装
+
+            签名与原版不同，首次安装需卸载原版。同签名版本可覆盖安装。
+
+            ## 说明
+
+            ${{ github.event_name != 'workflow_dispatch' && 'prerelease：自动构建，待实测验证。' || (inputs.prerelease == true && 'prerelease：手动构建，待实测验证。' || '正式版。') }}
+          files: ${{ steps.build.outputs.apk_path }}
