@@ -1,0 +1,22 @@
+{
+  "apktool": {
+    "version": "2.10.0",
+    "url_template": "https://github.com/iBotPeaches/Apktool/releases/download/v{VERSION}/apktool_{VERSION}.jar",
+    "sha256": "c0350abbab5314248dfe2ee0c907def4edd14f6faef1f5d372d3d4abd28f0431"
+  },
+  "java": {
+    "min_version": 11
+  },
+  "signing": {
+    "keystore_path": "secrets/release.keystore",
+    "alias": "droiddeck-zh",
+    "storepass": "droiddeck-zh-2026",
+    "keypass": "droiddeck-zh-2026",
+    "dname": "CN=DroidDeck-ZH, O=Community, C=CN",
+    "validity_days": 10000
+  },
+  "output": {
+    "name_template": "{version}-zh.apk",
+    "tag_template": "{version}-zh"
+  }
+}
