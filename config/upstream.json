@@ -1,0 +1,9 @@
+{
+  "repo": "Droid-Deck/DroidDeck",
+  "release_tag_prefix": "",
+  "include_prerelease": true,
+  "apk_variant": "ludashi",
+  "apk_name_template": "DroidDeck-{tag}-{variant}.apk",
+  "download_url_template": "https://github.com/{repo}/releases/download/{tag}/{apk_name}",
+  "version": "0.2.0"
+}
