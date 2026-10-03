@@ -1,21 +1,14 @@
-diff -ruN a/assets/linuxfs/usr/local/bin/bannerlator-session b/assets/linuxfs/usr/local/bin/bannerlator-session
---- a/assets/linuxfs/usr/local/bin/bannerlator-session	2026-09-29 20:46:06.713595227 +0800
-+++ b/assets/linuxfs/usr/local/bin/bannerlator-session	2026-09-29 20:46:06.717595163 +0800
-@@ -82,6 +82,28 @@
- export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
- mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
+--- a/assets/linuxfs/usr/local/bin/bannerlator-session	2026-10-03 19:07:07.684845837 +0800
++++ b/assets/linuxfs/usr/local/bin/bannerlator-session	2026-10-03 19:07:07.688845853 +0800
+@@ -97,6 +97,22 @@
+ export FLATPAK_BWRAP=/usr/local/bin/bannerlator-bwrap
+ export XDG_DATA_DIRS=$XDG_DATA_HOME/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}
  
-+# 汉化版：解压汉化资源包（locale+中文字体+fontconfig）到rootfs
-+# 根因：Android应用只复制硬编码列表中的assets文件，新增文件需打包后运行时解压
++# 汉化版：解压汉化资源包（locale+中文字体+fontconfig）到 rootfs
 +_bl_overlay="/usr/local/zh-overlay.tar.gz"
 +_bl_overlay_flag="/usr/local/.zh-overlay-extracted"
 +if [ -f "$_bl_overlay" ] && [ ! -f "$_bl_overlay_flag" ]; then
-+  if tar xzf "$_bl_overlay" -C / 2>/dev/null; then
-+    touch "$_bl_overlay_flag" 2>/dev/null || true
-+    echo "== zh-overlay: extracted locale+fonts+fontconfig to rootfs"
-+  else
-+    echo "== zh-overlay: FAILED to extract $_bl_overlay"
-+  fi
++  tar xzf "$_bl_overlay" -C / 2>/dev/null && touch "$_bl_overlay_flag"     && echo "== zh-overlay: extracted locale+fonts+fontconfig to rootfs"     || echo "== zh-overlay: FAILED to extract $_bl_overlay"
 +fi
 +# 汉化版：强制中文 locale，Steam webhelper 从系统 locale 读取 -lang 参数
 +export LANG=${BL_LANG:-zh_CN.UTF-8}
@@ -30,16 +23,16 @@ diff -ruN a/assets/linuxfs/usr/local/bin/bannerlator-session b/assets/linuxfs/us
  # The cores a program runs on outside Steam (the desktop and everything started from it, a
  # program from the rail): the user's game cores when set (BL_GAME_CPUS), else every core but the
  # slowest cluster - Android is free to park an emulator's threads on the little cores, and those
-@@ -549,11 +571,100 @@
+@@ -701,8 +717,80 @@
          echo "== steam: client branch on disk was '$(cat "$steam_beta" 2>/dev/null)', set to '$steam_channel' to match -clientbeta"
          echo "$steam_channel" > "$steam_beta"
        fi
-+      # 汉化版：每次启动前强制 Steam 语言为简体中文
++      # 汉化版：强制 config.vdf 中文 + 字体注入 + webhelper 包装
 +      _bl_steam_lang=${BL_STEAM_LANG:-schinese}
 +      steam_config="$steam_root/config/config.vdf"
-+      mkdir -p "$(dirname "$steam_config")" 2>/dev/null
 +      if [ ! -f "$steam_config" ]; then
-+        cat > "$steam_config" <<'EOF'
++        mkdir -p "$(dirname "$steam_config")" 2>/dev/null
++        cat > "$steam_config" <<'CFG'
 +"InstallConfigStore"
 +{
 +	"Software"
@@ -53,82 +46,61 @@ diff -ruN a/assets/linuxfs/usr/local/bin/bannerlator-session b/assets/linuxfs/us
 +		}
 +	}
 +}
-+EOF
++CFG
 +        echo "== steam: created config.vdf with language=$_bl_steam_lang"
-+      elif grep -q '"language"' "$steam_config" 2>/dev/null; then
-+        sed -i "s/\"language\"[[:space:]]*\"[^\"]*\"/\"language\"\t\t\"$_bl_steam_lang\"/" "$steam_config"
-+      else
-+        sed -i 's/\("Steam"\)/\1\n\t\t\t"language"\t\t"'"$_bl_steam_lang"'"/' "$steam_config" 2>/dev/null || true
++      elif ! grep -q '"language"[[:space:]]*"schinese"' "$steam_config" 2>/dev/null; then
++        sed -i 's/"language"[[:space:]]*"[^"]*"/"language"\t\t"schinese"/' "$steam_config" 2>/dev/null
++        echo "== steam: config.vdf language forced to $_bl_steam_lang"
 +      fi
 +      echo "== steam: config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
-+      # 汉化版：首次强制中文时清理CEF缓存
-+      _bl_cache_flag="$steam_root/config/.zh_cache_cleared"
-+      if [ ! -f "$_bl_cache_flag" ]; then
-+        rm -rf "$steam_root/config/htmlcache" 2>/dev/null
-+        touch "$_bl_cache_flag" 2>/dev/null || true
-+        echo "== steam: cleared htmlcache for Chinese UI init"
-+      fi
-+      # 汉化版：将中文字体直接注入到 Steam 字体目录和用户字体目录（不依赖fontconfig）
++      # 汉化版：注入中文字体（双保险：~/.fonts 和 steamrtarm64/fonts）
 +      _bl_font_src="/usr/share/fonts/truetype/wqy/wqy-microhei.ttc"
 +      if [ -f "$_bl_font_src" ]; then
 +        mkdir -p "$HOME/.fonts" "$steam_root/steamrtarm64/fonts" 2>/dev/null
 +        cp -f "$_bl_font_src" "$HOME/.fonts/wqy-microhei.ttc" 2>/dev/null && echo "== fonts: copied to ~/.fonts" || true
 +        cp -f "$_bl_font_src" "$steam_root/steamrtarm64/fonts/wqy-microhei.ttc" 2>/dev/null && echo "== fonts: copied to steamrtarm64/fonts" || true
 +      fi
-+      # 汉化版：创建webhelper包装脚本（在启动循环内确保steamwebhelper已下载）
++      # 汉化版：创建 webhelper 包装脚本（在启动循环内确保 steamwebhelper 已下载）
 +      _bl_helper="$steam_root/steamrtarm64/steamwebhelper"
-+      _bl_wrapper_ok=0
-+      if [ -f "$_bl_helper" ]; then
-+        if head -5 "$_bl_helper" 2>/dev/null | grep -q 'DROIDDECK_ZH_WRAPPER'; then
-+          _bl_wrapper_ok=1
-+        else
-+          [ ! -f "$_bl_helper.real" ] && cp -f "$_bl_helper" "$_bl_helper.real"
-+          cat > "$_bl_helper" <<'WRAPPER'
++      if [ -f "$_bl_helper" ] && [ ! -f "${_bl_helper}.real" ]; then
++        mv -f "$_bl_helper" "${_bl_helper}.real" 2>/dev/null
++        cat > "$_bl_helper" <<'WRAPPER'
 +#!/bin/bash
 +# DROIDDECK_ZH_WRAPPER — 强制webhelper使用中文语言和中文字体
 +export LANG=zh_CN.UTF-8
 +export LC_ALL=zh_CN.UTF-8
 +export LANGUAGE=zh_CN:zh:schinese
 +_wrapper_log="$HOME/.steam_webhelper_wrapper.log"
-+echo "[$(date)] wrapper called: $0 $*" >> "$_wrapper_log" 2>/dev/null
-+args=()
++_args=()
 +for arg in "$@"; do
-+  orig="$arg"
 +  arg="${arg/-lang=en_US/-lang=zh_CN}"
 +  arg="${arg/-lang=en/-lang=zh_CN}"
 +  arg="${arg/-lang=en_GB/-lang=zh_CN}"
-+  arg="${arg/--lang=en-US/--lang=zh-CN}"
-+  arg="${arg/--lang=en-GB/--lang=zh-CN}"
-+  arg="${arg/--lang=en/--lang=zh-CN}"
-+  [ "$arg" != "$orig" ] && echo "[$(date)] replaced: $orig -> $arg" >> "$_wrapper_log" 2>/dev/null
-+  args+=("$arg")
++  _args+=("$arg")
 +done
-+exec "$0.real" "${args[@]}"
++echo "[$(date)] webhelper wrapper called with ${#_args[@]} args" >>"$_wrapper_log" 2>/dev/null
++exec "${0}.real" "${_args[@]}"
 +WRAPPER
-+          chmod +x "$_bl_helper"
-+          _bl_wrapper_ok=1
-+          echo "== steam: installed zh_CN webhelper wrapper (env vars + param replace)"
-+        fi
++        chmod +x "$_bl_helper" 2>/dev/null
++        echo "== steam: installed zh_CN webhelper wrapper (env vars + param replace)"
++      elif [ -f "${_bl_helper}.real" ]; then
++        echo "== steam: webhelper wrapper already installed"
 +      else
 +        echo "== steam: webhelper not yet downloaded, wrapper will be installed on next launch"
 +      fi
-+      # 汉化版：如果包装脚本已就绪，在启动前也设置CEF语言环境变量
-+      if [ "$_bl_wrapper_ok" = 1 ]; then
-+        export CEF_LANG=zh-CN
-+        export CHROMIUM_LANG=zh-CN
++      # 汉化版：首次中文启动清理 CEF 缓存（防止英文 UI 残留）
++      _bl_cef_cache="$steam_root/config/htmlcache"
++      _bl_cef_flag="$steam_root/config/.zh-cef-cleared"
++      if [ -d "$_bl_cef_cache" ] && [ ! -f "$_bl_cef_flag" ]; then
++        rm -rf "$_bl_cef_cache" 2>/dev/null && touch "$_bl_cef_flag" && echo "== steam: CEF cache cleared for first Chinese launch" || true
 +      fi
-+      # 汉化版：更新字体缓存
++      export CEF_LANG=zh-CN
++      export CHROMIUM_LANG=zh-CN
 +      command -v fc-cache >/dev/null 2>&1 && fc-cache -f >/dev/null 2>&1 && echo "== fonts: fc-cache updated" || true
-+      export STEAM_LANG=$_bl_steam_lang
++
        step "starting the Steam client${BL_STEAM_UI:+ ($BL_STEAM_UI UI)}"
        "$steam_root/steamrtarm64/steam" "${_bl_ui[@]}" -clientbeta "$steam_channel" \
-+        -lang "$_bl_steam_lang" \
++        -lang schinese -cef-lang=zh-CN -cef-accept-lang=zh-CN \
          -no-cef-sandbox -cef-force-gpu -cef-ozone-platform=x11 \
--        -cef-use-gl=angle -cef-use-angle=vulkan "$@"
-+        -cef-use-gl=angle -cef-use-angle=vulkan \
-+        -cef-lang=zh-CN -cef-accept-lang=zh-CN "$@"
+         -cef-use-gl=angle -cef-use-angle=vulkan "$@"
        rc=$?
-+      echo "== steam: after exit, config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
-       echo "== steam exited rc=$rc"
-       collect_steam_logs
-       # The session asked for this exit (the ARM64 Proton landed): start again, without the URL

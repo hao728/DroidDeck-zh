@@ -1,15 +1,14 @@
-diff -ruN a/smali_classes2/com/droiddeck/launcher/session/SessionFiles.smali b/smali_classes2/com/droiddeck/launcher/session/SessionFiles.smali
---- a/smali_classes2/com/droiddeck/launcher/session/SessionFiles.smali	2026-09-29 15:12:03.626712174 +0800
-+++ b/smali_classes2/com/droiddeck/launcher/session/SessionFiles.smali	2026-09-29 15:12:03.627712156 +0800
-@@ -2311,9 +2311,9 @@
-     aput-object v0, v4, v14
+--- a/smali_classes2/com/droiddeck/launcher/session/SessionFiles.smali	2026-10-03 19:07:07.692845868 +0800
++++ b/smali_classes2/com/droiddeck/launcher/session/SessionFiles.smali	2026-10-03 19:07:07.696845884 +0800
+@@ -2435,9 +2435,9 @@
+     aput-object v0, v6, v15
  
-     .line 56
+     .line 69
 -    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/jupiter-dock-updater"
-+    const-string/jumbo v0, "zh-overlay.tar.gz"
++    const-string/jumbo v0, "usr/local/zh-overlay.tar.gz"
  
--    const-string/jumbo v14, "usr/bin/steamos-polkit-helpers/jupiter-dock-updater"
-+    const-string/jumbo v14, "usr/local/zh-overlay.tar.gz"
+-    const-string/jumbo v15, "usr/bin/steamos-polkit-helpers/jupiter-dock-updater"
++    const-string/jumbo v15, "usr/local/zh-overlay.tar.gz"
  
-     invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+     invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
  

@@ -11,7 +11,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/SourceDebugExtension;
-    value = "SMAP\nSessionFiles.kt\nKotlin\n*S Kotlin\n*F\n+ 1 SessionFiles.kt\ncom/droiddeck/launcher/session/SessionFiles\n+ 2 _Collections.kt\nkotlin/collections/CollectionsKt___CollectionsKt\n+ 3 _Arrays.kt\nkotlin/collections/ArraysKt___ArraysKt\n+ 4 fake.kt\nkotlin/jvm/internal/FakeKt\n+ 5 _Strings.kt\nkotlin/text/StringsKt___StringsKt\n*L\n1#1,329:1\n1557#2:330\n1628#2,3:331\n3829#3:334\n4344#3:335\n4345#3:337\n1#4:336\n648#5,5:338\n648#5,5:343\n*S KotlinDebug\n*F\n+ 1 SessionFiles.kt\ncom/droiddeck/launcher/session/SessionFiles\n*L\n83#1:330\n83#1:331,3\n90#1:334\n90#1:335\n90#1:337\n226#1:338,5\n293#1:343,5\n*E\n"
+    value = "SMAP\nSessionFiles.kt\nKotlin\n*S Kotlin\n*F\n+ 1 SessionFiles.kt\ncom/droiddeck/launcher/session/SessionFiles\n+ 2 _Collections.kt\nkotlin/collections/CollectionsKt___CollectionsKt\n+ 3 _Arrays.kt\nkotlin/collections/ArraysKt___ArraysKt\n+ 4 fake.kt\nkotlin/jvm/internal/FakeKt\n+ 5 _Strings.kt\nkotlin/text/StringsKt___StringsKt\n*L\n1#1,345:1\n1557#2:346\n1628#2,3:347\n3829#3:350\n4344#3:351\n4345#3:353\n1#4:352\n648#5,5:354\n648#5,5:359\n*S KotlinDebug\n*F\n+ 1 SessionFiles.kt\ncom/droiddeck/launcher/session/SessionFiles\n*L\n96#1:346\n96#1:347,3\n103#1:350\n103#1:351\n103#1:353\n242#1:354,5\n309#1:359,5\n*E\n"
 .end annotation
 
 .annotation runtime Lkotlin/Metadata;
@@ -97,7 +97,7 @@
 .method private constructor <init>()V
     .locals 0
 
-    .line 11
+    .line 12
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
@@ -110,10 +110,10 @@
 
     move-object/from16 v2, p1
 
-    .line 188
+    .line 204
     const-string v3, "could not write Steam startup movie selection"
 
-    .line 190
+    .line 206
     invoke-virtual/range {p1 .. p1}, Ljava/io/File;->isFile()Z
 
     move-result v0
@@ -165,12 +165,12 @@
 
     if-nez v7, :cond_0
 
-    .line 192
+    .line 208
     check-cast v0, Ljava/lang/String;
 
     goto :goto_1
 
-    .line 191
+    .line 207
     :cond_0
     const-string v0, "could not read Steam config for startup movie"
 
@@ -178,11 +178,11 @@
 
     return-void
 
-    .line 193
+    .line 209
     :cond_1
     const-string v0, ""
 
-    .line 194
+    .line 210
     :goto_1
     move-object v7, v0
 
@@ -212,7 +212,7 @@
     :goto_2
     move-object v15, v8
 
-    .line 195
+    .line 211
     const-string v8, "StartupMovie"
 
     invoke-virtual {v0}, Ljava/lang/String;->length()I
@@ -223,14 +223,14 @@
 
     move-result-object v8
 
-    .line 196
+    .line 212
     const-string/jumbo v12, "substring(...)"
 
     const-string v11, "/uioverrides/movies/bigpicture_startup.webm"
 
     if-eqz v8, :cond_a
 
-    .line 197
+    .line 213
     invoke-virtual {v8}, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;->getKeyStart()I
 
     move-result v9
@@ -247,35 +247,35 @@
 
     invoke-static {v0, v12}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 198
+    .line 214
     const-string v9, "MovieID"
 
     invoke-direct {v1, v0, v9}, Lcom/droiddeck/launcher/session/SessionFiles;->scalar(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v10
 
-    .line 199
+    .line 215
     const-string v12, "LocalPath"
 
     invoke-direct {v1, v0, v12}, Lcom/droiddeck/launcher/session/SessionFiles;->scalar(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 200
+    .line 216
     invoke-static {v4, v11}, Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z
 
     move-result v16
 
     if-eqz v16, :cond_3
 
-    .line 201
+    .line 217
     const-string v0, "Steam startup movie is set to DroidDeck"
 
     invoke-static {v5, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     return-void
 
-    .line 204
+    .line 220
     :cond_3
     const-string v14, "0"
 
@@ -300,7 +300,7 @@
     :cond_4
     const/4 v13, 0x0
 
-    .line 206
+    .line 222
     :goto_3
     move-object/from16 v18, v10
 
@@ -351,27 +351,27 @@
 
     if-eqz v17, :cond_9
 
-    .line 208
+    .line 224
     const-string v0, "Steam startup movie selection preserved"
 
     invoke-static {v5, v0}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     return-void
 
-    .line 211
+    .line 227
     :cond_9
     invoke-direct {v1, v0, v9, v14, v15}, Lcom/droiddeck/launcher/session/SessionFiles;->setScalar(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 212
+    .line 228
     sget-object v4, Lcom/droiddeck/launcher/session/SessionFiles;->INSTANCE:Lcom/droiddeck/launcher/session/SessionFiles;
 
     invoke-direct {v4, v0, v12, v11, v15}, Lcom/droiddeck/launcher/session/SessionFiles;->setScalar(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 213
+    .line 229
     invoke-virtual {v8}, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;->getKeyStart()I
 
     move-result v4
@@ -394,7 +394,7 @@
 
     goto/16 :goto_b
 
-    .line 215
+    .line 231
     :cond_a
     invoke-direct {v1, v0}, Lcom/droiddeck/launcher/session/SessionFiles;->findSteamBlock(Ljava/lang/String;)Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;
 
@@ -402,21 +402,21 @@
 
     if-nez v4, :cond_c
 
-    .line 217
+    .line 233
     invoke-static {v7}, Lkotlin/text/StringsKt;->isBlank(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
     if-nez v0, :cond_b
 
-    .line 218
+    .line 234
     const-string v0, "Steam config has no Steam settings block; startup movie default not set"
 
     invoke-static {v5, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
     return-void
 
-    .line 221
+    .line 237
     :cond_b
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -502,14 +502,14 @@
 
     move-result-object v0
 
-    .line 222
+    .line 238
     const-string v4, "\t\t\t\t"
 
     invoke-direct {v1, v4, v11, v15}, Lcom/droiddeck/launcher/session/SessionFiles;->startupMovieSection(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v4
 
-    .line 223
+    .line 239
     new-instance v6, Ljava/lang/StringBuilder;
 
     invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
@@ -568,7 +568,7 @@
 
     goto/16 :goto_b
 
-    .line 225
+    .line 241
     :cond_c
     invoke-virtual {v4}, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;->getClose()I
 
@@ -603,7 +603,7 @@
     :cond_d
     add-int/2addr v6, v7
 
-    .line 226
+    .line 242
     :goto_7
     invoke-virtual {v4}, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;->getClose()I
 
@@ -615,7 +615,7 @@
 
     invoke-static {v4, v13}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 338
+    .line 354
     invoke-virtual {v4}, Ljava/lang/String;->length()I
 
     move-result v7
@@ -625,7 +625,7 @@
     :goto_8
     if-ge v8, v7, :cond_10
 
-    .line 339
+    .line 355
     invoke-virtual {v4, v8}, Ljava/lang/String;->charAt(I)C
 
     move-result v9
@@ -643,7 +643,7 @@
     :cond_e
     const/4 v9, 0x0
 
-    .line 340
+    .line 356
     invoke-virtual {v4, v9, v8}, Ljava/lang/String;->substring(II)Ljava/lang/String;
 
     move-result-object v4
@@ -658,7 +658,7 @@
 
     goto :goto_8
 
-    .line 227
+    .line 243
     :cond_10
     :goto_a
     new-instance v7, Ljava/lang/StringBuilder;
@@ -687,7 +687,7 @@
 
     const/4 v8, 0x0
 
-    .line 228
+    .line 244
     invoke-virtual {v0, v8, v6}, Ljava/lang/String;->substring(II)Ljava/lang/String;
 
     move-result-object v8
@@ -728,7 +728,7 @@
 
     move-result-object v0
 
-    .line 231
+    .line 247
     :goto_b
     new-instance v4, Ljava/io/File;
 
@@ -760,7 +760,7 @@
 
     invoke-direct {v4, v6, v7}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 233
+    .line 249
     :try_start_1
     invoke-virtual/range {p1 .. p1}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
@@ -775,25 +775,25 @@
 
     const/4 v7, 0x0
 
-    .line 234
+    .line 250
     invoke-static {v4, v0, v7, v6, v7}, Lkotlin/io/FilesKt;->writeText$default(Ljava/io/File;Ljava/lang/String;Ljava/nio/charset/Charset;ILjava/lang/Object;)V
 
-    .line 235
+    .line 251
     invoke-virtual {v4, v2}, Ljava/io/File;->renameTo(Ljava/io/File;)Z
 
     move-result v0
 
     if-nez v0, :cond_12
 
-    .line 236
+    .line 252
     invoke-virtual {v4}, Ljava/io/File;->delete()Z
 
-    .line 237
+    .line 253
     invoke-static {v5, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
     goto :goto_c
 
-    .line 239
+    .line 255
     :cond_12
     const-string v0, "Steam startup movie default selected"
 
@@ -806,10 +806,10 @@
     :catch_0
     move-exception v0
 
-    .line 242
+    .line 258
     invoke-virtual {v4}, Ljava/io/File;->delete()Z
 
-    .line 243
+    .line 259
     check-cast v0, Ljava/lang/Throwable;
 
     invoke-static {v5, v3, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
@@ -821,7 +821,7 @@
 .method private final findObject(Ljava/lang/String;Ljava/lang/String;II)Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;
     .locals 10
 
-    .line 255
+    .line 271
     new-instance v0, Lkotlin/text/Regex;
 
     sget-object v1, Lkotlin/text/Regex;->Companion:Lkotlin/text/Regex$Companion;
@@ -852,7 +852,7 @@
 
     invoke-direct {v0, p2}, Lkotlin/text/Regex;-><init>(Ljava/lang/String;)V
 
-    .line 256
+    .line 272
     move-object v1, p1
 
     check-cast v1, Ljava/lang/CharSequence;
@@ -895,7 +895,7 @@
 
     goto/16 :goto_4
 
-    .line 257
+    .line 273
     :cond_1
     invoke-interface {p2}, Lkotlin/text/MatchResult;->getRange()Lkotlin/ranges/IntRange;
 
@@ -956,7 +956,7 @@
     :goto_2
     if-ge v2, p4, :cond_a
 
-    .line 262
+    .line 278
     invoke-virtual {p1, v2}, Ljava/lang/String;->charAt(I)C
 
     move-result v6
@@ -1007,7 +1007,7 @@
 
     if-nez v5, :cond_9
 
-    .line 273
+    .line 289
     new-instance p1, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;
 
     invoke-interface {p2}, Lkotlin/text/MatchResult;->getRange()Lkotlin/ranges/IntRange;
@@ -1046,7 +1046,7 @@
 
     const/4 v0, 0x0
 
-    .line 248
+    .line 264
     invoke-virtual {p1}, Ljava/lang/String;->length()I
 
     move-result v1
@@ -1063,7 +1063,7 @@
 
     return-object v1
 
-    .line 249
+    .line 265
     :cond_0
     invoke-virtual {v0}, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;->getOpen()I
 
@@ -1085,7 +1085,7 @@
 
     return-object v1
 
-    .line 250
+    .line 266
     :cond_1
     invoke-virtual {v0}, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;->getOpen()I
 
@@ -1107,7 +1107,7 @@
 
     return-object v1
 
-    .line 251
+    .line 267
     :cond_2
     invoke-virtual {v0}, Lcom/droiddeck/launcher/session/SessionFiles$VdfBlock;->getOpen()I
 
@@ -1131,7 +1131,7 @@
 .method private final scalar(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
     .locals 3
 
-    .line 282
+    .line 298
     new-instance v0, Lkotlin/text/Regex;
 
     sget-object v1, Lkotlin/text/Regex;->Companion:Lkotlin/text/Regex$Companion;
@@ -1162,7 +1162,7 @@
 
     invoke-direct {v0, p2}, Lkotlin/text/Regex;-><init>(Ljava/lang/String;)V
 
-    .line 283
+    .line 299
     check-cast p1, Ljava/lang/CharSequence;
 
     const/4 p2, 0x0
@@ -1200,7 +1200,7 @@
 .method private final setScalar(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
     .locals 11
 
-    .line 287
+    .line 303
     new-instance v0, Lkotlin/text/Regex;
 
     sget-object v1, Lkotlin/text/Regex;->Companion:Lkotlin/text/Regex$Companion;
@@ -1231,7 +1231,7 @@
 
     invoke-direct {v0, v1}, Lkotlin/text/Regex;-><init>(Ljava/lang/String;)V
 
-    .line 288
+    .line 304
     move-object v1, p1
 
     check-cast v1, Ljava/lang/CharSequence;
@@ -1248,7 +1248,7 @@
 
     const/4 v9, 0x1
 
-    .line 289
+    .line 305
     const-string v10, "\""
 
     if-eqz v0, :cond_0
@@ -1326,7 +1326,7 @@
 
     move-object v2, v1
 
-    .line 290
+    .line 306
     invoke-static/range {v2 .. v7}, Lkotlin/text/StringsKt;->lastIndexOf$default(Ljava/lang/CharSequence;CIZILjava/lang/Object;)I
 
     move-result v0
@@ -1348,7 +1348,7 @@
 
     move v4, v0
 
-    .line 292
+    .line 308
     invoke-static/range {v2 .. v7}, Lkotlin/text/StringsKt;->lastIndexOf$default(Ljava/lang/CharSequence;CIZILjava/lang/Object;)I
 
     move-result v1
@@ -1362,7 +1362,7 @@
     :cond_2
     add-int/2addr v1, v9
 
-    .line 293
+    .line 309
     :goto_0
     invoke-virtual {p1, v1, v0}, Ljava/lang/String;->substring(II)Ljava/lang/String;
 
@@ -1372,7 +1372,7 @@
 
     invoke-static {v0, v2}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 343
+    .line 359
     invoke-virtual {v0}, Ljava/lang/String;->length()I
 
     move-result v3
@@ -1382,7 +1382,7 @@
     :goto_1
     if-ge v4, v3, :cond_5
 
-    .line 344
+    .line 360
     invoke-virtual {v0, v4}, Ljava/lang/String;->charAt(I)C
 
     move-result v5
@@ -1397,7 +1397,7 @@
 
     goto :goto_2
 
-    .line 345
+    .line 361
     :cond_3
     invoke-virtual {v0, v8, v4}, Ljava/lang/String;->substring(II)Ljava/lang/String;
 
@@ -1413,7 +1413,7 @@
 
     goto :goto_1
 
-    .line 347
+    .line 363
     :cond_5
     :goto_3
     new-instance v3, Ljava/lang/StringBuilder;
@@ -1434,7 +1434,7 @@
 
     move-result-object v0
 
-    .line 294
+    .line 310
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
@@ -1473,7 +1473,7 @@
 
     move-result-object p2
 
-    .line 295
+    .line 311
     invoke-virtual {p1, v8, v1}, Ljava/lang/String;->substring(II)Ljava/lang/String;
 
     move-result-object p3
@@ -1512,18 +1512,18 @@
 .method private final stageStartupMovie(Landroid/content/Context;Ljava/io/File;Ljava/lang/String;)Z
     .locals 7
 
-    .line 167
+    .line 183
     const-string v0, "SessionFiles"
 
     .line 0
     const-string v1, "could not stage Steam startup movie "
 
-    .line 167
+    .line 183
     new-instance v2, Ljava/io/File;
 
     invoke-direct {v2, p2, p3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 168
+    .line 184
     new-instance v3, Ljava/io/File;
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1548,11 +1548,11 @@
 
     const/4 v4, 0x0
 
-    .line 171
+    .line 187
     :try_start_0
     invoke-virtual {p2}, Ljava/io/File;->mkdirs()Z
 
-    .line 172
+    .line 188
     invoke-virtual {p1}, Landroid/content/Context;->getAssets()Landroid/content/res/AssetManager;
 
     move-result-object p1
@@ -1575,7 +1575,7 @@
 
     new-instance v5, Ljava/io/FileOutputStream;
 
-    .line 173
+    .line 189
     invoke-direct {v5, v3}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
     check-cast v5, Ljava/io/Closeable;
@@ -1600,18 +1600,18 @@
     :try_start_3
     invoke-static {v5, p2}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
 
-    .line 174
+    .line 190
     sget-object v5, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_2
 
-    .line 172
+    .line 188
     :try_start_4
     invoke-static {p1, p2}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
 
     const/4 p1, 0x1
 
-    .line 175
+    .line 191
     invoke-virtual {v3, p1, v4}, Ljava/io/File;->setReadable(ZZ)Z
 
     move-result p2
@@ -1632,7 +1632,7 @@
     :cond_0
     if-nez v4, :cond_1
 
-    .line 179
+    .line 195
     :goto_0
     invoke-virtual {v3}, Ljava/io/File;->delete()Z
 
@@ -1641,7 +1641,7 @@
     :catchall_0
     move-exception p2
 
-    .line 173
+    .line 189
     :try_start_5
     throw p2
     :try_end_5
@@ -1660,7 +1660,7 @@
     :catchall_2
     move-exception p2
 
-    .line 172
+    .line 188
     :try_start_7
     throw p2
     :try_end_7
@@ -1685,7 +1685,7 @@
     :catch_0
     move-exception p1
 
-    .line 177
+    .line 193
     :try_start_9
     new-instance p2, Ljava/lang/StringBuilder;
 
@@ -1711,7 +1711,7 @@
     :goto_1
     if-nez v4, :cond_2
 
-    .line 181
+    .line 197
     new-instance p1, Ljava/lang/StringBuilder;
 
     const-string p2, "Steam startup movie "
@@ -1737,7 +1737,7 @@
     :cond_2
     return v4
 
-    .line 179
+    .line 195
     :goto_2
     invoke-virtual {v3}, Ljava/io/File;->delete()Z
 
@@ -1749,7 +1749,7 @@
 
     const/4 v0, 0x5
 
-    .line 299
+    .line 315
     new-array v0, v0, [Ljava/lang/String;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1774,7 +1774,7 @@
 
     aput-object v1, v0, v2
 
-    .line 300
+    .line 316
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1797,7 +1797,7 @@
 
     aput-object v1, v0, v2
 
-    .line 301
+    .line 317
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1820,7 +1820,7 @@
 
     aput-object v1, v0, v2
 
-    .line 302
+    .line 318
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -1853,7 +1853,7 @@
 
     aput-object p2, v0, v1
 
-    .line 303
+    .line 319
     new-instance p2, Ljava/lang/StringBuilder;
 
     invoke-direct {p2}, Ljava/lang/StringBuilder;-><init>()V
@@ -1876,7 +1876,7 @@
 
     aput-object p1, v0, p2
 
-    .line 298
+    .line 314
     invoke-static {v0}, Lkotlin/collections/CollectionsKt;->listOf([Ljava/lang/Object;)Ljava/util/List;
 
     move-result-object p1
@@ -1885,7 +1885,7 @@
 
     check-cast v0, Ljava/lang/Iterable;
 
-    .line 304
+    .line 320
     move-object v1, p3
 
     check-cast v1, Ljava/lang/CharSequence;
@@ -1920,12 +1920,12 @@
 
     invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 314
+    .line 330
     invoke-static {}, Lcom/droiddeck/launcher/runtime/LinuxRuntime;->debugLogDir()Ljava/io/File;
 
     move-result-object v0
 
-    .line 315
+    .line 331
     invoke-virtual {v0}, Ljava/io/File;->isDirectory()Z
 
     move-result v1
@@ -1938,7 +1938,7 @@
 
     if-eqz v1, :cond_2
 
-    .line 316
+    .line 332
     :cond_0
     new-instance v1, Ljava/io/File;
 
@@ -1946,7 +1946,7 @@
 
     invoke-direct {v1, v0, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 318
+    .line 334
     :try_start_0
     invoke-virtual {v1}, Ljava/io/File;->createNewFile()Z
 
@@ -1960,18 +1960,18 @@
 
     if-eqz v2, :cond_2
 
-    .line 319
+    .line 335
     :cond_1
     invoke-virtual {v1}, Ljava/io/File;->delete()Z
 
-    .line 320
+    .line 336
     invoke-static {v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNull(Ljava/lang/Object;)V
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
     return-object v0
 
-    .line 325
+    .line 341
     :catch_0
     :cond_2
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1996,7 +1996,7 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 326
+    .line 342
     new-instance v0, Ljava/io/File;
 
     invoke-virtual {p1}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
@@ -2013,7 +2013,7 @@
 .end method
 
 .method public final stage(Landroid/content/Context;Ljava/io/File;)V
-    .locals 18
+    .locals 17
 
     move-object/from16 v1, p0
 
@@ -2029,435 +2029,559 @@
 
     invoke-static {v3, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
 
-    const/16 v0, 0x18
-
     .line 28
-    new-array v4, v0, [Lkotlin/Pair;
+    sget-object v0, Lcom/droiddeck/launcher/session/GameEnvironmentStore;->INSTANCE:Lcom/droiddeck/launcher/session/GameEnvironmentStore;
 
-    const-string v0, "libblsession.so"
+    const/4 v4, 0x0
 
-    const-string/jumbo v5, "usr/local/lib/libblsession.so"
+    const/4 v5, 0x2
 
-    invoke-static {v0, v5}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v2, v4, v5, v4}, Lcom/droiddeck/launcher/session/GameEnvironmentStore;->publish$default(Lcom/droiddeck/launcher/session/GameEnvironmentStore;Landroid/content/Context;Lcom/droiddeck/launcher/core/GameEnvironment$Config;ILjava/lang/Object;)V
 
-    move-result-object v0
-
-    const/4 v5, 0x0
-
-    aput-object v0, v4, v5
-
-    .line 29
-    const-string v0, "libfakeinput.so"
-
-    const-string/jumbo v6, "usr/local/lib/libfakeinput.so"
-
-    invoke-static {v0, v6}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    const/4 v6, 0x1
-
-    aput-object v0, v4, v6
+    const/16 v0, 0x21
 
     .line 30
+    new-array v6, v0, [Lkotlin/Pair;
+
+    const-string/jumbo v0, "usr/local/bin/bannerlator-game-env"
+
+    invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/4 v7, 0x0
+
+    aput-object v0, v6, v7
+
+    .line 31
+    const-string v0, "libblsession.so"
+
+    const-string/jumbo v8, "usr/local/lib/libblsession.so"
+
+    invoke-static {v0, v8}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/4 v8, 0x1
+
+    aput-object v0, v6, v8
+
+    .line 32
+    const-string v0, "libfakeinput.so"
+
+    const-string/jumbo v9, "usr/local/lib/libfakeinput.so"
+
+    invoke-static {v0, v9}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    aput-object v0, v6, v5
+
+    .line 33
+    const-string v0, "libblfastpath.so"
+
+    const-string/jumbo v9, "usr/local/lib/libblfastpath.so"
+
+    invoke-static {v0, v9}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/4 v9, 0x3
+
+    aput-object v0, v6, v9
+
+    .line 34
     const-string/jumbo v0, "usr/local/bin/bannerlator-session"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/4 v7, 0x2
+    const/4 v10, 0x4
 
-    aput-object v0, v4, v7
+    aput-object v0, v6, v10
 
-    .line 31
+    .line 35
     const-string/jumbo v0, "usr/local/bin/bannerlator-steam-compat"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/4 v8, 0x3
+    const/4 v11, 0x5
 
-    aput-object v0, v4, v8
+    aput-object v0, v6, v11
 
-    .line 32
+    .line 36
     const-string/jumbo v0, "usr/local/bin/bannerlator-steam-install"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/4 v9, 0x4
+    const/4 v12, 0x6
 
-    aput-object v0, v4, v9
+    aput-object v0, v6, v12
 
-    .line 33
+    .line 37
     const-string/jumbo v0, "usr/local/bin/bannerlator-steam-library"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/4 v10, 0x5
+    const/4 v13, 0x7
 
-    aput-object v0, v4, v10
+    aput-object v0, v6, v13
 
-    .line 34
+    .line 38
     const-string/jumbo v0, "usr/local/bin/bannerlator-seed-redists"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/4 v11, 0x6
+    const/16 v14, 0x8
 
-    aput-object v0, v4, v11
+    aput-object v0, v6, v14
 
-    .line 35
+    .line 39
     const-string/jumbo v0, "usr/local/bin/bannerlator-proton-extra"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/4 v12, 0x7
+    const/16 v14, 0x9
 
-    aput-object v0, v4, v12
+    aput-object v0, v6, v14
 
-    .line 36
+    .line 40
     const-string/jumbo v0, "usr/local/bin/bannerlator-netmanager"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v13, 0x8
+    const/16 v14, 0xa
 
-    aput-object v0, v4, v13
+    aput-object v0, v6, v14
 
-    .line 37
+    .line 41
     const-string/jumbo v0, "usr/local/bin/bannerlator-steam-launch"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v13, 0x9
+    const/16 v15, 0xb
 
-    aput-object v0, v4, v13
+    aput-object v0, v6, v15
 
-    .line 38
+    .line 42
     const-string/jumbo v0, "usr/local/bin/bannerlator-desktop-games"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v13, 0xa
+    const/16 v15, 0xc
 
-    aput-object v0, v4, v13
+    aput-object v0, v6, v15
 
-    .line 39
+    .line 43
     const-string/jumbo v0, "usr/local/bin/bannerlator-steam-shim"
 
     invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0xb
+    const/16 v15, 0xd
 
-    aput-object v0, v4, v14
-
-    .line 40
-    const-string/jumbo v0, "usr/local/bin/bannerlator-steam-shortcuts"
-
-    invoke-static {v0, v0}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    const/16 v14, 0xc
-
-    aput-object v0, v4, v14
-
-    .line 41
-    const-string/jumbo v0, "usr/local/bin/bannerlator-pad-defaults"
-
-    const-string/jumbo v14, "usr/local/bin/bannerlator-pad-defaults"
-
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    const/16 v14, 0xd
-
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
 
     .line 44
-    const-string/jumbo v0, "usr/bin/steamos-update"
+    const-string/jumbo v0, "usr/local/bin/bannerlator-steam-shortcuts"
 
-    const-string/jumbo v14, "usr/bin/steamos-update"
+    const-string/jumbo v15, "usr/local/bin/bannerlator-steam-shortcuts"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0xe
+    const/16 v15, 0xe
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
 
     .line 45
-    const-string/jumbo v0, "usr/bin/steamos-select-branch"
+    const-string/jumbo v0, "usr/local/bin/bannerlator-steam-games"
 
-    const-string/jumbo v14, "usr/bin/steamos-select-branch"
+    const-string/jumbo v15, "usr/local/bin/bannerlator-steam-games"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    const/16 v14, 0xf
-
-    aput-object v0, v4, v14
-
-    .line 47
-    const-string/jumbo v0, "usr/bin/steamos-session-select"
-
-    const-string/jumbo v14, "usr/bin/steamos-session-select"
-
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0x10
+    const/16 v15, 0xf
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
+
+    .line 46
+    const-string/jumbo v0, "usr/local/bin/bannerlator-pad-defaults"
+
+    const-string/jumbo v15, "usr/local/bin/bannerlator-pad-defaults"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x10
+
+    aput-object v0, v6, v15
 
     .line 48
-    const-string/jumbo v0, "usr/bin/jupiter-biosupdate"
+    const-string/jumbo v0, "usr/local/bin/bannerlator-bwrap"
 
-    const-string/jumbo v14, "usr/bin/jupiter-biosupdate"
+    const-string/jumbo v15, "usr/local/bin/bannerlator-bwrap"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0x11
+    const/16 v15, 0x11
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
 
     .line 49
-    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-priv-write"
+    const-string/jumbo v0, "usr/local/bin/bannerlator-flatpak"
 
-    const-string/jumbo v14, "usr/bin/steamos-polkit-helpers/steamos-priv-write"
+    const-string/jumbo v15, "usr/local/bin/bannerlator-flatpak"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0x12
+    const/16 v15, 0x12
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
 
     .line 50
-    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-set-timezone"
+    const-string/jumbo v0, "usr/local/bin/bannerlator-flatpak-setup"
 
-    const-string/jumbo v14, "usr/bin/steamos-polkit-helpers/steamos-set-timezone"
+    const-string/jumbo v15, "usr/local/bin/bannerlator-flatpak-setup"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0x13
+    const/16 v15, 0x13
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
+
+    .line 51
+    const-string/jumbo v0, "usr/local/bin/bannerlator-flatpak-run"
+
+    const-string/jumbo v15, "usr/local/bin/bannerlator-flatpak-run"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x14
+
+    aput-object v0, v6, v15
 
     .line 53
-    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-update"
+    const-string/jumbo v0, "usr/local/bin/bannerlator-appimage-run"
 
-    const-string/jumbo v14, "usr/bin/steamos-polkit-helpers/steamos-update"
+    const-string/jumbo v15, "usr/local/bin/bannerlator-appimage-run"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0x14
+    const/16 v15, 0x15
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
 
     .line 54
-    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-select-branch"
+    const-string/jumbo v0, "usr/local/bin/bannerlator-script-run"
 
-    const-string/jumbo v14, "usr/bin/steamos-polkit-helpers/steamos-select-branch"
+    const-string/jumbo v15, "usr/local/bin/bannerlator-script-run"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    const/16 v14, 0x15
-
-    aput-object v0, v4, v14
-
-    .line 55
-    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/jupiter-biosupdate"
-
-    const-string/jumbo v14, "usr/bin/steamos-polkit-helpers/jupiter-biosupdate"
-
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0x16
+    const/16 v15, 0x16
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
 
-    .line 56
-    const-string/jumbo v0, "zh-overlay.tar.gz"
+    .line 57
+    const-string/jumbo v0, "usr/bin/steamos-update"
 
-    const-string/jumbo v14, "usr/local/zh-overlay.tar.gz"
+    const-string/jumbo v15, "usr/bin/steamos-update"
 
-    invoke-static {v0, v14}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    const/16 v14, 0x17
+    const/16 v15, 0x17
 
-    aput-object v0, v4, v14
+    aput-object v0, v6, v15
+
+    .line 58
+    const-string/jumbo v0, "usr/bin/steamos-select-branch"
+
+    const-string/jumbo v15, "usr/bin/steamos-select-branch"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x18
+
+    aput-object v0, v6, v15
+
+    .line 60
+    const-string/jumbo v0, "usr/bin/steamos-session-select"
+
+    const-string/jumbo v15, "usr/bin/steamos-session-select"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x19
+
+    aput-object v0, v6, v15
 
     .line 61
-    new-array v14, v12, [Lkotlin/Pair;
+    const-string/jumbo v0, "usr/bin/jupiter-biosupdate"
+
+    const-string/jumbo v15, "usr/bin/jupiter-biosupdate"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x1a
+
+    aput-object v0, v6, v15
+
+    .line 62
+    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-priv-write"
+
+    const-string/jumbo v15, "usr/bin/steamos-polkit-helpers/steamos-priv-write"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x1b
+
+    aput-object v0, v6, v15
+
+    .line 63
+    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-set-timezone"
+
+    const-string/jumbo v15, "usr/bin/steamos-polkit-helpers/steamos-set-timezone"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x1c
+
+    aput-object v0, v6, v15
+
+    .line 66
+    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-update"
+
+    const-string/jumbo v15, "usr/bin/steamos-polkit-helpers/steamos-update"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x1d
+
+    aput-object v0, v6, v15
+
+    .line 67
+    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/steamos-select-branch"
+
+    const-string/jumbo v15, "usr/bin/steamos-polkit-helpers/steamos-select-branch"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x1e
+
+    aput-object v0, v6, v15
+
+    .line 68
+    const-string/jumbo v0, "usr/bin/steamos-polkit-helpers/jupiter-biosupdate"
+
+    const-string/jumbo v15, "usr/bin/steamos-polkit-helpers/jupiter-biosupdate"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x1f
+
+    aput-object v0, v6, v15
+
+    .line 69
+    const-string/jumbo v0, "usr/local/zh-overlay.tar.gz"
+
+    const-string/jumbo v15, "usr/local/zh-overlay.tar.gz"
+
+    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    const/16 v15, 0x20
+
+    aput-object v0, v6, v15
+
+    .line 74
+    new-array v15, v13, [Lkotlin/Pair;
 
     const-string/jumbo v0, "usr/local/bin/droiddeck-desktop"
 
-    const-string/jumbo v15, "usr/local/bin/droiddeck-desktop"
+    const-string/jumbo v4, "usr/local/bin/droiddeck-desktop"
 
-    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    aput-object v0, v14, v5
-
-    .line 63
-    const-string/jumbo v0, "usr/local/bin/droiddeck-gpu"
-
-    const-string/jumbo v15, "usr/local/bin/droiddeck-gpu"
-
-    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+    invoke-static {v0, v4}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v0
 
-    aput-object v0, v14, v6
-
-    .line 64
-    const-string/jumbo v0, "usr/local/bin/droiddeck-desktop-gpu"
-
-    const-string/jumbo v15, "usr/local/bin/droiddeck-desktop-gpu"
-
-    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    aput-object v0, v14, v7
-
-    .line 65
-    const-string v0, "etc/xdg/labwc/autostart"
-
-    const-string v15, "etc/xdg/labwc/autostart"
-
-    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    aput-object v0, v14, v8
-
-    .line 66
-    const-string v0, "etc/xdg/labwc/rc.xml"
-
-    const-string v15, "etc/xdg/labwc/rc.xml"
-
-    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    aput-object v0, v14, v9
-
-    .line 67
-    const-string v0, "etc/xdg/lxqt/panel.conf"
-
-    const-string v15, "etc/xdg/lxqt/panel.conf"
-
-    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    aput-object v0, v14, v10
-
-    .line 68
-    const-string/jumbo v0, "usr/lib/firefox/defaults/pref/droiddeck.js"
-
-    const-string/jumbo v15, "usr/lib/firefox/defaults/pref/droiddeck.js"
-
-    invoke-static {v0, v15}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
-
-    move-result-object v0
-
-    aput-object v0, v14, v11
+    aput-object v0, v15, v7
 
     .line 76
-    new-array v0, v12, [Ljava/lang/String;
+    const-string/jumbo v0, "usr/local/bin/droiddeck-gpu"
 
-    const-string/jumbo v12, "usr/local/bin/mangoapp"
+    const-string/jumbo v4, "usr/local/bin/droiddeck-gpu"
 
-    aput-object v12, v0, v5
+    invoke-static {v0, v4}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    aput-object v0, v15, v8
 
     .line 77
-    const-string/jumbo v12, "usr/local/lib/mangoapp/mangoapp"
+    const-string/jumbo v0, "usr/local/bin/droiddeck-desktop-gpu"
 
-    aput-object v12, v0, v6
+    const-string/jumbo v4, "usr/local/bin/droiddeck-desktop-gpu"
+
+    invoke-static {v0, v4}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    aput-object v0, v15, v5
 
     .line 78
-    const-string/jumbo v12, "usr/local/lib/mangoapp/libfmt.so.10"
+    const-string v0, "etc/xdg/labwc/autostart"
 
-    aput-object v12, v0, v7
+    const-string v4, "etc/xdg/labwc/autostart"
+
+    invoke-static {v0, v4}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    aput-object v0, v15, v9
 
     .line 79
-    const-string/jumbo v12, "usr/local/lib/mangoapp/libspdlog.so.1.13"
+    const-string v0, "etc/xdg/labwc/rc.xml"
 
-    aput-object v12, v0, v8
+    const-string v4, "etc/xdg/labwc/rc.xml"
+
+    invoke-static {v0, v4}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    aput-object v0, v15, v10
 
     .line 80
-    const-string/jumbo v12, "usr/local/lib/mangoapp/libglfw.so.3"
+    const-string v0, "etc/xdg/lxqt/panel.conf"
 
-    aput-object v12, v0, v9
+    const-string v4, "etc/xdg/lxqt/panel.conf"
+
+    invoke-static {v0, v4}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
+
+    move-result-object v0
+
+    aput-object v0, v15, v11
 
     .line 81
-    const-string/jumbo v9, "usr/local/lib/mangoapp/libtraceevent.so.1"
+    const-string/jumbo v0, "usr/lib/firefox/defaults/pref/droiddeck.js"
 
-    aput-object v9, v0, v10
+    const-string/jumbo v4, "usr/lib/firefox/defaults/pref/droiddeck.js"
 
-    .line 82
-    const-string/jumbo v9, "usr/local/lib/mangoapp/libtracefs.so.1"
+    invoke-static {v0, v4}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
-    aput-object v9, v0, v11
+    move-result-object v0
 
-    .line 75
+    aput-object v0, v15, v12
+
+    .line 89
+    new-array v0, v13, [Ljava/lang/String;
+
+    const-string/jumbo v4, "usr/local/bin/mangoapp"
+
+    aput-object v4, v0, v7
+
+    .line 90
+    const-string/jumbo v4, "usr/local/lib/mangoapp/mangoapp"
+
+    aput-object v4, v0, v8
+
+    .line 91
+    const-string/jumbo v4, "usr/local/lib/mangoapp/libfmt.so.10"
+
+    aput-object v4, v0, v5
+
+    .line 92
+    const-string/jumbo v4, "usr/local/lib/mangoapp/libspdlog.so.1.13"
+
+    aput-object v4, v0, v9
+
+    .line 93
+    const-string/jumbo v4, "usr/local/lib/mangoapp/libglfw.so.3"
+
+    aput-object v4, v0, v10
+
+    .line 94
+    const-string/jumbo v4, "usr/local/lib/mangoapp/libtraceevent.so.1"
+
+    aput-object v4, v0, v11
+
+    .line 95
+    const-string/jumbo v4, "usr/local/lib/mangoapp/libtracefs.so.1"
+
+    aput-object v4, v0, v12
+
+    .line 88
     invoke-static {v0}, Lkotlin/collections/CollectionsKt;->listOf([Ljava/lang/Object;)Ljava/util/List;
 
     move-result-object v0
 
     check-cast v0, Ljava/lang/Iterable;
 
-    .line 330
-    new-instance v9, Ljava/util/ArrayList;
+    .line 346
+    new-instance v4, Ljava/util/ArrayList;
 
-    invoke-static {v0, v13}, Lkotlin/collections/CollectionsKt;->collectionSizeOrDefault(Ljava/lang/Iterable;I)I
+    invoke-static {v0, v14}, Lkotlin/collections/CollectionsKt;->collectionSizeOrDefault(Ljava/lang/Iterable;I)I
 
     move-result v10
 
-    invoke-direct {v9, v10}, Ljava/util/ArrayList;-><init>(I)V
+    invoke-direct {v4, v10}, Ljava/util/ArrayList;-><init>(I)V
 
-    check-cast v9, Ljava/util/Collection;
+    check-cast v4, Ljava/util/Collection;
 
-    .line 331
+    .line 347
     invoke-interface {v0}, Ljava/lang/Iterable;->iterator()Ljava/util/Iterator;
 
     move-result-object v0
@@ -2473,24 +2597,24 @@
 
     move-result-object v10
 
-    .line 332
+    .line 348
     check-cast v10, Ljava/lang/String;
 
-    .line 83
+    .line 96
     invoke-static {v10, v10}, Lkotlin/TuplesKt;->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;
 
     move-result-object v10
 
-    .line 332
-    invoke-interface {v9, v10}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
+    .line 348
+    invoke-interface {v4, v10}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
 
     goto :goto_0
 
-    .line 333
+    .line 349
     :cond_0
-    check-cast v9, Ljava/util/List;
+    check-cast v4, Ljava/util/List;
 
-    .line 85
+    .line 98
     new-instance v0, Ljava/io/File;
 
     const-string/jumbo v10, "usr/bin/labwc"
@@ -2503,8 +2627,8 @@
 
     if-eqz v0, :cond_1
 
-    .line 86
-    new-array v0, v6, [Lkotlin/Pair;
+    .line 99
+    new-array v0, v8, [Lkotlin/Pair;
 
     const-string/jumbo v10, "usr/local/lib/droiddeck-wlroots/libwlroots-0.20.so"
 
@@ -2514,17 +2638,17 @@
 
     move-result-object v10
 
-    aput-object v10, v0, v5
+    aput-object v10, v0, v7
 
     goto :goto_1
 
-    .line 87
+    .line 100
     :cond_1
-    new-array v0, v5, [Lkotlin/Pair;
+    new-array v0, v7, [Lkotlin/Pair;
 
-    .line 89
+    .line 102
     :goto_1
-    new-array v10, v6, [Lkotlin/Pair;
+    new-array v10, v8, [Lkotlin/Pair;
 
     const-string/jumbo v11, "usr/local/bin/gamescope"
 
@@ -2534,22 +2658,22 @@
 
     move-result-object v11
 
-    aput-object v11, v10, v5
+    aput-object v11, v10, v7
 
-    .line 88
+    .line 101
     invoke-static {v10, v0}, Lkotlin/collections/ArraysKt;->plus([Ljava/lang/Object;[Ljava/lang/Object;)[Ljava/lang/Object;
 
     move-result-object v0
 
-    .line 90
-    check-cast v9, Ljava/util/Collection;
+    .line 103
+    check-cast v4, Ljava/util/Collection;
 
-    .line 88
-    invoke-static {v0, v9}, Lkotlin/collections/ArraysKt;->plus([Ljava/lang/Object;Ljava/util/Collection;)[Ljava/lang/Object;
+    .line 101
+    invoke-static {v0, v4}, Lkotlin/collections/ArraysKt;->plus([Ljava/lang/Object;Ljava/util/Collection;)[Ljava/lang/Object;
 
-    move-result-object v9
+    move-result-object v4
 
-    .line 334
+    .line 350
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
@@ -2558,83 +2682,83 @@
 
     check-cast v10, Ljava/util/Collection;
 
-    .line 335
-    array-length v11, v9
+    .line 351
+    array-length v11, v4
 
-    move v12, v5
+    move v12, v7
 
     :goto_2
-    const/4 v13, 0x0
-
     if-ge v12, v11, :cond_5
 
-    aget-object v15, v9, v12
+    aget-object v13, v4, v12
 
-    move-object v0, v15
+    move-object v0, v13
 
     check-cast v0, Lkotlin/Pair;
 
-    .line 90
+    .line 103
     invoke-virtual {v0}, Lkotlin/Pair;->component1()Ljava/lang/Object;
 
     move-result-object v0
 
     check-cast v0, Ljava/lang/String;
 
-    const/16 v8, 0x2f
+    const/16 v14, 0x2f
 
-    .line 91
-    invoke-static {v0, v8, v13, v7, v13}, Lkotlin/text/StringsKt;->substringBeforeLast$default(Ljava/lang/String;CLjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+    const/4 v9, 0x0
 
-    move-result-object v8
+    .line 104
+    invoke-static {v0, v14, v9, v5, v9}, Lkotlin/text/StringsKt;->substringBeforeLast$default(Ljava/lang/String;CLjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 
-    .line 92
+    move-result-object v14
+
+    .line 105
     :try_start_0
-    sget-object v17, Lkotlin/Result;->Companion:Lkotlin/Result$Companion;
+    sget-object v9, Lkotlin/Result;->Companion:Lkotlin/Result$Companion;
 
     invoke-virtual/range {p1 .. p1}, Landroid/content/Context;->getAssets()Landroid/content/res/AssetManager;
 
-    move-result-object v5
+    move-result-object v9
 
-    new-instance v6, Ljava/lang/StringBuilder;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "linuxfs/"
+    const-string v8, "linuxfs/"
 
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v6
+    move-result-object v7
 
-    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v6
+    move-result-object v7
 
-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v6
+    move-result-object v7
 
-    invoke-virtual {v5, v6}, Landroid/content/res/AssetManager;->list(Ljava/lang/String;)[Ljava/lang/String;
+    invoke-virtual {v9, v7}, Landroid/content/res/AssetManager;->list(Ljava/lang/String;)[Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v7
 
-    if-eqz v5, :cond_2
+    if-eqz v7, :cond_2
 
-    const/16 v6, 0x2f
+    const/16 v8, 0x2f
 
-    const/4 v7, 0x2
+    const/4 v9, 0x0
 
-    invoke-static {v0, v6, v13, v7, v13}, Lkotlin/text/StringsKt;->substringAfterLast$default(Ljava/lang/String;CLjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+    invoke-static {v0, v8, v9, v5, v9}, Lkotlin/text/StringsKt;->substringAfterLast$default(Ljava/lang/String;CLjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 
     move-result-object v0
 
-    invoke-static {v5, v0}, Lkotlin/collections/ArraysKt;->contains([Ljava/lang/Object;Ljava/lang/Object;)Z
+    invoke-static {v7, v0}, Lkotlin/collections/ArraysKt;->contains([Ljava/lang/Object;Ljava/lang/Object;)Z
 
     move-result v0
 
-    const/4 v5, 0x1
+    const/4 v7, 0x1
 
-    if-ne v0, v5, :cond_2
+    if-ne v0, v7, :cond_2
 
     const/4 v0, 0x1
 
@@ -2659,7 +2783,7 @@
     :catchall_0
     move-exception v0
 
-    sget-object v5, Lkotlin/Result;->Companion:Lkotlin/Result$Companion;
+    sget-object v7, Lkotlin/Result;->Companion:Lkotlin/Result$Companion;
 
     invoke-static {v0}, Lkotlin/ResultKt;->createFailure(Ljava/lang/Throwable;)Ljava/lang/Object;
 
@@ -2670,19 +2794,19 @@
     move-result-object v0
 
     :goto_4
-    const/4 v5, 0x0
+    const/4 v7, 0x0
 
-    invoke-static {v5}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+    invoke-static {v7}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
-    move-result-object v6
+    move-result-object v8
 
     invoke-static {v0}, Lkotlin/Result;->isFailure-impl(Ljava/lang/Object;)Z
 
-    move-result v5
+    move-result v7
 
-    if-eqz v5, :cond_3
+    if-eqz v7, :cond_3
 
-    move-object v0, v6
+    move-object v0, v8
 
     :cond_3
     check-cast v0, Ljava/lang/Boolean;
@@ -2693,32 +2817,30 @@
 
     if-eqz v0, :cond_4
 
-    .line 335
-    invoke-interface {v10, v15}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
+    .line 351
+    invoke-interface {v10, v13}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
 
     :cond_4
     add-int/lit8 v12, v12, 0x1
 
-    const/4 v5, 0x0
+    const/4 v7, 0x0
 
-    const/4 v6, 0x1
+    const/4 v8, 0x1
 
-    const/4 v7, 0x2
-
-    const/4 v8, 0x3
+    const/4 v9, 0x3
 
     goto :goto_2
 
-    .line 337
+    .line 353
     :cond_5
     check-cast v10, Ljava/util/List;
 
-    .line 94
+    .line 107
     new-instance v0, Ljava/io/File;
 
-    const-string/jumbo v5, "usr/bin/labwc"
+    const-string/jumbo v4, "usr/bin/labwc"
 
-    invoke-direct {v0, v3, v5}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v0, v3, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
     invoke-virtual {v0}, Ljava/io/File;->isFile()Z
 
@@ -2726,18 +2848,18 @@
 
     if-eqz v0, :cond_6
 
-    invoke-static {v4, v14}, Lkotlin/collections/ArraysKt;->plus([Ljava/lang/Object;[Ljava/lang/Object;)[Ljava/lang/Object;
+    invoke-static {v6, v15}, Lkotlin/collections/ArraysKt;->plus([Ljava/lang/Object;[Ljava/lang/Object;)[Ljava/lang/Object;
 
     move-result-object v0
 
-    move-object v4, v0
+    move-object v6, v0
 
-    check-cast v4, [Lkotlin/Pair;
+    check-cast v6, [Lkotlin/Pair;
 
     :cond_6
     check-cast v10, Ljava/util/Collection;
 
-    invoke-static {v4, v10}, Lkotlin/collections/ArraysKt;->plus([Ljava/lang/Object;Ljava/util/Collection;)[Ljava/lang/Object;
+    invoke-static {v6, v10}, Lkotlin/collections/ArraysKt;->plus([Ljava/lang/Object;Ljava/util/Collection;)[Ljava/lang/Object;
 
     move-result-object v0
 
@@ -2745,162 +2867,164 @@
 
     check-cast v4, [Lkotlin/Pair;
 
-    .line 95
-    array-length v5, v4
+    .line 108
+    array-length v6, v4
 
-    const/4 v6, 0x0
+    const/4 v7, 0x0
 
     :goto_5
-    const-string v7, "SessionFiles"
+    const-string v8, "SessionFiles"
 
-    if-ge v6, v5, :cond_b
+    if-ge v7, v6, :cond_b
 
-    aget-object v0, v4, v6
+    aget-object v0, v4, v7
 
     invoke-virtual {v0}, Lkotlin/Pair;->component1()Ljava/lang/Object;
 
-    move-result-object v8
+    move-result-object v9
 
-    check-cast v8, Ljava/lang/String;
+    check-cast v9, Ljava/lang/String;
 
     invoke-virtual {v0}, Lkotlin/Pair;->component2()Ljava/lang/Object;
 
     move-result-object v0
 
-    move-object v9, v0
+    move-object v10, v0
 
-    check-cast v9, Ljava/lang/String;
+    check-cast v10, Ljava/lang/String;
 
-    .line 96
+    .line 109
     new-instance v0, Ljava/io/File;
 
-    invoke-direct {v0, v3, v9}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v0, v3, v10}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 97
-    new-instance v10, Ljava/io/File;
+    .line 110
+    new-instance v11, Ljava/io/File;
 
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
-    move-result-object v11
+    move-result-object v12
 
     invoke-virtual {v0}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    move-result-object v12
+    move-result-object v13
 
     new-instance v14, Ljava/lang/StringBuilder;
 
     invoke-direct {v14}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v14, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v14, v13}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v12
+    move-result-object v13
 
     const-string v14, ".staged"
 
-    invoke-virtual {v12, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v13, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v12
+    move-result-object v13
 
-    invoke-virtual {v12}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v13}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v12
+    move-result-object v13
 
-    invoke-direct {v10, v11, v12}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v11, v12, v13}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 100
+    .line 113
     :try_start_1
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
-    move-result-object v11
+    move-result-object v12
 
-    if-eqz v11, :cond_7
+    if-eqz v12, :cond_7
 
-    invoke-virtual {v11}, Ljava/io/File;->mkdirs()Z
+    invoke-virtual {v12}, Ljava/io/File;->mkdirs()Z
 
-    .line 101
+    .line 114
     :cond_7
     invoke-virtual/range {p1 .. p1}, Landroid/content/Context;->getAssets()Landroid/content/res/AssetManager;
 
-    move-result-object v11
+    move-result-object v12
 
-    new-instance v12, Ljava/lang/StringBuilder;
+    new-instance v13, Ljava/lang/StringBuilder;
 
-    invoke-direct {v12}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v13}, Ljava/lang/StringBuilder;-><init>()V
 
     const-string v14, "linuxfs/"
 
-    invoke-virtual {v12, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v13, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v12
+    move-result-object v13
 
-    invoke-virtual {v12, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v13, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v11, v8}, Landroid/content/res/AssetManager;->open(Ljava/lang/String;)Ljava/io/InputStream;
+    invoke-virtual {v12, v9}, Landroid/content/res/AssetManager;->open(Ljava/lang/String;)Ljava/io/InputStream;
 
-    move-result-object v8
+    move-result-object v9
 
-    check-cast v8, Ljava/io/Closeable;
+    check-cast v9, Ljava/io/Closeable;
     :try_end_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
     .catchall {:try_start_1 .. :try_end_1} :catchall_5
 
     :try_start_2
-    move-object v11, v8
+    move-object v12, v9
 
-    check-cast v11, Ljava/io/InputStream;
+    check-cast v12, Ljava/io/InputStream;
 
-    new-instance v12, Ljava/io/FileOutputStream;
+    new-instance v13, Ljava/io/FileOutputStream;
 
-    .line 102
-    invoke-direct {v12, v10}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+    .line 115
+    invoke-direct {v13, v11}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
-    check-cast v12, Ljava/io/Closeable;
+    check-cast v13, Ljava/io/Closeable;
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_3
 
     :try_start_3
-    move-object v14, v12
+    move-object v14, v13
 
     check-cast v14, Ljava/io/FileOutputStream;
 
     check-cast v14, Ljava/io/OutputStream;
 
-    invoke-static {v11, v14}, Lcom/droiddeck/launcher/core/FileUtils;->copy(Ljava/io/InputStream;Ljava/io/OutputStream;)V
+    invoke-static {v12, v14}, Lcom/droiddeck/launcher/core/FileUtils;->copy(Ljava/io/InputStream;Ljava/io/OutputStream;)V
 
-    sget-object v11, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
+    sget-object v12, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_1
 
-    :try_start_4
-    invoke-static {v12, v13}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
+    const/4 v12, 0x0
 
-    .line 103
-    sget-object v11, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
+    :try_start_4
+    invoke-static {v13, v12}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
+
+    .line 116
+    sget-object v13, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
     :try_end_4
     .catchall {:try_start_4 .. :try_end_4} :catchall_3
 
-    .line 101
+    .line 114
     :try_start_5
-    invoke-static {v8, v13}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
+    invoke-static {v9, v12}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
 
-    const/4 v8, 0x0
+    const/4 v9, 0x0
 
-    const/4 v11, 0x1
+    const/4 v12, 0x1
 
-    .line 104
-    invoke-virtual {v10, v11, v8}, Ljava/io/File;->setExecutable(ZZ)Z
+    .line 117
+    invoke-virtual {v11, v12, v9}, Ljava/io/File;->setExecutable(ZZ)Z
 
-    move-result v12
+    move-result v13
 
-    if-eqz v12, :cond_8
+    if-eqz v13, :cond_8
 
-    invoke-virtual {v10, v0}, Ljava/io/File;->renameTo(Ljava/io/File;)Z
+    invoke-virtual {v11, v0}, Ljava/io/File;->renameTo(Ljava/io/File;)Z
 
     move-result v0
     :try_end_5
@@ -2919,19 +3043,19 @@
     :goto_6
     if-nez v0, :cond_9
 
-    .line 108
-    invoke-virtual {v10}, Ljava/io/File;->delete()Z
+    .line 121
+    invoke-virtual {v11}, Ljava/io/File;->delete()Z
 
     goto :goto_7
 
     :catchall_1
     move-exception v0
 
-    move-object v11, v0
+    move-object v12, v0
 
-    .line 102
+    .line 115
     :try_start_6
-    throw v11
+    throw v12
     :try_end_6
     .catchall {:try_start_6 .. :try_end_6} :catchall_2
 
@@ -2941,7 +3065,7 @@
     move-object v14, v0
 
     :try_start_7
-    invoke-static {v12, v11}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
+    invoke-static {v13, v12}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
 
     throw v14
     :try_end_7
@@ -2950,23 +3074,23 @@
     :catchall_3
     move-exception v0
 
-    move-object v11, v0
+    move-object v12, v0
 
-    .line 101
+    .line 114
     :try_start_8
-    throw v11
+    throw v12
     :try_end_8
     .catchall {:try_start_8 .. :try_end_8} :catchall_4
 
     :catchall_4
     move-exception v0
 
-    move-object v12, v0
+    move-object v13, v0
 
     :try_start_9
-    invoke-static {v8, v11}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
+    invoke-static {v9, v12}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
 
-    throw v12
+    throw v13
     :try_end_9
     .catch Ljava/lang/Exception; {:try_start_9 .. :try_end_9} :catch_0
     .catchall {:try_start_9 .. :try_end_9} :catchall_5
@@ -2979,34 +3103,34 @@
     :catch_0
     move-exception v0
 
-    .line 106
+    .line 119
     :try_start_a
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v9, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v11, "could not stage "
+    const-string v12, "could not stage "
 
-    invoke-virtual {v8, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v8
+    move-result-object v9
 
-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v8
+    move-result-object v9
 
     check-cast v0, Ljava/lang/Throwable;
 
-    invoke-static {v7, v8, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+    invoke-static {v8, v9, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
     :try_end_a
     .catchall {:try_start_a .. :try_end_a} :catchall_5
 
-    .line 108
-    invoke-virtual {v10}, Ljava/io/File;->delete()Z
+    .line 121
+    invoke-virtual {v11}, Ljava/io/File;->delete()Z
 
     const/4 v0, 0x0
 
@@ -3014,18 +3138,18 @@
     :goto_7
     if-nez v0, :cond_a
 
-    .line 110
+    .line 123
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v0, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    const-string v8, " NOT staged"
+    const-string v9, " NOT staged"
 
-    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -3033,54 +3157,52 @@
 
     move-result-object v0
 
-    invoke-static {v7, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v8, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
     :cond_a
-    add-int/lit8 v6, v6, 0x1
+    add-int/lit8 v7, v7, 0x1
 
     goto/16 :goto_5
 
-    .line 108
+    .line 121
     :goto_8
-    invoke-virtual {v10}, Ljava/io/File;->delete()Z
+    invoke-virtual {v11}, Ljava/io/File;->delete()Z
 
     throw v0
 
     :cond_b
     const/4 v4, 0x3
 
-    .line 116
-    new-array v5, v4, [Ljava/lang/String;
+    .line 129
+    new-array v6, v4, [Ljava/lang/String;
 
     const-string v0, "aarch64-unix/winedirectaudio.so"
 
-    const/4 v6, 0x0
+    const/4 v7, 0x0
 
-    aput-object v0, v5, v6
+    aput-object v0, v6, v7
 
-    .line 117
+    .line 130
     const-string v0, "aarch64-windows/winedirectaudio.drv"
 
-    const/4 v6, 0x1
+    const/4 v7, 0x1
 
-    aput-object v0, v5, v6
+    aput-object v0, v6, v7
 
-    .line 118
+    .line 131
     const-string v0, "i386-windows/winedirectaudio.drv"
 
-    const/4 v6, 0x2
+    aput-object v0, v6, v5
 
-    aput-object v0, v5, v6
-
-    const/4 v6, 0x0
+    const/4 v7, 0x0
 
     :goto_9
-    if-ge v6, v4, :cond_10
+    if-ge v7, v4, :cond_10
 
-    .line 120
-    aget-object v8, v5, v6
+    .line 133
+    aget-object v5, v6, v7
 
-    .line 121
+    .line 134
     new-instance v0, Ljava/io/File;
 
     new-instance v9, Ljava/lang/StringBuilder;
@@ -3089,7 +3211,7 @@
 
     invoke-direct {v9, v10}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 
-    invoke-virtual {v9, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v9
 
@@ -3099,7 +3221,7 @@
 
     invoke-direct {v0, v3, v9}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 122
+    .line 135
     new-instance v9, Ljava/io/File;
 
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
@@ -3130,7 +3252,7 @@
 
     invoke-direct {v9, v10, v11}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 125
+    .line 138
     :try_start_b
     invoke-virtual {v0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
@@ -3140,7 +3262,7 @@
 
     invoke-virtual {v10}, Ljava/io/File;->mkdirs()Z
 
-    .line 126
+    .line 139
     :cond_c
     invoke-virtual/range {p1 .. p1}, Landroid/content/Context;->getAssets()Landroid/content/res/AssetManager;
 
@@ -3156,7 +3278,7 @@
 
     move-result-object v11
 
-    invoke-virtual {v11, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v11
 
@@ -3170,8 +3292,8 @@
 
     check-cast v10, Ljava/io/Closeable;
     :try_end_b
-    .catch Ljava/lang/Exception; {:try_start_b .. :try_end_b} :catch_2
-    .catchall {:try_start_b .. :try_end_b} :catchall_b
+    .catch Ljava/lang/Exception; {:try_start_b .. :try_end_b} :catch_3
+    .catchall {:try_start_b .. :try_end_b} :catchall_c
 
     :try_start_c
     move-object v11, v10
@@ -3180,48 +3302,50 @@
 
     new-instance v12, Ljava/io/FileOutputStream;
 
-    .line 127
+    .line 140
     invoke-direct {v12, v9}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
     check-cast v12, Ljava/io/Closeable;
     :try_end_c
-    .catchall {:try_start_c .. :try_end_c} :catchall_9
+    .catchall {:try_start_c .. :try_end_c} :catchall_a
 
     :try_start_d
-    move-object v14, v12
+    move-object v13, v12
 
-    check-cast v14, Ljava/io/FileOutputStream;
+    check-cast v13, Ljava/io/FileOutputStream;
 
-    check-cast v14, Ljava/io/OutputStream;
+    check-cast v13, Ljava/io/OutputStream;
 
-    invoke-static {v11, v14}, Lcom/droiddeck/launcher/core/FileUtils;->copy(Ljava/io/InputStream;Ljava/io/OutputStream;)V
+    invoke-static {v11, v13}, Lcom/droiddeck/launcher/core/FileUtils;->copy(Ljava/io/InputStream;Ljava/io/OutputStream;)V
 
     sget-object v11, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
     :try_end_d
-    .catchall {:try_start_d .. :try_end_d} :catchall_6
-
-    :try_start_e
-    invoke-static {v12, v13}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
-
-    .line 128
-    sget-object v11, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
-    :try_end_e
-    .catchall {:try_start_e .. :try_end_e} :catchall_9
-
-    .line 126
-    :try_start_f
-    invoke-static {v10, v13}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
-    :try_end_f
-    .catch Ljava/lang/Exception; {:try_start_f .. :try_end_f} :catch_2
-    .catchall {:try_start_f .. :try_end_f} :catchall_b
+    .catchall {:try_start_d .. :try_end_d} :catchall_7
 
     const/4 v11, 0x0
 
+    :try_start_e
+    invoke-static {v12, v11}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
+
+    .line 141
+    sget-object v12, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
+    :try_end_e
+    .catchall {:try_start_e .. :try_end_e} :catchall_6
+
+    .line 139
+    :try_start_f
+    invoke-static {v10, v11}, Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V
+    :try_end_f
+    .catch Ljava/lang/Exception; {:try_start_f .. :try_end_f} :catch_1
+    .catchall {:try_start_f .. :try_end_f} :catchall_c
+
+    const/4 v13, 0x0
+
     const/4 v14, 0x1
 
-    .line 129
+    .line 142
     :try_start_10
-    invoke-virtual {v9, v14, v11}, Ljava/io/File;->setReadable(ZZ)Z
+    invoke-virtual {v9, v14, v13}, Ljava/io/File;->setReadable(ZZ)Z
 
     move-result v10
 
@@ -3231,8 +3355,8 @@
 
     move-result v0
     :try_end_10
-    .catch Ljava/lang/Exception; {:try_start_10 .. :try_end_10} :catch_1
-    .catchall {:try_start_10 .. :try_end_10} :catchall_b
+    .catch Ljava/lang/Exception; {:try_start_10 .. :try_end_10} :catch_2
+    .catchall {:try_start_10 .. :try_end_10} :catchall_c
 
     if-eqz v0, :cond_d
 
@@ -3241,32 +3365,44 @@
     goto :goto_a
 
     :cond_d
-    move v0, v11
+    move v0, v13
 
     :goto_a
     if-nez v0, :cond_e
 
-    .line 133
+    .line 146
     invoke-virtual {v9}, Ljava/io/File;->delete()Z
+
+    goto :goto_f
+
+    :catch_1
+    move-exception v0
 
     goto :goto_d
 
     :catchall_6
     move-exception v0
 
+    goto :goto_b
+
+    :catchall_7
+    move-exception v0
+
     const/4 v11, 0x0
+
+    const/4 v13, 0x0
 
     const/4 v14, 0x1
 
     move-object v15, v0
 
-    .line 127
+    .line 140
     :try_start_11
     throw v15
     :try_end_11
-    .catchall {:try_start_11 .. :try_end_11} :catchall_7
+    .catchall {:try_start_11 .. :try_end_11} :catchall_8
 
-    :catchall_7
+    :catchall_8
     move-exception v0
 
     move-object/from16 v16, v0
@@ -3276,30 +3412,33 @@
 
     throw v16
     :try_end_12
-    .catchall {:try_start_12 .. :try_end_12} :catchall_8
-
-    :catchall_8
-    move-exception v0
-
-    goto :goto_b
+    .catchall {:try_start_12 .. :try_end_12} :catchall_9
 
     :catchall_9
     move-exception v0
 
+    goto :goto_c
+
+    :catchall_a
+    move-exception v0
+
     const/4 v11, 0x0
+
+    :goto_b
+    const/4 v13, 0x0
 
     const/4 v14, 0x1
 
-    :goto_b
+    :goto_c
     move-object v12, v0
 
-    .line 126
+    .line 139
     :try_start_13
     throw v12
     :try_end_13
-    .catchall {:try_start_13 .. :try_end_13} :catchall_a
+    .catchall {:try_start_13 .. :try_end_13} :catchall_b
 
-    :catchall_a
+    :catchall_b
     move-exception v0
 
     move-object v15, v0
@@ -3309,28 +3448,31 @@
 
     throw v15
     :try_end_14
-    .catch Ljava/lang/Exception; {:try_start_14 .. :try_end_14} :catch_1
-    .catchall {:try_start_14 .. :try_end_14} :catchall_b
-
-    :catch_1
-    move-exception v0
-
-    goto :goto_c
-
-    :catchall_b
-    move-exception v0
-
-    goto :goto_e
+    .catch Ljava/lang/Exception; {:try_start_14 .. :try_end_14} :catch_2
+    .catchall {:try_start_14 .. :try_end_14} :catchall_c
 
     :catch_2
     move-exception v0
 
+    goto :goto_e
+
+    :catchall_c
+    move-exception v0
+
+    goto :goto_10
+
+    :catch_3
+    move-exception v0
+
     const/4 v11, 0x0
+
+    :goto_d
+    const/4 v13, 0x0
 
     const/4 v14, 0x1
 
-    .line 131
-    :goto_c
+    .line 144
+    :goto_e
     :try_start_15
     new-instance v10, Ljava/lang/StringBuilder;
 
@@ -3342,7 +3484,7 @@
 
     move-result-object v10
 
-    invoke-virtual {v10, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v10, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v10
 
@@ -3352,33 +3494,33 @@
 
     check-cast v0, Ljava/lang/Throwable;
 
-    invoke-static {v7, v10, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+    invoke-static {v8, v10, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
     :try_end_15
-    .catchall {:try_start_15 .. :try_end_15} :catchall_b
+    .catchall {:try_start_15 .. :try_end_15} :catchall_c
 
-    .line 133
+    .line 146
     invoke-virtual {v9}, Ljava/io/File;->delete()Z
 
-    move v0, v11
+    move v0, v13
 
     :cond_e
-    :goto_d
+    :goto_f
     if-nez v0, :cond_f
 
-    .line 135
+    .line 148
     new-instance v0, Ljava/lang/StringBuilder;
 
     const-string v9, "DirectAudio "
 
     invoke-direct {v0, v9}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 
-    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    const-string v8, " NOT staged"
+    const-string v5, " NOT staged"
 
-    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -3386,20 +3528,20 @@
 
     move-result-object v0
 
-    invoke-static {v7, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v8, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
     :cond_f
-    add-int/lit8 v6, v6, 0x1
+    add-int/lit8 v7, v7, 0x1
 
     goto/16 :goto_9
 
-    .line 133
-    :goto_e
+    .line 146
+    :goto_10
     invoke-virtual {v9}, Ljava/io/File;->delete()Z
 
     throw v0
 
-    .line 140
+    .line 153
     :cond_10
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -3407,7 +3549,7 @@
 
     invoke-direct {v0, v4}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 
-    .line 141
+    .line 154
     new-instance v4, Ljava/io/File;
 
     invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
@@ -3424,13 +3566,27 @@
 
     if-nez v4, :cond_11
 
-    .line 142
+    .line 155
     const-string v4, "/usr/local/lib/libfakeinput.so\n"
 
     invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 144
+    .line 159
     :cond_11
+    sget-object v4, Lcom/droiddeck/launcher/runtime/ProotFastPath;->INSTANCE:Lcom/droiddeck/launcher/runtime/ProotFastPath;
+
+    invoke-virtual {v4, v2}, Lcom/droiddeck/launcher/runtime/ProotFastPath;->enabled(Landroid/content/Context;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_12
+
+    const-string v4, "/usr/local/lib/libblfastpath.so\n"
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 160
+    :cond_12
     new-instance v4, Ljava/io/File;
 
     const-string v5, "etc"
@@ -3439,14 +3595,14 @@
 
     invoke-virtual {v4}, Ljava/io/File;->mkdirs()Z
 
-    .line 145
+    .line 161
     new-instance v5, Ljava/io/File;
 
     const-string v6, "ld.so.preload.staged"
 
     invoke-direct {v5, v4, v6}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 146
+    .line 162
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
@@ -3455,9 +3611,9 @@
 
     move-result v0
 
-    if-eqz v0, :cond_12
+    if-eqz v0, :cond_13
 
-    .line 147
+    .line 163
     new-instance v0, Ljava/io/File;
 
     const-string v6, "ld.so.preload"
@@ -3468,41 +3624,41 @@
 
     move-result v0
 
-    if-nez v0, :cond_13
+    if-nez v0, :cond_14
 
-    .line 148
-    :cond_12
+    .line 164
+    :cond_13
     invoke-virtual {v5}, Ljava/io/File;->delete()Z
 
-    .line 149
+    .line 165
     const-string v0, "could not write ld.so.preload"
 
-    invoke-static {v7, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v8, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 152
-    :cond_13
+    .line 168
+    :cond_14
     new-instance v0, Ljava/io/File;
 
     const-string v4, "root/.local/share/Steam/config/uioverrides/movies"
 
     invoke-direct {v0, v3, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 158
+    .line 174
     const-string v4, "bigpicture_startup.webm"
 
-    .line 155
+    .line 171
     invoke-direct {v1, v2, v0, v4}, Lcom/droiddeck/launcher/session/SessionFiles;->stageStartupMovie(Landroid/content/Context;Ljava/io/File;Ljava/lang/String;)Z
 
     move-result v4
 
-    .line 160
+    .line 176
     const-string/jumbo v5, "steam_os_startup.webm"
 
     invoke-direct {v1, v2, v0, v5}, Lcom/droiddeck/launcher/session/SessionFiles;->stageStartupMovie(Landroid/content/Context;Ljava/io/File;Ljava/lang/String;)Z
 
-    if-eqz v4, :cond_14
+    if-eqz v4, :cond_15
 
-    .line 162
+    .line 178
     new-instance v0, Ljava/io/File;
 
     const-string v2, "root/.local/share/Steam/config/config.vdf"
@@ -3511,6 +3667,6 @@
 
     invoke-direct {v1, v0}, Lcom/droiddeck/launcher/session/SessionFiles;->ensureStartupMovieDefault(Ljava/io/File;)V
 
-    :cond_14
+    :cond_15
     return-void
 .end method

@@ -1260,3 +1260,41 @@ Could not download the release checksum|||无法下载发布校验和
 Could not read the release checksum; try again|||无法读取发布校验和，请重试
 Could not save Wireless debugging identity|||无法保存无线调试身份
 Enter the current Wireless debugging IP address & Port|||输入当前无线调试的 IP 地址和端口
+
+# === 0.3.0 新增UI字符串 ===
+Flatpak setup|||Flatpak 设置
+Flatpak setup did not finish|||Flatpak 设置未完成
+Driver bundle|||驱动包
+Driver mode|||驱动模式
+graphics drivers|||显卡驱动
+Adreno 6xx|||Adreno 6xx
+Adreno 7xx|||Adreno 7xx
+Android + Linux \u00b7 all Adreno|||Android + Linux · 全 Adreno
+Below tested hardware (Adreno 725 and newer): it may not run|||低于测试硬件（Adreno 725 及更新）：可能无法运行
+Audio & Video|||音频和视频
+Categories|||分类
+Developer|||开发
+Development|||开发工具
+Documents|||办公
+Education|||教育
+Graphics|||图形
+Games|||游戏
+Enter code|||输入验证码
+Enter all 6 digits of the code|||输入6位验证码
+Enter the Wi-Fi pairing code|||输入 Wi-Fi 配对码
+Another store task is running|||另一个商店任务正在运行
+Could not check Flathub for updates|||无法检查 Flathub 更新
+Could not update game environment|||无法更新游戏环境
+Choose a driver zip or an Android + Linux bundle|||选择驱动 zip 或 Android + Linux 包
+Close the Steam session first, so the game can\'t save over the import|||请先关闭 Steam 会话，避免游戏存档覆盖导入
+Installing|||安装中
+Connected|||已连接
+Disconnected|||已断开
+gamescope realtime|||gamescope 实时优先级
+Deck grips + trackpads|||Deck 握把 + 触控板
+Guest host name|||访客主机名
+Icon|||图标
+Blink|||Blink 引擎
+Import failed|||导入失败
+Add|||添加
+Comment|||评论

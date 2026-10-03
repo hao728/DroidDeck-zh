@@ -73,26 +73,35 @@ if [ -n "${BL_VK_DRIVER:-}" ]; then
   fi
   unset bl_icd_lib
 fi
-# The app's gamescope build (tools/gamescope) takes realtime-priority Vulkan queues on this
+# The app's gamescope build (tools/gamescope) asks for realtime-priority Vulkan queues on this
 # switch instead of on CAP_SYS_NICE, which proot never has; it falls back to normal priority
-# where the driver refuses, and the runtime's own build ignores it.
-export GAMESCOPE_FORCE_VULKAN_REALTIME=${BL_GAMESCOPE_REALTIME:-1}
+# where the driver refuses, and the runtime's own build ignores it. On KGSL Turnip (Mesa 26.2) it
+# changes nothing yet: the driver reports one submit-queue priority and creates every KGSL context
+# with the same flags, so no priority reaches the GPU. Kept for a driver that maps it, and off
+# unless the app's Performance page turns it on (BL_GAMESCOPE_REALTIME=1).
+export GAMESCOPE_FORCE_VULKAN_REALTIME=${BL_GAMESCOPE_REALTIME:-0}
+
+# A sleep that starts no process. Under proot every exec is a traced execve plus the loader's
+# opens and maps, and the watchers below poll for the whole session: `sleep 1` in a loop was 60
+# execs a minute each. read -t on a pipe nothing ever writes to waits in bash itself.
+nap() {
+  [ -n "${bl_nap_fd:-}" ] || exec {bl_nap_fd}<> <(:)
+  read -r -t "$1" -u "$bl_nap_fd" _ 2>/dev/null || :
+}
 export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
+# Flatpak (the store's apps): its sandboxes through the app instead of bubblewrap, which needs the
+# user namespaces Android keeps from apps, and its apps' menu entries and icons on the desktop.
+export FLATPAK_BWRAP=/usr/local/bin/bannerlator-bwrap
+export XDG_DATA_DIRS=$XDG_DATA_HOME/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}
 
-# 汉化版：解压汉化资源包（locale+中文字体+fontconfig）到rootfs
-# 根因：Android应用只复制硬编码列表中的assets文件，新增文件需打包后运行时解压
+# 汉化版：解压汉化资源包（locale+中文字体+fontconfig）到 rootfs
 _bl_overlay="/usr/local/zh-overlay.tar.gz"
 _bl_overlay_flag="/usr/local/.zh-overlay-extracted"
 if [ -f "$_bl_overlay" ] && [ ! -f "$_bl_overlay_flag" ]; then
-  if tar xzf "$_bl_overlay" -C / 2>/dev/null; then
-    touch "$_bl_overlay_flag" 2>/dev/null || true
-    echo "== zh-overlay: extracted locale+fonts+fontconfig to rootfs"
-  else
-    echo "== zh-overlay: FAILED to extract $_bl_overlay"
-  fi
+  tar xzf "$_bl_overlay" -C / 2>/dev/null && touch "$_bl_overlay_flag"     && echo "== zh-overlay: extracted locale+fonts+fontconfig to rootfs"     || echo "== zh-overlay: FAILED to extract $_bl_overlay"
 fi
 # 汉化版：强制中文 locale，Steam webhelper 从系统 locale 读取 -lang 参数
 export LANG=${BL_LANG:-zh_CN.UTF-8}
@@ -147,7 +156,16 @@ if [ -z "${BL_INSIDE:-}" ]; then
   fi
   width=${BL_WIDTH:-1280}
   height=${BL_HEIGHT:-720}
-  args=(--backend wayland --expose-wayland -f -W "$width" -H "$height" -w "$width" -h "$height")
+  nested=$width
+  if [ "$mode" = steam ] && [ "${BL_GAMESCOPE_STRETCH_16X9:-0}" = 1 ]; then
+    wide=$(( (height * 16 + 4) / 9 / 2 * 2 ))
+    if [ "$wide" -gt "$width" ]; then
+      nested=$wide
+      echo "== gamescope: games at ${nested}x${height} stretched to the ${width}x${height} output"
+    fi
+  fi
+  args=(--backend wayland --expose-wayland -f -W "$width" -H "$height" -w "$nested" -h "$height")
+  [ "$nested" != "$width" ] && args+=(-S stretch)
   # -r is what gamescope advertises as the refresh rate, and what a game reads as the display's.
   # Left unset it defaults to 60, so a 120 Hz panel offers only 60 Hz in game settings. The FPS
   # limiter wins when it is on (it is a deliberate cap); otherwise use the panel's own rate.
@@ -157,6 +175,11 @@ if [ -z "${BL_INSIDE:-}" ]; then
     args+=(-r "$BL_REFRESH")
   fi
   [ "$mode" = steam ] && args+=(-e)
+  # Touch passes through to the client as touch until the client says otherwise, as SteamOS's
+  # gamescope-session starts it (TOUCH_MODE=4). The client sets the mode itself (STEAM_TOUCH_CLICK_MODE)
+  # only once it has a controller; until then gamescope's own default made a finger a left-click
+  # mouse, so the Steam interface took taps but would not scroll on a phone with no pad attached.
+  [ "$mode" = steam ] && args+=(--default-touch-mode 4)
   # A game that resizes its own window when it loses focus (the Steam menu opening over it) comes
   # back smaller, and gamescope draws a window that is not flagged fullscreen at its own size in
   # the top-left corner. Forcing every window to the output's size keeps it filling the screen.
@@ -165,6 +188,8 @@ if [ -z "${BL_INSIDE:-}" ]; then
   # HDR10: the app opened its compositor's colour-management gate for this session (BL_HDR=1);
   # gamescope then offers HDR to its clients through the same wp_color_manager_v1 it binds on ours.
   [ "${BL_HDR:-0}" = 1 ] && args+=(--hdr-enabled)
+  # Extra gamescope arguments for an experiment (--debug-focus, say), from Download/droiddeck-env.
+  [ -n "${BL_GAMESCOPE_ARGS:-}" ] && read -r -a _bl_extra <<<"$BL_GAMESCOPE_ARGS" && args+=("${_bl_extra[@]}")
   # Deck mode's performance overlay (Quick Access Menu → Performance → Overlay Level) is drawn by
   # mangoapp, which gamescope starts beside the client; the client sets the level by rewriting
   # MANGOHUD_CONFIGFILE. The apk stages Valve's aarch64 build (tools/mangoapp) - without it the menu
@@ -241,7 +266,7 @@ case $mode in
     bannerlator-steam-install || exit $?
     step "Steam client ready"
     steam_root=$XDG_DATA_HOME/Steam
-    # Register the card library (bound at /mnt/bannerlator-sd) with the client - internal storage is
+    # Register the card library (bound at /mnt/droiddeck-sd) with the client - internal storage is
     # its main library already - and the ARM64 Proton that lets it launch the Windows ones.
     # A request left in ~/.bl-proton-extra installs a third-party Proton before the client starts,
     # so it is in the Compatibility dropdown the first time the user looks. One per line, each the
@@ -280,15 +305,26 @@ case $mode in
     # device it took 5 of 8, leaving out both little cores and the fastest one - which is a
     # reasonable thing to do while a game is running and the wrong thing when the client is all
     # there is. BL_CLIENT_CPUS overrides it. Re-applied on a beat because steamwebhelper spawns
-    # children continuously and each one inherits Steam's choice, not ours.
+    # children continuously and each one inherits Steam's choice, not ours. The beat reads /proc
+    # itself instead of running pgrep, and only runs taskset for a process that is new or has
+    # grown threads since it was last pinned: every fork is a round of traced syscalls, and a
+    # beat that forked a taskset per process every 5 s did that for an hour. taskset -a, because
+    # without it only a process's main thread moves and the renderer's workers stay where they were.
     if [ -n "${BL_CLIENT_CPUS:-}" ]; then
       step "client cores: $BL_CLIENT_CPUS"
       (
-        for _ in $(seq 1 720); do
-          for _p in $(pgrep -f 'steamwebhelper|steamrtarm64/steam|gamescope' 2>/dev/null); do
-            taskset -cp "$BL_CLIENT_CPUS" "$_p" >/dev/null 2>&1 || true
+        declare -A _bl_pinned=()
+        for ((_i = 0; _i < 720; _i++)); do
+          for _d in /proc/[0-9]*; do
+            IFS= read -r -d '' _c < "$_d/cmdline" 2>/dev/null || continue
+            case $_c in *steamwebhelper*|*steamrtarm64/steam|*gamescope*) ;; *) continue ;; esac
+            _t=("$_d"/task/*)
+            _p=${_d#/proc/}
+            [ "${_bl_pinned[$_p]:-}" = "${#_t[@]}" ] && continue
+            taskset -a -cp "$BL_CLIENT_CPUS" "$_p" >/dev/null 2>&1 || true
+            _bl_pinned[$_p]=${#_t[@]}
           done
-          sleep 5
+          nap 5
         done
       ) &
     fi
@@ -396,8 +432,9 @@ case $mode in
     [ -z "${BL_DESKTOP:-}" ] && (
       last=${BL_GAMESCOPE_FORCE_FULLSCREEN:-1}
       while :; do
-        sleep 1
-        want=$(cat "$HOME/.droiddeck-fill" 2>/dev/null) || continue
+        nap 1
+        want=
+        { read -r want || [ -n "$want" ]; } < "$HOME/.droiddeck-fill" 2>/dev/null || continue
         case $want in 0|1) ;; *) continue ;; esac
         [ "$want" = "$last" ] && continue
         if xprop -root -f GAMESCOPE_FORCE_WINDOWS_FULLSCREEN 32c -set GAMESCOPE_FORCE_WINDOWS_FULLSCREEN "$want" 2>/dev/null; then
@@ -406,13 +443,84 @@ case $mode in
         fi
       done
     ) &
+    # Resume from the Steam menu. The menu is an overlay that takes input, and a fullscreen game that
+    # loses input minimizes itself; gamescope only takes a window out of that state when the focused
+    # window changes, which the menu never does, so the game stayed minimized after Resume (a black
+    # screen with its small caption in the top-left corner). gamescope-3.16.29-p4 restores it itself;
+    # this asks it again a moment after input comes back from the client (app 769) to anything else,
+    # which covers a game that minimizes late. Harmless when nothing is minimized.
+    # BL_RESTORE_ON_RESUME=0 turns it off.
+    [ -z "${BL_DESKTOP:-}" ] && [ "${BL_RESTORE_ON_RESUME:-1}" = 1 ] && (
+      prev=
+      xprop -spy -root GAMESCOPE_FOCUSED_APP 2>/dev/null | while read -r line; do
+        app=${line##*= }
+        case $app in ''|*[!0-9]*) prev=; continue ;; esac
+        if [ "$prev" = 769 ] && [ "$app" != 769 ]; then
+          nap 1
+          xprop -root -f GAMESCOPE_RESTORE_FOCUS_WINDOW 32c -set GAMESCOPE_RESTORE_FOCUS_WINDOW 1 2>/dev/null \
+            && echo "== resume: asked gamescope to restore the game window (app $app)"
+        fi
+        prev=$app
+      done
+    ) &
+    # Evidence for touch reports: the touch mode the client asks gamescope for (STEAM_TOUCH_CLICK_MODE,
+    # set once it has a controller, per focused app) and which app has focus, logged as they change.
+    # A finger that clicks but won't scroll, or touch that stops once a pad is used, shows here as
+    # the mode in force at that moment. 4 is touch passed through, 1 a left-click mouse.
+    [ -z "${BL_DESKTOP:-}" ] && (
+      # What follows "=" in an xprop line, or $2 for a property that is missing or has no value
+      # yet ("NAME(CARDINAL) =", which read leaves with nothing after the "=").
+      xprop_value() {
+        case $1 in *'not found'*|*=) echo "$2"; return ;; esac
+        local v=${1#*=}
+        v=${v# }
+        echo "${v:-$2}"
+      }
+      tmode= app=
+      xprop -spy -root STEAM_TOUCH_CLICK_MODE GAMESCOPE_FOCUSED_APP 2>/dev/null | while read -r line; do
+        case $line in
+          STEAM_TOUCH_CLICK_MODE*)
+            v=$(xprop_value "$line" unset)
+            [ "$v" = "$tmode" ] && continue
+            tmode=$v
+            echo "== touch mode: $tmode (focused app ${app:-?}) at $(date +%T)"
+            ;;
+          GAMESCOPE_FOCUSED_APP*)
+            v=$(xprop_value "$line" none)
+            [ "$v" = "$app" ] && continue
+            app=$v
+            echo "== focused app: $app (touch mode ${tmode:-unset}) at $(date +%T)"
+            ;;
+        esac
+      done
+    ) &
+    # The library beat. Both helpers are whole programs under proot (the compat one a python
+    # start and a parse of the client's config), and nearly every beat has nothing new for them.
+    # The seeder marks Proton's prefix template as well as the prefixes, so a new prefix is born
+    # marked and every 15 s is soon enough for the rest. The compat pass runs when a directory it
+    # reads from has changed since its last run - a new manifest, a new depot or tool, the client
+    # rewriting config.vdf - which [ -nt ] answers without starting anything, and once a minute
+    # regardless.
     (
       beat=0
-      for _ in $(seq 1 720); do
-        sleep 5
-        bannerlator-seed-redists "$steam_root" >/dev/null 2>&1 || true
+      compat_stamp=$HOME/.bl-compat-beat
+      rm -f "$compat_stamp"
+      compat_due() {
+        local d
+        [ -e "$compat_stamp" ] && [ "$((beat % 12))" -ne 0 ] || return 0
+        for d in "$steam_root/steamapps" "$steam_root/steamapps/common" "$steam_root/config" \
+                 "$steam_root/compatibilitytools.d" /mnt/droiddeck-sd/steamapps; do
+          [ "$d" -nt "$compat_stamp" ] && return 0
+        done
+        return 1
+      }
+      for ((_i = 0; _i < 720; _i++)); do
+        nap 5
         beat=$((beat + 1))
-        if [ "$((beat % 3))" -eq 0 ]; then
+        [ "$((beat % 3))" -eq 0 ] || continue
+        bannerlator-seed-redists "$steam_root" >/dev/null 2>&1 || true
+        if compat_due; then
+          : > "$compat_stamp"
           bannerlator-steam-compat "$steam_root" >/dev/null 2>&1 || true
         fi
       done
@@ -523,20 +631,19 @@ BUSCONF
     # desktop's launchers ask for; gamescope shows one window at a time and the game takes over.
     _bl_ui=(-gamepadui)
     [ "${BL_STEAM_UI:-}" = desktop ] && _bl_ui=()
-    # Deck mode (BL_STEAMDECK=1, the Performance page): -steamdeck is the flag that puts the Quick
-    # Access Menu, the performance overlay and the Deck settings pages on screen. Only -steamdeck,
-    # never -steamos3: that one makes the client manage itself as SteamOS does - it calls
-    # steamos-select-branch and opts the install into the steamdeck_stable client branch, writes
-    # that to package/beta, and from then on the branch on disk loses to the -clientbeta below on
-    # every launch; the updater finds "installed version 0", marks an update pending and exits 42
-    # to apply it, which never happens, so the client restarts for ever - under a running game,
-    # taking Steam Input with it each time. (Bannerlator 38996ea1, on device.) The SteamOS helpers
-    # the client calls in this mode are staged as no-op stubs under /usr/bin.
+    # Deck mode (BL_STEAMDECK=1, the Steam page's Client settings): -steamdeck is the flag that puts
+    # the Quick Access Menu and the Deck settings pages on screen; the QAM's performance overlay
+    # controls stay greyed out without -steamos3, as SteamOS and Armada launch it. -steamos3 makes
+    # the client manage itself as SteamOS does - it calls steamos-select-branch and writes
+    # steamdeck_stable to package/beta, and a branch on disk that loses to the -clientbeta below
+    # is an update that never installs: exit 42, a restart, for ever (Bannerlator 38996ea1). The
+    # loop below puts package/beta back before every start. The SteamOS helpers the client calls
+    # in this mode are staged as no-op stubs under /usr/bin.
     if [ "${BL_STEAMDECK:-0}" = 1 ] && [ "${BL_STEAM_UI:-}" != desktop ]; then
-      _bl_ui+=(-steamdeck)
+      _bl_ui+=(-steamdeck -steamos3)
       # The QAM's Scaling Filter lists NVIDIA Image Scaling only when told gamescope has it (it does).
       export STEAM_GAMESCOPE_NIS_SUPPORTED=1
-      echo "== steam: Deck mode on (-steamdeck)"
+      echo "== steam: Deck mode on (-steamdeck -steamos3)"
     fi
     # What a killed session leaves behind. Android ends sessions without warning (backgrounding, the
     # low-memory killer), and the client then finds .crash - opening its update UI on the spinner -
@@ -561,22 +668,61 @@ BUSCONF
     # again on the branch it just wrote.
     steam_channel=${BL_STEAM_CHANNEL:-publicbeta}
     steam_beta=$steam_root/package/beta
+    if [ -n "${BL_ADDED_GAMES:-}" ] && [ -f "$BL_ADDED_GAMES" ]; then
+      bannerlator-steam-games watch "$steam_root" "$BL_ADDED_GAMES" &
+      games_watcher=$!
+    fi
+    # Lossless Scaling (Steam app 993090): whether this account owns it, asked of the signed-in
+    # client once a session until the answer is yes. From then on the app offers importing
+    # Lossless.dll and passes BL_LOSSLESS_OWNED=1, so the question is never asked again.
+    if [ "${BL_LOSSLESS_OWNED:-0}" != 1 ]; then
+      (
+        owned=$HOME/.config/droiddeck/lossless-owned
+        for ((_i = 0; _i < 60; _i++)); do
+          nap 30
+          [ -e "$owned" ] && exit 0
+          answer=$(bannerlator-steam-games probe "$steam_root" 993090 2>/dev/null) || continue
+          case $answer in
+            *'"993090": true'*) mkdir -p "${owned%/*}" && : > "$owned" && echo "== Lossless Scaling: owned" ;;
+            *) echo "== Lossless Scaling: not owned by this account" ;;
+          esac
+          exit 0
+        done
+      ) &
+    fi
     echo "== steam args: ${_bl_ui[*]} -clientbeta $steam_channel -no-cef-sandbox -cef-force-gpu -cef-ozone-platform=x11 -cef-use-gl=angle -cef-use-angle=vulkan $*"
     # An update that cannot install asks for a restart (rc=42) every time; the count is capped so a
     # session can never again loop in silence, which reads as a menu opening and closing by itself.
     steam_updates=0
+    rm -f "$HOME/.bl-stop-requested"
+    if [ -n "${BL_LAUNCH_DIR:-}" ] && [ -d "$BL_LAUNCH_DIR" ]; then
+      rm -f "$BL_LAUNCH_DIR/steam-stop"
+      (
+        while :; do
+          if [ -e "$BL_LAUNCH_DIR/steam-stop" ]; then
+            rm -f "$BL_LAUNCH_DIR/steam-stop"
+            : > "$HOME/.bl-stop-requested"
+            echo "== steam: the app asked for a clean exit"
+            "$steam_root/steamrtarm64/steam" -shutdown >/dev/null 2>&1 || true
+            exit 0
+          fi
+          nap 0.5
+        done
+      ) &
+      stop_watcher=$!
+    fi
     while :; do
       rm -f "$HOME/.bl-restart-once"
       if [ -f "$steam_beta" ] && [ "$(cat "$steam_beta" 2>/dev/null)" != "$steam_channel" ]; then
         echo "== steam: client branch on disk was '$(cat "$steam_beta" 2>/dev/null)', set to '$steam_channel' to match -clientbeta"
         echo "$steam_channel" > "$steam_beta"
       fi
-      # 汉化版：每次启动前强制 Steam 语言为简体中文
+      # 汉化版：强制 config.vdf 中文 + 字体注入 + webhelper 包装
       _bl_steam_lang=${BL_STEAM_LANG:-schinese}
       steam_config="$steam_root/config/config.vdf"
-      mkdir -p "$(dirname "$steam_config")" 2>/dev/null
       if [ ! -f "$steam_config" ]; then
-        cat > "$steam_config" <<'EOF'
+        mkdir -p "$(dirname "$steam_config")" 2>/dev/null
+        cat > "$steam_config" <<'CFG'
 "InstallConfigStore"
 {
 	"Software"
@@ -590,83 +736,73 @@ BUSCONF
 		}
 	}
 }
-EOF
+CFG
         echo "== steam: created config.vdf with language=$_bl_steam_lang"
-      elif grep -q '"language"' "$steam_config" 2>/dev/null; then
-        sed -i "s/\"language\"[[:space:]]*\"[^\"]*\"/\"language\"\t\t\"$_bl_steam_lang\"/" "$steam_config"
-      else
-        sed -i 's/\("Steam"\)/\1\n\t\t\t"language"\t\t"'"$_bl_steam_lang"'"/' "$steam_config" 2>/dev/null || true
+      elif ! grep -q '"language"[[:space:]]*"schinese"' "$steam_config" 2>/dev/null; then
+        sed -i 's/"language"[[:space:]]*"[^"]*"/"language"\t\t"schinese"/' "$steam_config" 2>/dev/null
+        echo "== steam: config.vdf language forced to $_bl_steam_lang"
       fi
       echo "== steam: config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
-      # 汉化版：首次强制中文时清理CEF缓存
-      _bl_cache_flag="$steam_root/config/.zh_cache_cleared"
-      if [ ! -f "$_bl_cache_flag" ]; then
-        rm -rf "$steam_root/config/htmlcache" 2>/dev/null
-        touch "$_bl_cache_flag" 2>/dev/null || true
-        echo "== steam: cleared htmlcache for Chinese UI init"
-      fi
-      # 汉化版：将中文字体直接注入到 Steam 字体目录和用户字体目录（不依赖fontconfig）
+      # 汉化版：注入中文字体（双保险：~/.fonts 和 steamrtarm64/fonts）
       _bl_font_src="/usr/share/fonts/truetype/wqy/wqy-microhei.ttc"
       if [ -f "$_bl_font_src" ]; then
         mkdir -p "$HOME/.fonts" "$steam_root/steamrtarm64/fonts" 2>/dev/null
         cp -f "$_bl_font_src" "$HOME/.fonts/wqy-microhei.ttc" 2>/dev/null && echo "== fonts: copied to ~/.fonts" || true
         cp -f "$_bl_font_src" "$steam_root/steamrtarm64/fonts/wqy-microhei.ttc" 2>/dev/null && echo "== fonts: copied to steamrtarm64/fonts" || true
       fi
-      # 汉化版：创建webhelper包装脚本（在启动循环内确保steamwebhelper已下载）
+      # 汉化版：创建 webhelper 包装脚本（在启动循环内确保 steamwebhelper 已下载）
       _bl_helper="$steam_root/steamrtarm64/steamwebhelper"
-      _bl_wrapper_ok=0
-      if [ -f "$_bl_helper" ]; then
-        if head -5 "$_bl_helper" 2>/dev/null | grep -q 'DROIDDECK_ZH_WRAPPER'; then
-          _bl_wrapper_ok=1
-        else
-          [ ! -f "$_bl_helper.real" ] && cp -f "$_bl_helper" "$_bl_helper.real"
-          cat > "$_bl_helper" <<'WRAPPER'
+      if [ -f "$_bl_helper" ] && [ ! -f "${_bl_helper}.real" ]; then
+        mv -f "$_bl_helper" "${_bl_helper}.real" 2>/dev/null
+        cat > "$_bl_helper" <<'WRAPPER'
 #!/bin/bash
 # DROIDDECK_ZH_WRAPPER — 强制webhelper使用中文语言和中文字体
 export LANG=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
 export LANGUAGE=zh_CN:zh:schinese
 _wrapper_log="$HOME/.steam_webhelper_wrapper.log"
-echo "[$(date)] wrapper called: $0 $*" >> "$_wrapper_log" 2>/dev/null
-args=()
+_args=()
 for arg in "$@"; do
-  orig="$arg"
   arg="${arg/-lang=en_US/-lang=zh_CN}"
   arg="${arg/-lang=en/-lang=zh_CN}"
   arg="${arg/-lang=en_GB/-lang=zh_CN}"
-  arg="${arg/--lang=en-US/--lang=zh-CN}"
-  arg="${arg/--lang=en-GB/--lang=zh-CN}"
-  arg="${arg/--lang=en/--lang=zh-CN}"
-  [ "$arg" != "$orig" ] && echo "[$(date)] replaced: $orig -> $arg" >> "$_wrapper_log" 2>/dev/null
-  args+=("$arg")
+  _args+=("$arg")
 done
-exec "$0.real" "${args[@]}"
+echo "[$(date)] webhelper wrapper called with ${#_args[@]} args" >>"$_wrapper_log" 2>/dev/null
+exec "${0}.real" "${_args[@]}"
 WRAPPER
-          chmod +x "$_bl_helper"
-          _bl_wrapper_ok=1
-          echo "== steam: installed zh_CN webhelper wrapper (env vars + param replace)"
-        fi
+        chmod +x "$_bl_helper" 2>/dev/null
+        echo "== steam: installed zh_CN webhelper wrapper (env vars + param replace)"
+      elif [ -f "${_bl_helper}.real" ]; then
+        echo "== steam: webhelper wrapper already installed"
       else
         echo "== steam: webhelper not yet downloaded, wrapper will be installed on next launch"
       fi
-      # 汉化版：如果包装脚本已就绪，在启动前也设置CEF语言环境变量
-      if [ "$_bl_wrapper_ok" = 1 ]; then
-        export CEF_LANG=zh-CN
-        export CHROMIUM_LANG=zh-CN
+      # 汉化版：首次中文启动清理 CEF 缓存（防止英文 UI 残留）
+      _bl_cef_cache="$steam_root/config/htmlcache"
+      _bl_cef_flag="$steam_root/config/.zh-cef-cleared"
+      if [ -d "$_bl_cef_cache" ] && [ ! -f "$_bl_cef_flag" ]; then
+        rm -rf "$_bl_cef_cache" 2>/dev/null && touch "$_bl_cef_flag" && echo "== steam: CEF cache cleared for first Chinese launch" || true
       fi
-      # 汉化版：更新字体缓存
+      export CEF_LANG=zh-CN
+      export CHROMIUM_LANG=zh-CN
       command -v fc-cache >/dev/null 2>&1 && fc-cache -f >/dev/null 2>&1 && echo "== fonts: fc-cache updated" || true
-      export STEAM_LANG=$_bl_steam_lang
+
       step "starting the Steam client${BL_STEAM_UI:+ ($BL_STEAM_UI UI)}"
       "$steam_root/steamrtarm64/steam" "${_bl_ui[@]}" -clientbeta "$steam_channel" \
-        -lang "$_bl_steam_lang" \
+        -lang schinese -cef-lang=zh-CN -cef-accept-lang=zh-CN \
         -no-cef-sandbox -cef-force-gpu -cef-ozone-platform=x11 \
-        -cef-use-gl=angle -cef-use-angle=vulkan \
-        -cef-lang=zh-CN -cef-accept-lang=zh-CN "$@"
+        -cef-use-gl=angle -cef-use-angle=vulkan "$@"
       rc=$?
-      echo "== steam: after exit, config.vdf language = $(grep -o '"language"[[:space:]]*"[^"]*"' "$steam_config" 2>/dev/null | head -1 || echo '(not found)')"
       echo "== steam exited rc=$rc"
       collect_steam_logs
+      if [ -n "${BL_ADDED_GAMES:-}" ] && [ -f "$BL_ADDED_GAMES" ]; then
+        bannerlator-steam-shortcuts "$steam_root" "$BL_ADDED_GAMES" || true
+      fi
+      if [ -f "$HOME/.bl-stop-requested" ]; then
+        rm -f "$HOME/.bl-stop-requested" "$HOME/.bl-restart-once"
+        break
+      fi
       # The session asked for this exit (the ARM64 Proton landed): start again, without the URL
       # arguments, which were acted on. Not counted against the update cap.
       if [ -f "$HOME/.bl-restart-once" ]; then
@@ -683,6 +819,14 @@ WRAPPER
       # The URL arguments were acted on the first time; a restart must not repeat them.
       set --
     done
+    if [ -n "${stop_watcher:-}" ]; then
+      kill "$stop_watcher" 2>/dev/null || true
+      wait "$stop_watcher" 2>/dev/null || true
+    fi
+    if [ -n "${games_watcher:-}" ]; then
+      kill "$games_watcher" 2>/dev/null || true
+      wait "$games_watcher" 2>/dev/null || true
+    fi
     if [ -n "${BL_DESKTOP:-}" ]; then
       # Started from the desktop (bannerlator-steam-launch): the desktop's own programs share this
       # script's parent, so reap_orphans - right under gamescope, where everything is the client's -
